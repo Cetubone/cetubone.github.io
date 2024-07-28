@@ -1,0 +1,9 @@
+remote_theme: sighingnow/jekyll-gitbook
+title: Leo's Homepage
+description: Interesting thoughts share with the world
+
+syntax_highlighter_style: pastie
+toc:
+    enabled: true
+    h_min: 2
+    h_max: 3
