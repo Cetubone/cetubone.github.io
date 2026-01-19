@@ -1,0 +1,14 @@
+---
+title: "全部文章"
+listing:
+  # 关键就这几行
+  type: default          # 一栏一栏堆叠，带摘要
+  contents: posts        # 扫描 posts/ 目录
+  sort: "date desc"      # 按日期倒序
+  fields: [title, description, date, categories]  # 要显示的字段
+  feed: false            # 不需要 RSS 可关掉
+page-layout: full        # 顶栏通栏，更干净
+title-block-banner: false
+---
+
+这里可以写一段顶部导语，会被渲染在列表上方。

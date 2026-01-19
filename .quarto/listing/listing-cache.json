@@ -1,0 +1,10 @@
+{
+  "listingMap": {
+    "postNdx.qmd": [
+      "posts"
+    ],
+    "index.qmd": [
+      "posts"
+    ]
+  }
+}

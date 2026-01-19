@@ -1,0 +1,26 @@
+project:
+  type: website
+
+website:
+  title: "Cetubone"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      # - about.qmd
+      - href: postNdx.qmd
+        text: Articals
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: 
+      - styles.css
+      - custom.css
+    toc: true
+
+
+
+

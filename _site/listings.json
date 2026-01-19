@@ -1,0 +1,15 @@
+[
+  {
+    "listing": "/postNdx.html",
+    "items": [
+      "/posts/test.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/test_2.html",
+      "/posts/test_1.html"
+    ]
+  }
+]
