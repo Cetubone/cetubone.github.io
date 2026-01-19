@@ -11,7 +11,7 @@
     "href": "postNdx.html",
     "title": "全部文章",
     "section": "",
-    "text": "这里可以写一段顶部导语，会被渲染在列表上方。\n\n\n\n\n\n\n\n\n\n通过VS code连接服务器使用Jupyter NoteBook\n\n\n\nVSvode\n\nJupyter\n\nR\n\nPython\n\n\n\n一篇讲如何快速把 Obsidian 笔记发布成网站的流水账。\n\n\n\n\n\nJan 17, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Jupyter NoteBook via VScode\n\n\n\nVSvode\n\nJupyter\n\nR\n\nPython\n\n\n\n如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。\n\n\n\n\n\nJan 20, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -28,10 +28,73 @@
     "text": "Github"
   },
   {
-    "objectID": "posts/test.html",
-    "href": "posts/test.html",
-    "title": "通过VS code连接服务器使用Jupyter NoteBook",
+    "objectID": "posts/NoteBook_via_VScode.html",
+    "href": "posts/NoteBook_via_VScode.html",
+    "title": "Jupyter NoteBook via VScode",
     "section": "",
-    "text": "正文从这里开始……\nAbout this site"
+    "text": "Written by ZiangZ"
+  },
+  {
+    "objectID": "posts/NoteBook_via_VScode.html#draw.io-integration",
+    "href": "posts/NoteBook_via_VScode.html#draw.io-integration",
+    "title": "Jupyter NoteBook via VScode",
+    "section": "Draw.io Integration",
+    "text": "Draw.io Integration\n流程图绘制"
+  },
+  {
+    "objectID": "posts/NoteBook_via_VScode.html#data-wrangler",
+    "href": "posts/NoteBook_via_VScode.html#data-wrangler",
+    "title": "Jupyter NoteBook via VScode",
+    "section": "Data Wrangler",
+    "text": "Data Wrangler\nPython 运行时变量查看"
+  },
+  {
+    "objectID": "posts/NoteBook_via_VScode.html#office-viewer",
+    "href": "posts/NoteBook_via_VScode.html#office-viewer",
+    "title": "Jupyter NoteBook via VScode",
+    "section": "Office Viewer",
+    "text": "Office Viewer\n多种格式文件预览"
+  },
+  {
+    "objectID": "posts/NoteBook_via_VScode.html#path-intellisense",
+    "href": "posts/NoteBook_via_VScode.html#path-intellisense",
+    "title": "Jupyter NoteBook via VScode",
+    "section": "Path Intellisense",
+    "text": "Path Intellisense\n代码中文件路径补全"
+  },
+  {
+    "objectID": "posts/NoteBook_via_VScode.html#protein-viewer",
+    "href": "posts/NoteBook_via_VScode.html#protein-viewer",
+    "title": "Jupyter NoteBook via VScode",
+    "section": "Protein Viewer",
+    "text": "Protein Viewer\nmol2、PDB 等分子结构文件可视化（基于 mol*）"
+  },
+  {
+    "objectID": "posts/NoteBook_via_VScode.html#rainbow-csv",
+    "href": "posts/NoteBook_via_VScode.html#rainbow-csv",
+    "title": "Jupyter NoteBook via VScode",
+    "section": "Rainbow CSV",
+    "text": "Rainbow CSV\n在编辑器中高亮预览 CSV 表格文件"
+  },
+  {
+    "objectID": "posts/NoteBook_via_VScode.html#trae-ai-formerly-marscode-coding-assistant",
+    "href": "posts/NoteBook_via_VScode.html#trae-ai-formerly-marscode-coding-assistant",
+    "title": "Jupyter NoteBook via VScode",
+    "section": "Trae AI (formerly MarsCode): Coding Assistant",
+    "text": "Trae AI (formerly MarsCode): Coding Assistant\n字节跳动出品的 AI 编程助手"
+  },
+  {
+    "objectID": "posts/NoteBook_via_VScode.html#gmxhelper",
+    "href": "posts/NoteBook_via_VScode.html#gmxhelper",
+    "title": "Jupyter NoteBook via VScode",
+    "section": "gmxhelper",
+    "text": "gmxhelper\n在编辑器中高亮显示 gmx 相关文件"
+  },
+  {
+    "objectID": "posts/NoteBook_via_VScode.html#monitor-pro",
+    "href": "posts/NoteBook_via_VScode.html#monitor-pro",
+    "title": "Jupyter NoteBook via VScode",
+    "section": "Monitor Pro",
+    "text": "Monitor Pro\n在底部状态栏显示服务器硬件资源的状态"
   }
 ]

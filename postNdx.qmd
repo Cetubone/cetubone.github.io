@@ -10,5 +10,3 @@ listing:
 page-layout: full        # 顶栏通栏，更干净
 title-block-banner: false
 ---
-
-这里可以写一段顶部导语，会被渲染在列表上方。

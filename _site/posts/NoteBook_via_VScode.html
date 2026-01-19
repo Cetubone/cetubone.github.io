@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-01-17">
-<meta name="description" content="一篇讲如何快速把 Obsidian 笔记发布成网站的流水账。">
+<meta name="dcterms.date" content="2026-01-20">
+<meta name="description" content="如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。">
 
-<title>通过VS code连接服务器使用Jupyter NoteBook – Cetubone</title>
+<title>Jupyter NoteBook via VScode – Cetubone</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -112,15 +147,37 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#使用-vscode-notebook-运行-python-r" id="toc-使用-vscode-notebook-运行-python-r" class="nav-link active" data-scroll-target="#使用-vscode-notebook-运行-python-r">使用 VScode notebook 运行 Python &amp; R</a></li>
+  <li><a href="#vscode-安装含插件" id="toc-vscode-安装含插件" class="nav-link" data-scroll-target="#vscode-安装含插件">VScode 安装（含插件）</a></li>
+  <li><a href="#使用-remote-插件连接服务器" id="toc-使用-remote-插件连接服务器" class="nav-link" data-scroll-target="#使用-remote-插件连接服务器">使用 Remote 插件连接服务器</a></li>
+  <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python">Python</a></li>
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#推荐的-vscode-插件" id="toc-推荐的-vscode-插件" class="nav-link" data-scroll-target="#推荐的-vscode-插件">推荐的 VScode 插件</a>
+  <ul class="collapse">
+  <li><a href="#draw.io-integration" id="toc-draw.io-integration" class="nav-link" data-scroll-target="#draw.io-integration">Draw.io Integration</a></li>
+  <li><a href="#data-wrangler" id="toc-data-wrangler" class="nav-link" data-scroll-target="#data-wrangler">Data Wrangler</a></li>
+  <li><a href="#office-viewer" id="toc-office-viewer" class="nav-link" data-scroll-target="#office-viewer">Office Viewer</a></li>
+  <li><a href="#path-intellisense" id="toc-path-intellisense" class="nav-link" data-scroll-target="#path-intellisense">Path Intellisense</a></li>
+  <li><a href="#protein-viewer" id="toc-protein-viewer" class="nav-link" data-scroll-target="#protein-viewer">Protein Viewer</a></li>
+  <li><a href="#rainbow-csv" id="toc-rainbow-csv" class="nav-link" data-scroll-target="#rainbow-csv">Rainbow CSV</a></li>
+  <li><a href="#trae-ai-formerly-marscode-coding-assistant" id="toc-trae-ai-formerly-marscode-coding-assistant" class="nav-link" data-scroll-target="#trae-ai-formerly-marscode-coding-assistant">Trae AI (formerly MarsCode): Coding Assistant</a></li>
+  <li><a href="#gmxhelper" id="toc-gmxhelper" class="nav-link" data-scroll-target="#gmxhelper">gmxhelper</a></li>
+  <li><a href="#monitor-pro" id="toc-monitor-pro" class="nav-link" data-scroll-target="#monitor-pro">Monitor Pro</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">通过VS code连接服务器使用Jupyter NoteBook</h1>
+<h1 class="title">Jupyter NoteBook via VScode</h1>
   <div class="quarto-categories">
     <div class="quarto-category">VSvode</div>
     <div class="quarto-category">Jupyter</div>
@@ -131,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    一篇讲如何快速把 Obsidian 笔记发布成网站的流水账。
+    如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。
   </div>
 </div>
 
@@ -142,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 17, 2026</p>
+      <p class="date">January 20, 2026</p>
     </div>
   </div>
   
@@ -154,10 +211,199 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>正文从这里开始……</p>
-<p>About this site</p>
+<p><em>Written by ZiangZ</em></p>
+<section id="使用-vscode-notebook-运行-python-r" class="level1">
+<h1>使用 VScode notebook 运行 Python &amp; R</h1>
+<p>Visual Studio Code（简称 VS Code）是一款由微软开发的免费开源代码编辑器，支持多种编程语言和框架。它具有轻量级、高性能的特点，同时具备强大的扩展性，用户可以通过安装插件来增强其功能，如代码高亮、智能提示、调试工具等。VS Code 还支持多平台运行，包括 Windows、macOS 和 Linux，方便开发者在不同操作系统上使用。其简洁的界面和丰富的功能使其成为开发者进行代码编写、调试和版本控制的得力助手。</p>
+<p>Jupyter Notebook 是一个开源的 Web 应用程序，允许用户创建和共享包含实时代码、方程、可视化内容和解释性文本的文档。它广泛应用于数据分析、机器学习、科学计算和教育等领域。Jupyter Notebook 支持多种编程语言，如 Python、R 和 Julia 等，用户可以在一个交互式的环境中编写和运行代码，同时记录分析过程和结果。其核心优势在于能够将代码、注释、图表和输出整合在一起，形成可重复使用的分析报告，便于团队协作和知识共享。</p>
+<p>VScode 的 Jupyter 插件是微软官方推出的扩展工具，它将 Jupyter Notebook 的功能集成到 VScode 中，为用户提供了更强大的交互式编程体验。通过该插件，用户可以在 VScode 内直接创建和编辑 <code>.ipynb</code> 格式的 Jupyter Notebook 文件，享受代码高亮、智能提示、自动补全等增强功能。此外，它还支持切换不同的 Python 环境，方便用户根据项目需求选择合适的运行环境。安装该插件后，用户可以通过 VScode 的命令面板快速创建新的 Jupyter Notebook 文件，并在其中编写和运行代码。</p>
+<p><strong>本文档记录了如何使用 VScode 搭配 jupyter 插件在服务器中运行 Python 和 R 语言代码</strong></p>
+</section>
+<section id="vscode-安装含插件" class="level1">
+<h1>VScode 安装（含插件）</h1>
+<p>VScode 可于<a href="https://code.visualstudio.com/">官方网站</a>点击下载安装。 <img src="..\pics/vscode_page.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>VScode 是安装在本地 Windows 系统中，而不是服务器端。</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\pics/vscode_toolbar.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>其中红色框中按钮为文件浏览器。 绿色框中按钮为插件浏览器（EXTENSIONS）。在插件浏览器中可以查看、更新、停用和卸载已安装的插件以及安装新的插件。</p>
+<p>在 VScode 中使用 notebook 运行 Python 及 R 需插件：Jupyter、Remote - SSH、Remote Explorer</p>
+<p>在插件浏览器上方搜索框搜索插件名点击安装即可。</p>
+</section>
+<section id="使用-remote-插件连接服务器" class="level1">
+<h1>使用 Remote 插件连接服务器</h1>
+<p>安装插件 Remote - SSH 和 Remote Explorer 之后在左侧边栏中可见按钮。（绿色框）</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701162056.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>打开后点击 <code>SSH</code> 后方的加号，在弹出的命令框中输入 ssh 连接命令，例如：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> username@IP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>回车、输入密码后完成连接。</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>首次连接服务器加载速度较慢，因 VScode 会在服务器上安装服务端程序。 服务端程序默认位置在家目录下的 <code>.vscode-server</code> 文件夹中，随着插件数目增加这个目录的大小会增加，建议将其转移至其他路径避免根目录空间过多占用。例如：<br> <code>mv ~/.vscode-server /other/path/.vscode-server</code><br> <code>ln -s /other/path/.vscode-server ~/.vscode-server</code></p>
+</div>
+</div>
+</section>
+<section id="python" class="level1">
+<h1>Python</h1>
+<p>确保 conda base 环境下已安装 jupyter。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install jupyter <span class="at">-c</span> conda-forge <span class="co"># base 环境中</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>服务器端使用conda创建环境。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> my_env</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate my_env</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在环境中安装 Python 及 Jupyter 内核。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install python ipykernel</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>文件浏览器中右键新建文件，命名后缀 <code>.ipynb</code>。 <img src="..\pics/Pasted image 20250701164237.png" class="img-fluid quarto-figure quarto-figure-center"> 新建的 notebook 右上角选择内核，Python Environments 按钮可选择所有包含 Python 解释器的环境。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701164311.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701164416.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>选择解释器内核后即可运行代码。</p>
+</section>
+<section id="r" class="level1">
+<h1>R</h1>
+<p>R 语言环境配置较 Python 相对复杂。 确保 conda base 环境下已安装 jupyter。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install jupyter <span class="at">-c</span> conda-forge <span class="co"># base 环境中</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在独立环境中安装 <code>r-base</code>、<code>r-irkernel</code> 和 <code>jupyter-client</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install r-base r-irkernel jupyter_client</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>安装完成后在环境中的 R 命令行中添加内核至 Jupyter。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 命令行中</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>IRkernel<span class="sc">::</span><span class="fu">installspec</span>(<span class="at">name =</span> <span class="st">'ir431'</span>, <span class="at">displayname =</span> <span class="st">'R431'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在新建的 notebook 中右上角选择 Jupyter 内核。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701182345.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701182435.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>可见刚才创建的 R 内核，选择后可运行 R 代码。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701183424.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="推荐的-vscode-插件" class="level1">
+<h1>推荐的 VScode 插件</h1>
+<section id="draw.io-integration" class="level2">
+<h2 class="anchored" data-anchor-id="draw.io-integration">Draw.io Integration</h2>
+<p>流程图绘制</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701183654.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="data-wrangler" class="level2">
+<h2 class="anchored" data-anchor-id="data-wrangler">Data Wrangler</h2>
+<p>Python 运行时变量查看</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701183747.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="office-viewer" class="level2">
+<h2 class="anchored" data-anchor-id="office-viewer">Office Viewer</h2>
+<p>多种格式文件预览</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701183840.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="path-intellisense" class="level2">
+<h2 class="anchored" data-anchor-id="path-intellisense">Path Intellisense</h2>
+<p>代码中文件路径补全</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701183950.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="protein-viewer" class="level2">
+<h2 class="anchored" data-anchor-id="protein-viewer">Protein Viewer</h2>
+<p>mol2、PDB 等分子结构文件可视化（基于 mol*）</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701184008.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="rainbow-csv" class="level2">
+<h2 class="anchored" data-anchor-id="rainbow-csv">Rainbow CSV</h2>
+<p>在编辑器中高亮预览 CSV 表格文件</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701184115.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="trae-ai-formerly-marscode-coding-assistant" class="level2">
+<h2 class="anchored" data-anchor-id="trae-ai-formerly-marscode-coding-assistant">Trae AI (formerly MarsCode): Coding Assistant</h2>
+<p>字节跳动出品的 AI 编程助手</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701184330.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="gmxhelper" class="level2">
+<h2 class="anchored" data-anchor-id="gmxhelper">gmxhelper</h2>
+<p>在编辑器中高亮显示 gmx 相关文件</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701184417.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="monitor-pro" class="level2">
+<h2 class="anchored" data-anchor-id="monitor-pro">Monitor Pro</h2>
+<p>在底部状态栏显示服务器硬件资源的状态</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="..\pics/Pasted image 20250701184502.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

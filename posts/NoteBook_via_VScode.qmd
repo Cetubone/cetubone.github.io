@@ -1,0 +1,161 @@
+---
+title: "Jupyter NoteBook via VScode"
+date: 2026-01-20
+description: "如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。"
+categories: [VSvode, Jupyter, R, Python]
+---
+
+
+*Written by ZiangZ*
+
+# 使用 VScode notebook 运行 Python & R
+
+Visual Studio Code（简称 VS Code）是一款由微软开发的免费开源代码编辑器，支持多种编程语言和框架。它具有轻量级、高性能的特点，同时具备强大的扩展性，用户可以通过安装插件来增强其功能，如代码高亮、智能提示、调试工具等。VS Code 还支持多平台运行，包括 Windows、macOS 和 Linux，方便开发者在不同操作系统上使用。其简洁的界面和丰富的功能使其成为开发者进行代码编写、调试和版本控制的得力助手。
+
+Jupyter Notebook 是一个开源的 Web 应用程序，允许用户创建和共享包含实时代码、方程、可视化内容和解释性文本的文档。它广泛应用于数据分析、机器学习、科学计算和教育等领域。Jupyter Notebook 支持多种编程语言，如 Python、R 和 Julia 等，用户可以在一个交互式的环境中编写和运行代码，同时记录分析过程和结果。其核心优势在于能够将代码、注释、图表和输出整合在一起，形成可重复使用的分析报告，便于团队协作和知识共享。
+
+VScode 的 Jupyter 插件是微软官方推出的扩展工具，它将 Jupyter Notebook 的功能集成到 VScode 中，为用户提供了更强大的交互式编程体验。通过该插件，用户可以在 VScode 内直接创建和编辑 `.ipynb` 格式的 Jupyter Notebook 文件，享受代码高亮、智能提示、自动补全等增强功能。此外，它还支持切换不同的 Python 环境，方便用户根据项目需求选择合适的运行环境。安装该插件后，用户可以通过 VScode 的命令面板快速创建新的 Jupyter Notebook 文件，并在其中编写和运行代码。
+
+**本文档记录了如何使用 VScode 搭配 jupyter 插件在服务器中运行 Python 和 R 语言代码**
+
+# VScode 安装（含插件）
+VScode 可于[官方网站](https://code.visualstudio.com/)点击下载安装。
+![](/pics/vscode_page.png)
+
+::: {.callout-warning}
+VScode 是安装在本地 Windows 系统中，而不是服务器端。
+:::
+
+![](/pics/vscode_toolbar.png){fig-align="center"}
+
+
+其中红色框中按钮为文件浏览器。
+绿色框中按钮为插件浏览器（EXTENSIONS）。在插件浏览器中可以查看、更新、停用和卸载已安装的插件以及安装新的插件。
+
+在 VScode 中使用 notebook 运行 Python 及 R 需插件：Jupyter、Remote - SSH、Remote Explorer
+
+在插件浏览器上方搜索框搜索插件名点击安装即可。
+
+# 使用 Remote 插件连接服务器
+安装插件 Remote - SSH 和 Remote Explorer 之后在左侧边栏中可见按钮。（绿色框）
+
+![](/pics/Pasted image 20250701162056.png){fig-align="center"}
+
+打开后点击 ```SSH``` 后方的加号，在弹出的命令框中输入 ssh 连接命令，例如：
+
+```bash
+ssh username@IP
+```
+
+回车、输入密码后完成连接。
+
+::: {.callout-warning}
+首次连接服务器加载速度较慢，因 VScode 会在服务器上安装服务端程序。
+服务端程序默认位置在家目录下的 ```.vscode-server``` 文件夹中，随着插件数目增加这个目录的大小会增加，建议将其转移至其他路径避免根目录空间过多占用。例如：<br>
+`mv ~/.vscode-server /other/path/.vscode-server`<br>
+`ln -s /other/path/.vscode-server ~/.vscode-server`
+:::
+
+# Python
+确保 conda base 环境下已安装 jupyter。
+```bash
+conda install jupyter -c conda-forge # base 环境中
+```
+
+服务器端使用conda创建环境。
+```bash
+conda create -n my_env
+conda activate my_env
+```
+
+在环境中安装 Python 及 Jupyter 内核。
+```bash
+conda install python ipykernel
+```
+
+文件浏览器中右键新建文件，命名后缀 ```.ipynb```。
+![](/pics/Pasted image 20250701164237.png){fig-align="center"}
+新建的 notebook 右上角选择内核，Python Environments 按钮可选择所有包含 Python 解释器的环境。
+
+![](/pics/Pasted image 20250701164311.png){fig-align="center"}
+
+![](/pics/Pasted image 20250701164416.png){fig-align="center"}
+
+选择解释器内核后即可运行代码。
+
+# R
+R 语言环境配置较 Python 相对复杂。
+确保 conda base 环境下已安装 jupyter。
+```bash
+conda install jupyter -c conda-forge # base 环境中
+```
+
+在独立环境中安装 ```r-base```、```r-irkernel``` 和 ```jupyter-client```:
+
+```bash
+conda install r-base r-irkernel jupyter_client
+```
+
+
+安装完成后在环境中的 R 命令行中添加内核至 Jupyter。
+```R
+# R 命令行中
+IRkernel::installspec(name = 'ir431', displayname = 'R431')
+```
+
+在新建的 notebook 中右上角选择 Jupyter 内核。
+
+![](/pics/Pasted image 20250701182345.png){fig-align="center"}
+
+![](/pics/Pasted image 20250701182435.png){fig-align="center"}
+
+可见刚才创建的 R 内核，选择后可运行 R 代码。
+
+![](/pics/Pasted image 20250701183424.png){fig-align="center"}
+
+# 推荐的 VScode 插件
+## Draw.io Integration
+流程图绘制
+
+![](/pics/Pasted image 20250701183654.png){fig-align="left"}
+
+## Data Wrangler
+Python 运行时变量查看
+
+![](/pics/Pasted image 20250701183747.png){fig-align="left"}
+
+## Office Viewer
+多种格式文件预览
+
+![](/pics/Pasted image 20250701183840.png){fig-align="left"}
+
+## Path Intellisense
+代码中文件路径补全
+
+![](/pics/Pasted image 20250701183950.png){fig-align="left"}
+
+## Protein Viewer
+mol2、PDB 等分子结构文件可视化（基于 mol*）
+
+![](/pics/Pasted image 20250701184008.png){fig-align="left"}
+
+## Rainbow CSV
+在编辑器中高亮预览 CSV 表格文件
+
+![](/pics/Pasted image 20250701184115.png){fig-align="left"}
+
+## Trae AI (formerly MarsCode): Coding Assistant
+字节跳动出品的 AI 编程助手
+
+![](/pics/Pasted image 20250701184330.png){fig-align="left"}
+
+## gmxhelper
+在编辑器中高亮显示 gmx 相关文件
+
+![](/pics/Pasted image 20250701184417.png){fig-align="left"}
+
+## Monitor Pro
+在底部状态栏显示服务器硬件资源的状态
+
+![](/pics/Pasted image 20250701184502.png){fig-align="left"}
+
