@@ -58,5 +58,8 @@
   },
   "posts/test.qmd": {
     "test.html": "643f93fe"
+  },
+  "posts/picReDraw.ipynb": {
+    "picReDraw.html": "e82cc1e7"
   }
 }
