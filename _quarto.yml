@@ -9,7 +9,7 @@ website:
         text: Home
       # - about.qmd
       - href: postNdx.qmd
-        text: Articals
+        text: Blogs
 
 format:
   html:

@@ -7,46 +7,11 @@
     "text": "test"
   },
   {
-    "objectID": "posts/picReDraw.html",
-    "href": "posts/picReDraw.html",
-    "title": "SPR",
+    "objectID": "postNdx.html",
+    "href": "postNdx.html",
+    "title": "全部文章",
     "section": "",
-    "text": "import pandas as pd\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-tafluprost_acid\\RU-Time.xlsx\"\nRU_Time_df = pd.read_excel(file_path)\nRU_Time_df = RU_Time_df.iloc[:2998]\n\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-tafluprost_acid\\RU-Time.adj.xlsx\"\nRU_Time_adj_df = pd.read_excel(file_path)\nRU_Time_adj_df = RU_Time_adj_df.iloc[:2998]\nRU_Time_df.columns\n\nIndex(['Time', '0.39', '0.78', '1.56', '3.13', '6.25', '12.5', '25.0'], dtype='object')\n\n\n\nRU_Time_adj_df.columns\n\nIndex(['Time', '0.39', '0.78', '1.56', '3.13', '6.25', '12.5', '25.0'], dtype='object')\n\n\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\n\ncolInfo_dic = {\n    \"0.39\": \"#C64A4A\",\n    \"0.78\": \"#1FB934\",\n    \"1.56\": \"#3B43D4\",\n    \"3.13\": \"#6A108E\",\n    \"6.25\": \"#99931E\",\n    \"12.5\": \"#8CBD1A\",\n    \"25.0\": \"#E87F35\"\n}\n\nfor col in RU_Time_df.columns.tolist()[1:][::-1]:\n    plt.plot(\n        RU_Time_df[\"Time\"],\n        RU_Time_df[col],\n        color=colInfo_dic[col], alpha=0.6, linestyle='--')\n\nfor col in RU_Time_adj_df.columns.tolist()[1:][::-1]:\n    plt.plot(\n        RU_Time_adj_df[\"Time\"],\n        RU_Time_adj_df[col],\n        color=colInfo_dic[col], label=str(col) + \" μmol\")\n\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.title('XXX')\nplt.legend()\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\nimport pandas as pd\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-tafluprost_acid\\RU-Concentration.line.xlsx\"\nRU_Concentration_line_df = pd.read_excel(file_path)\n\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-tafluprost_acid\\RU-Concentration.dot.xlsx\"\nRU_Concentration_dot_df = pd.read_excel(file_path)\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\nplt.plot(\n    RU_Concentration_line_df['Concentration'],\n    RU_Concentration_line_df['RU'])\nplt.scatter(\n    RU_Concentration_dot_df['Concentration'],\n    RU_Concentration_dot_df['RU'],\n    c='red', s=6, alpha=0.8)\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.title('XXX')\nplt.tight_layout()\nplt.show()"
-  },
-  {
-    "objectID": "posts/picReDraw.html#tafluprost-aci",
-    "href": "posts/picReDraw.html#tafluprost-aci",
-    "title": "SPR",
-    "section": "",
-    "text": "import pandas as pd\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-tafluprost_acid\\RU-Time.xlsx\"\nRU_Time_df = pd.read_excel(file_path)\nRU_Time_df = RU_Time_df.iloc[:2998]\n\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-tafluprost_acid\\RU-Time.adj.xlsx\"\nRU_Time_adj_df = pd.read_excel(file_path)\nRU_Time_adj_df = RU_Time_adj_df.iloc[:2998]\nRU_Time_df.columns\n\nIndex(['Time', '0.39', '0.78', '1.56', '3.13', '6.25', '12.5', '25.0'], dtype='object')\n\n\n\nRU_Time_adj_df.columns\n\nIndex(['Time', '0.39', '0.78', '1.56', '3.13', '6.25', '12.5', '25.0'], dtype='object')\n\n\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\n\ncolInfo_dic = {\n    \"0.39\": \"#C64A4A\",\n    \"0.78\": \"#1FB934\",\n    \"1.56\": \"#3B43D4\",\n    \"3.13\": \"#6A108E\",\n    \"6.25\": \"#99931E\",\n    \"12.5\": \"#8CBD1A\",\n    \"25.0\": \"#E87F35\"\n}\n\nfor col in RU_Time_df.columns.tolist()[1:][::-1]:\n    plt.plot(\n        RU_Time_df[\"Time\"],\n        RU_Time_df[col],\n        color=colInfo_dic[col], alpha=0.6, linestyle='--')\n\nfor col in RU_Time_adj_df.columns.tolist()[1:][::-1]:\n    plt.plot(\n        RU_Time_adj_df[\"Time\"],\n        RU_Time_adj_df[col],\n        color=colInfo_dic[col], label=str(col) + \" μmol\")\n\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.title('XXX')\nplt.legend()\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\nimport pandas as pd\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-tafluprost_acid\\RU-Concentration.line.xlsx\"\nRU_Concentration_line_df = pd.read_excel(file_path)\n\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-tafluprost_acid\\RU-Concentration.dot.xlsx\"\nRU_Concentration_dot_df = pd.read_excel(file_path)\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\nplt.plot(\n    RU_Concentration_line_df['Concentration'],\n    RU_Concentration_line_df['RU'])\nplt.scatter(\n    RU_Concentration_dot_df['Concentration'],\n    RU_Concentration_dot_df['RU'],\n    c='red', s=6, alpha=0.8)\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.title('XXX')\nplt.tight_layout()\nplt.show()"
-  },
-  {
-    "objectID": "posts/picReDraw.html#feruloylquinic-acid",
-    "href": "posts/picReDraw.html#feruloylquinic-acid",
-    "title": "SPR",
-    "section": "3-feruloylquinic acid",
-    "text": "3-feruloylquinic acid\n\nimport pandas as pd\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-3_feruloylquinic_acid\\RU-Time.xlsx\"\nRU_Time_df = pd.read_excel(file_path)\nRU_Time_df = RU_Time_df.iloc[:2885]\n\ntmp_df = RU_Time_df[RU_Time_df[\"Time\"]&gt;=0]\n\nRU_Time_0_df = RU_Time_df[RU_Time_df[\"Time\"]&lt;0]\nRU_Time_0_85_df = tmp_df[tmp_df[\"Time\"]&lt;85]\nRU_Time_85_df = tmp_df[tmp_df[\"Time\"]&gt;=85]\n\nRU_Time_df.columns\n\nIndex(['Time', '1.56', '3.13', '6.25', '12.5', '25.0', '50.0'], dtype='object')\n\n\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\n\ncolInfo_dic = {\n    \"1.56\": \"#C64A4A\",\n    \"3.13\": \"#1FB934\",\n    \"6.25\": \"#3B43D4\",\n    \"12.5\": \"#6A108E\",\n    \"25.0\": \"#99931E\",\n    \"50.0\": \"#E87F35\"\n}\n\nfor col in RU_Time_0_df.columns.tolist()[2:][::-1]:\n    plt.plot(\n        RU_Time_0_df[\"Time\"],\n        RU_Time_0_df[col],\n        color=colInfo_dic[col], label=col + \" μmol\")\n\nfor col in RU_Time_0_85_df.columns.tolist()[2:][::-1]:\n    plt.plot(\n        RU_Time_0_85_df[\"Time\"],\n        RU_Time_0_85_df[col],\n        color=colInfo_dic[col])\n\nfor col in RU_Time_85_df.columns.tolist()[2:][::-1]:\n    plt.plot(\n        RU_Time_85_df[\"Time\"],\n        RU_Time_85_df[col],\n        color=colInfo_dic[col])\n\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.title('XXX')\nplt.legend()\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\nimport pandas as pd\nfile_path = r\"C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\SPR-3_feruloylquinic_acid\\RU-Concentration.xlsx\"\nRU_Concentration_dot_df = pd.read_excel(file_path)\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\nplt.plot(\n    RU_Concentration_line_df['Concentration'],\n    RU_Concentration_line_df['RU'])\nplt.scatter(\n    RU_Concentration_dot_df['Concentration_dot'],\n    RU_Concentration_dot_df['RU_dot'],\n    c='red', s=6, alpha=0.8)\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.title('XXX')\nplt.tight_layout()\nplt.show()"
-  },
-  {
-    "objectID": "posts/picReDraw.html#tafluprost-aci-1",
-    "href": "posts/picReDraw.html#tafluprost-aci-1",
-    "title": "SPR",
-    "section": "tafluprost aci",
-    "text": "tafluprost aci\n\nimport pandas as pd\nfile_path = r'C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\ITC-tafluprost_acid.xlsx'\ndf = pd.read_excel(file_path)   # 只拿需要的两列\ndf\n\n\n\n\n\n\n\n\nTime (s)\nCorrected Heat Rate (μJ/s)\nMole Ratio\nEnthalpy (kcal/mol)\nMole Ratio.1\nFit (kcal/mol)\n\n\n\n\n0\n0\n0.009569\n0.245799\n-12.219145\n0.244709\n-12.117653\n\n\n1\n1\n0.009520\n0.354522\n-12.427537\n0.253681\n-12.103324\n\n\n2\n2\n0.009447\n0.464398\n-11.522076\n0.262661\n-12.088678\n\n\n3\n3\n0.009451\n0.575440\n-11.498713\n0.271648\n-12.073711\n\n\n4\n4\n0.009571\n0.687661\n-10.600277\n0.280644\n-12.058414\n\n\n...\n...\n...\n...\n...\n...\n...\n\n\n2616\n2616\n-0.017110\nNaN\nNaN\nNaN\nNaN\n\n\n2617\n2617\n-0.016952\nNaN\nNaN\nNaN\nNaN\n\n\n2618\n2618\n-0.016676\nNaN\nNaN\nNaN\nNaN\n\n\n2619\n2619\n-0.016150\nNaN\nNaN\nNaN\nNaN\n\n\n2620\n2620\n-0.015392\nNaN\nNaN\nNaN\nNaN\n\n\n\n\n2621 rows × 6 columns\n\n\n\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\nplt.plot(\n    df[\"Time (s)\"],\n    df[\"Corrected Heat Rate (μJ/s)\"]\n    )\nplt.xlabel('Time (s)')\nplt.ylabel('Corrected Heat Rate (μJ/s)')\nplt.title('XXX')\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\nplt.scatter(\n    df[\"Mole Ratio\"],\n    df[\"Enthalpy (kcal/mol)\"],\n    c='red', s=6, alpha=0.8)\nplt.plot(\n    df[\"Mole Ratio.1\"],\n    df[\"Fit (kcal/mol)\"]\n    )\nplt.xlabel('Mole Ratio')\nplt.ylabel('Enthalpy and Fit (kcal/mol)')\nplt.title('XXX')\nplt.tight_layout()\nplt.show()"
-  },
-  {
-    "objectID": "posts/picReDraw.html#feruloylquinic-acid-1",
-    "href": "posts/picReDraw.html#feruloylquinic-acid-1",
-    "title": "SPR",
-    "section": "3-feruloylquinic acid",
-    "text": "3-feruloylquinic acid\n\nimport pandas as pd\nfile_path = r'C:\\Users\\Administrator\\Desktop\\SO20250331-138&139&141\\excels\\ITC-3-feruloylquinic_acid.xlsx'\ndf = pd.read_excel(file_path)   # 只拿需要的两列\ndf\n\n\n\n\n\n\n\n\nTime (s)\nCorrected Heat Rate (μJ/s)\nMole Ratio\nEnthalpy (kJ/mol)\nMole Ratio.1\nFit (kJ/mol)\n\n\n\n\n0\n0\n0.011370\n0.245799\n-68.870281\n0.244709\n-70.192388\n\n\n1\n1\n0.010767\n0.354522\n-69.286001\n0.253681\n-70.080019\n\n\n2\n2\n0.010182\n0.464398\n-65.159536\n0.262661\n-69.966481\n\n\n3\n3\n0.009579\n0.575440\n-65.049947\n0.271648\n-69.851776\n\n\n4\n4\n0.008970\n0.687661\n-64.102167\n0.280644\n-69.735909\n\n\n...\n...\n...\n...\n...\n...\n...\n\n\n2616\n2616\n-0.003462\nNaN\nNaN\nNaN\nNaN\n\n\n2617\n2617\n-0.003765\nNaN\nNaN\nNaN\nNaN\n\n\n2618\n2618\n-0.003912\nNaN\nNaN\nNaN\nNaN\n\n\n2619\n2619\n-0.003916\nNaN\nNaN\nNaN\nNaN\n\n\n2620\n2620\n-0.003795\nNaN\nNaN\nNaN\nNaN\n\n\n\n\n2621 rows × 6 columns\n\n\n\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\nplt.plot(\n    df[\"Time (s)\"],\n    df[\"Corrected Heat Rate (μJ/s)\"]\n    )\nplt.xlabel('Time (s)')\nplt.ylabel('Corrected Heat Rate (μJ/s)')\nplt.title('XXX')\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6, 4))\nplt.scatter(\n    df[\"Mole Ratio\"],\n    df[\"Enthalpy (kJ/mol)\"],\n    c='red', s=6, alpha=0.8)\nplt.plot(\n    df[\"Mole Ratio.1\"],\n    df[\"Fit (kJ/mol)\"]\n    )\nplt.xlabel('Mole Ratio')\nplt.ylabel('Enthalpy and Fit (kJ/mol)')\nplt.title('XXX')\nplt.tight_layout()\nplt.show()"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "光临寒舍蓬荜生辉",
-    "section": "",
-    "text": "Github"
+    "text": "这里可以写一段顶部导语，会被渲染在列表上方。\n\n\n\n\n\n\n\n\n\n通过VS code连接服务器使用Jupyter NoteBook\n\n\n\nVSvode\n\nJupyter\n\nR\n\nPython\n\n\n\n一篇讲如何快速把 Obsidian 笔记发布成网站的流水账。\n\n\n\n\n\nJan 17, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -56,11 +21,11 @@
     "text": "About this site"
   },
   {
-    "objectID": "postNdx.html",
-    "href": "postNdx.html",
-    "title": "全部文章",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "光临寒舍蓬荜生辉",
     "section": "",
-    "text": "这里可以写一段顶部导语，会被渲染在列表上方。\n\n\n\n\n\n\n\n\n\nSPR\n\n\n\n\n\n\n\n\n\n\n\n\n\n通过VS code连接服务器使用Jupyter NoteBook\n\n\n\nVSvode\n\nJupyter\n\nR\n\nPython\n\n\n\n一篇讲如何快速把 Obsidian 笔记发布成网站的流水账。\n\n\n\n\n\nJan 17, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Github"
   },
   {
     "objectID": "posts/test.html",
