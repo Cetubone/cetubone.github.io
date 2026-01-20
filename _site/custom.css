@@ -1,8 +1,0 @@
-/* 更高权重，确保覆盖 Bootstrap 的 text-align:center */
-body .quarto-listing-default .quarto-post {
-  text-align: left !important;
-}
-
-/* metadata {
-  
-} */
