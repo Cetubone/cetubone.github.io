@@ -1,0 +1,59 @@
+---
+title: "Zotero这么用"
+date: 2026-01-26
+description: "如何使用Zotero在Word中插入引用。"
+categories: [Zotero]
+license: CC BY-NC-SA 4.0
+resources: "files/wps.vba.exe"
+---
+
+*Written by ZiangZ*
+
+# Zotero是什么
+
+Zotero 是一款开源免费的文献管理工具，可一键抓取网页、数据库或 PDF 中的元数据，自动分类生成引用，支持 Word、LibreOffice 插件实时插入参考文献，云端同步配合多设备协作。
+
+# 安装
+
+Windows端：[官网](https://www.zotero.org/)下载安装包，按指示安装，可同时下载浏览器插件方便收藏文献<br>
+![](/pics/zotero.png){fig-align="center"}
+
+# 使用
+
+1. **引** —— 先把所有文献一次性收进 Zotero
+   打开 Zotero → 用浏览器插件（Zotero Connector）把你要参考的期刊文章、网页、PDF 统统点一下“保存到 Zotero”。<br>
+   这一步保证后面插入时，下拉列表里能直接搜到，而不是临时手动敲。
+
+2. **标** —— 在 Word/WPS 里先选好“引用样式”
+   打开论文文档 → Zotero 选项卡 → “Document Preferences”（文档首选项）→ 选好你学校要求的样式（如 GB/T 7714-2015、APA 7、Chicago…）→ OK。<br>
+
+   ![](/pics/DP.png){fig-align="center"}
+
+   ![](/pics/refStyle.png){fig-align="center"}
+
+   这一步决定后面正文的“(作者, 年份)”格式和文末排序规则，先定好再插不会乱。
+
+3. **插** —— 正文里逐句“Insert Citation”
+   光标放在需要引用的句子末尾 → 点 “Add/Edit Citation” → 在弹出的框里输入关键词（作者或标题）→ 选中对应文献 → 回车。  
+   想一次引多篇就继续搜下一篇，回车即可叠加。<br>
+
+   ![](/pics/cite.png){fig-align="center"}
+
+   ![](/pics/citeOut.png){fig-align="center"}
+   
+   整篇论文写完后，**再把光标移到文末想出现“参考文献”那一行** → 点 “Add/Edit Bibliography”，Zotero 会一次性把所有已引条目生成完整列表。  
+   （很多人漏的就是这后半句，所以出现“正文有，文末空”。）
+   ![](/pics/endCite.png){fig-align="center"}
+
+4. **换** —— 定稿前统一刷新格式  
+   导师若要求换样式（GB→APA）、或把中文“等”改成“et al”，只需：  
+   Document Preferences 里直接换样式 → OK → Zotero 会自动把正文和文末全部刷新，无需手改任何一个字。  
+   最后点 “Refresh” 确保所有字段最新，即可上交。<br>
+
+   ![](/pics/refresh.png){fig-align="center"}
+
+照“引→标→插→换”四步走，就不会再出现“只有正文没有文末”或“手动改格式改到崩溃”的情况。
+
+# 注
+
+在WPS中使用Zotero时[需要安装VBA](https://blog.csdn.net/zp357252539/article/details/98737401)，[此处](/files/wps.vba.zip)给出VBA安装包

@@ -1,17 +1,17 @@
 [
   {
-    "objectID": "postTMP.html",
-    "href": "postTMP.html",
-    "title": "通过VS code连接服务器使用Jupyter NoteBook",
+    "objectID": "posts/zotero.html",
+    "href": "posts/zotero.html",
+    "title": "Zotero这么用",
     "section": "",
-    "text": "test"
+    "text": "Written by ZiangZ\n\nZotero是什么\nZotero 是一款开源免费的文献管理工具，可一键抓取网页、数据库或 PDF 中的元数据，自动分类生成引用，支持 Word、LibreOffice 插件实时插入参考文献，云端同步配合多设备协作。\n\n\n安装\nWindows端：官网下载安装包，按指示安装，可同时下载浏览器插件方便收藏文献 \n\n\n使用\n\n引 —— 先把所有文献一次性收进 Zotero 打开 Zotero → 用浏览器插件（Zotero Connector）把你要参考的期刊文章、网页、PDF 统统点一下“保存到 Zotero”。 这一步保证后面插入时，下拉列表里能直接搜到，而不是临时手动敲。\n标 —— 在 Word/WPS 里先选好“引用样式” 打开论文文档 → Zotero 选项卡 → “Document Preferences”（文档首选项）→ 选好你学校要求的样式（如 GB/T 7714-2015、APA 7、Chicago…）→ OK。\n\n\n\n\n\n\n\n\n\n\n这一步决定后面正文的“(作者, 年份)”格式和文末排序规则，先定好再插不会乱。\n插 —— 正文里逐句“Insert Citation” 光标放在需要引用的句子末尾 → 点 “Add/Edit Citation” → 在弹出的框里输入关键词（作者或标题）→ 选中对应文献 → 回车。\n想一次引多篇就继续搜下一篇，回车即可叠加。\n\n\n\n\n\n\n\n\n\n\n整篇论文写完后，再把光标移到文末想出现“参考文献”那一行 → 点 “Add/Edit Bibliography”，Zotero 会一次性把所有已引条目生成完整列表。\n（很多人漏的就是这后半句，所以出现“正文有，文末空”。） \n换 —— 定稿前统一刷新格式\n导师若要求换样式（GB→APA）、或把中文“等”改成“et al”，只需：\nDocument Preferences 里直接换样式 → OK → Zotero 会自动把正文和文末全部刷新，无需手改任何一个字。\n最后点 “Refresh” 确保所有字段最新，即可上交。\n\n\n\n\n\n\n照“引→标→插→换”四步走，就不会再出现“只有正文没有文末”或“手动改格式改到崩溃”的情况。\n\n\n注\n在WPS中使用Zotero时需要安装VBA，此处给出VBA安装包\n\n\n\n\nReuseCC BY-NC-SA 4.0"
   },
   {
     "objectID": "postNdx.html",
     "href": "postNdx.html",
     "title": "全部文章",
     "section": "",
-    "text": "Jupyter NoteBook via VScode\n\n\n\nVSvode\n\nJupyter\n\nR\n\nPython\n\n\n\n如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。\n\n\n\n\n\nJan 20, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Zotero这么用\n\n\n\nZotero\n\n\n\n如何使用Zotero在Word中插入引用。\n\n\n\n\n\nJan 26, 2026\n\n\n\n\n\n\n\nJupyter NoteBook via VScode\n\n\n\nVSvode\n\nJupyter\n\nR\n\nPython\n\n\n\n如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。\n\n\n\n\n\nJan 20, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
