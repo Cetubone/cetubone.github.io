@@ -7,11 +7,18 @@
     "text": "Written by ZiangZ\n\nZotero是什么\nZotero 是一款开源免费的文献管理工具，可一键抓取网页、数据库或 PDF 中的元数据，自动分类生成引用，支持 Word、LibreOffice 插件实时插入参考文献，云端同步配合多设备协作。\n\n\n安装\nWindows端：官网下载安装包，按指示安装，可同时下载浏览器插件方便收藏文献 \n\n\n使用\n\n引 —— 先把所有文献一次性收进 Zotero 打开 Zotero → 用浏览器插件（Zotero Connector）把你要参考的期刊文章、网页、PDF 统统点一下“保存到 Zotero”。 这一步保证后面插入时，下拉列表里能直接搜到，而不是临时手动敲。\n标 —— 在 Word/WPS 里先选好“引用样式” 打开论文文档 → Zotero 选项卡 → “Document Preferences”（文档首选项）→ 选好你学校要求的样式（如 GB/T 7714-2015、APA 7、Chicago…）→ OK。\n\n\n\n\n\n\n\n\n\n\n这一步决定后面正文的“(作者, 年份)”格式和文末排序规则，先定好再插不会乱。\n插 —— 正文里逐句“Insert Citation” 光标放在需要引用的句子末尾 → 点 “Add/Edit Citation” → 在弹出的框里输入关键词（作者或标题）→ 选中对应文献 → 回车。\n想一次引多篇就继续搜下一篇，回车即可叠加。\n\n\n\n\n\n\n\n\n\n\n整篇论文写完后，再把光标移到文末想出现“参考文献”那一行 → 点 “Add/Edit Bibliography”，Zotero 会一次性把所有已引条目生成完整列表。\n（很多人漏的就是这后半句，所以出现“正文有，文末空”。） \n换 —— 定稿前统一刷新格式\n导师若要求换样式（GB→APA）、或把中文“等”改成“et al”，只需：\nDocument Preferences 里直接换样式 → OK → Zotero 会自动把正文和文末全部刷新，无需手改任何一个字。\n最后点 “Refresh” 确保所有字段最新，即可上交。\n\n\n\n\n\n\n照“引→标→插→换”四步走，就不会再出现“只有正文没有文末”或“手动改格式改到崩溃”的情况。\n\n\n注\n在WPS中使用Zotero时需要安装VBA，此处给出VBA安装包\n\n\n\n\nReuseCC BY-NC-SA 4.0"
   },
   {
-    "objectID": "postNdx.html",
-    "href": "postNdx.html",
-    "title": "全部文章",
+    "objectID": "posts/conda.html",
+    "href": "posts/conda.html",
+    "title": "Conda这么用",
     "section": "",
-    "text": "Zotero这么用\n\n\n\nZotero\n\n\n\n如何使用Zotero在Word中插入引用。\n\n\n\n\n\nJan 26, 2026\n\n\n\n\n\n\n\nJupyter NoteBook via VScode\n\n\n\nVSvode\n\nJupyter\n\nR\n\nPython\n\n\n\n如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。\n\n\n\n\n\nJan 20, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Conda是什么\n根据Conda官方文档，Conda是一个开源的包和环境管理系统，可在Windows、Mac OS和Linux上运行。\nConda能够快速安装、运行和更新软件包及其依赖项；并方便地创建、保存、加载和切换项目特定的软件环境。虽然Conda最初是为Python程序创建的，但Conda可以打包和分发用于任何语言的软件，例如R、Ruby、Lua、Scala、Java、JavaScript、C、C++、FORTRAN。\n\n\nConda、Miniconda和Anaconda\nConda作为包管理器，是Miniconda和Anaconda的基础和核心。\n\nAnaconda是一个Python/R数据科学发行版，它包含了Conda以及大量预装的科学计算包。包含250+预装的数据科学包（NumPy、Pandas、Scipy、Matplotlib、Jupyter等），并提供Anaconda Navigator可视化工具，由此其安装包约3-5GB，占用空间较大。\nMiniconda 是Anaconda的精简版，只包含Conda、Python和少量必要依赖。拥有完整的Conda功能，与Anaconda无异，而没有预装臃肿的软件包。\n\n\n以下的演示都基于Miniconda\n\n\n\n\n图像来源\n\n\n\n\nMiniconda安装\n参考官方文档，下载对应操作系统平台的安装包，按照提示安装即可。\n\nconda --version # 查看Conda版本\n\nconda 24.11.3\n\n\n\n\n查看Conda已创建的环境\n命令conda env list查看已创建的环境列表。 Miniconda安装完成后默认环境为base\n\nconda env list\n\n\n# conda environments:\n#\nbase                 * D:\\conda\nmeme                   D:\\conda\\envs\\meme\nobabel                 D:\\conda\\envs\\obabel\npubchem                D:\\conda\\envs\\pubchem\npy2                    D:\\conda\\envs\\py2\nrdkit                  D:\\conda\\envs\\rdkit\n\n\n\n输出的两列中，第一列为环境名，通常即右侧环境地址的目录名称。 *标识当前激活的环境\n\n\n创建环境\n使用命令conda create -n 环境名称创建环境，由此创建的环境为空环境不包含其他包，如需Python或R可如下安装：\n\nconda create -n rdkit python rdkit -y\n\n\n\n激活/退出环境\n使用命令conda activate 环境名/环境路径可切换至目标环境\n\nconda activate rdkit\nconda env list\n\n\n# conda environments:\n#\nbase                   D:\\conda\nmeme                   D:\\conda\\envs\\meme\nobabel                 D:\\conda\\envs\\obabel\npubchem                D:\\conda\\envs\\pubchem\npy2                    D:\\conda\\envs\\py2\nrdkit                * D:\\conda\\envs\\rdkit\n\n\n\n命令conda deactivate将退出当前激活的环境，退回至base\n\nconda deactivate\nconda env list\n\n\n# conda environments:\n#\nbase                 * D:\\conda\nmeme                   D:\\conda\\envs\\meme\nobabel                 D:\\conda\\envs\\obabel\npubchem                D:\\conda\\envs\\pubchem\npy2                    D:\\conda\\envs\\py2\nrdkit                  D:\\conda\\envs\\rdkit\n\n\n\n在每个独立的环境中可以安装不同版本的Python、R或者其他编程语言如Ruby、Lua、Scala、Java、JavaScript、C等。Python或R的第三方软件包也可以在不同的独立环境中安装不同的版本，方便解决不同版本的依赖问题。\n\n\n安装软件\n使用命令conda install 软件名命令在当前已激活的环境中安装软件包。部分软件可能不在默认channels中\n具体软件的安装命令可在Anacond官网搜索。 例如搜索pandas：\n\n按照需求版本选择安装channel，例如需要安装pandas 3.0.0，则选择channel conda-forge中的pandas包：\n\n由给出的命令安装即可\n\n\n参考\nAnaconda官方文档 Introduction to Python for Data Science\n\n\n\n\nReuseCC BY-NC-SA 4.0"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "光临寒舍蓬荜生辉",
+    "section": "",
+    "text": "Github"
   },
   {
     "objectID": "about.html",
@@ -21,11 +28,11 @@
     "text": "About this site"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "光临寒舍蓬荜生辉",
+    "objectID": "postNdx.html",
+    "href": "postNdx.html",
+    "title": "全部文章",
     "section": "",
-    "text": "Github"
+    "text": "Conda这么用\n\n\n\nconda\n\nR\n\nPython\n\n\n\nConda介绍及使用方法。\n\n\n\n\n\nJan 27, 2026\n\n\n\n\n\n\n\nZotero这么用\n\n\n\nZotero\n\n\n\n如何使用Zotero在Word中插入引用。\n\n\n\n\n\nJan 26, 2026\n\n\n\n\n\n\n\nJupyter NoteBook via VScode\n\n\n\nVSvode\n\nJupyter\n\nR\n\nPython\n\n\n\n如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。\n\n\n\n\n\nJan 20, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/NoteBook_via_VScode.html",

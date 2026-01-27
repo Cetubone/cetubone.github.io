@@ -67,5 +67,8 @@
   },
   "posts/zotero.qmd": {
     "zotero.html": "3dcf1df3"
+  },
+  "posts/conda.ipynb": {
+    "conda.html": "46085d36"
   }
 }
