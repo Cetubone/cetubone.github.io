@@ -3,10 +3,11 @@ title: "Jupyter NoteBook via VScode"
 date: 2026-01-20
 description: "如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。"
 categories: [VSvode, Jupyter, R, Python]
+author:
+  - name: CetuBone
+    url: bioziangz@outlook.com
 license: CC BY-NC-SA 4.0
 ---
-
-*Written by ZiangZ*
 
 # 使用 VScode notebook 运行 Python & R
 

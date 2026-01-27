@@ -3,11 +3,12 @@ title: "Zotero这么用"
 date: 2026-01-26
 description: "如何使用Zotero在Word中插入引用。"
 categories: [Zotero]
+author:
+  - name: CetuBone
+    url: bioziangz@outlook.com
 license: CC BY-NC-SA 4.0
 resources: "files/wps.vba.exe"
 ---
-
-*Written by ZiangZ*
 
 # Zotero是什么
 
