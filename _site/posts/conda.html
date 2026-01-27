@@ -364,6 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><em>Written by ZiangZ</em></p>
 <section id="conda是什么" class="level1">
 <h1>Conda是什么</h1>
 <p>根据<a href="https://conda.io/projects/conda/en/latest/index.html">Conda官方文档</a>，Conda是一个开源的包和环境管理系统，可在Windows、Mac OS和Linux上运行。</p>
@@ -389,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="miniconda安装" class="level1">
 <h1>Miniconda安装</h1>
 <p>参考<a href="https://www.anaconda.com/docs/getting-started/miniconda/install">官方文档</a>，下载对应操作系统平台的安装包，按照提示安装即可。</p>
-<div id="5bcb09f7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;bat&quot;}}">
+<div id="5bcb09f7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;bat&quot;}}" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>conda <span class="op">--</span>version <span class="co"># 查看Conda版本</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>conda 24.11.3</code></pre>
@@ -399,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="查看conda已创建的环境" class="level1">
 <h1>查看Conda已创建的环境</h1>
 <p>命令<code>conda env list</code>查看已创建的环境列表。<br> Miniconda安装完成后默认环境为<code>base</code></p>
-<div id="0b69a23d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;bat&quot;}}">
+<div id="0b69a23d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;bat&quot;}}" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>conda env <span class="bu">list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -426,7 +427,7 @@ rdkit                  D:\conda\envs\rdkit
 <section id="激活退出环境" class="level1">
 <h1>激活/退出环境</h1>
 <p>使用命令<code>conda activate 环境名/环境路径</code>可切换至目标环境</p>
-<div id="b0bb4339" class="cell">
+<div id="b0bb4339" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>conda activate rdkit</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>conda env <span class="bu">list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -443,7 +444,7 @@ rdkit                * D:\conda\envs\rdkit
 </div>
 </div>
 <p>命令<code>conda deactivate</code>将退出当前激活的环境，退回至<code>base</code></p>
-<div id="89335fa3" class="cell">
+<div id="89335fa3" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>conda deactivate</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>conda env <span class="bu">list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
