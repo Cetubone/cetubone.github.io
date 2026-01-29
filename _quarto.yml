@@ -12,6 +12,8 @@ website:
         text: Blogs
       - href: https://github.com/Cetubone/cetubone.github.io/issues
         text: Issues
+      - href: about.qmd
+        text: About
 
 format:
   html:
