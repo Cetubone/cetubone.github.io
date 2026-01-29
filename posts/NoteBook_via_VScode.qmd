@@ -5,8 +5,9 @@ description: "如何使用 VScode 远程连接（ssh）服务器，并在 Jupyte
 categories: [VSvode, Jupyter, R, Python]
 author:
   - name: CetuBone
-    url: bioziangz@outlook.com
+    email: bioziangz@outlook.com
 license: CC BY-NC-SA 4.0
+draft: false
 ---
 
 # 使用 VScode notebook 运行 Python & R
