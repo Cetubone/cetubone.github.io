@@ -16,7 +16,8 @@ Zotero 是一款开源免费的文献管理工具，可一键抓取网页、数�
 
 # 安装
 
-Windows端：[官网](https://www.zotero.org/)下载安装包，按指示安装，可同时下载浏览器插件方便收藏文献<br>
+Windows端：[官网](https://www.zotero.org/)下载安装包，按指示安装，可同时下载浏览器插件方便收藏文献
+
 ![](/pics/zotero.png){fig-align="center"}
 
 # 使用
@@ -26,7 +27,7 @@ Windows端：[官网](https://www.zotero.org/)下载安装包，按指示安装�
    这一步保证后面插入时，下拉列表里能直接搜到，而不是临时手动敲。
 
 2. **标** —— 在 Word/WPS 里先选好“引用样式”
-   打开论文文档 → Zotero 选项卡 → “Document Preferences”（文档首选项）→ 选好你学校要求的样式（如 GB/T 7714-2015、APA 7、Chicago…）→ OK。<br>
+   打开论文文档 → Zotero 选项卡 → “Document Preferences”（文档首选项）→ 选好你学校要求的样式（如 GB/T 7714-2015、APA 7、Chicago…）→ OK。
 
    ![](/pics/DP.png){fig-align="center"}
 
@@ -44,12 +45,13 @@ Windows端：[官网](https://www.zotero.org/)下载安装包，按指示安装�
    
    整篇论文写完后，**再把光标移到文末想出现“参考文献”那一行** → 点 “Add/Edit Bibliography”，Zotero 会一次性把所有已引条目生成完整列表。  
    （很多人漏的就是这后半句，所以出现“正文有，文末空”。）
+
    ![](/pics/endCite.png){fig-align="center"}
 
 4. **换** —— 定稿前统一刷新格式  
    导师若要求换样式（GB→APA）、或把中文“等”改成“et al”，只需：  
    Document Preferences 里直接换样式 → OK → Zotero 会自动把正文和文末全部刷新，无需手改任何一个字。  
-   最后点 “Refresh” 确保所有字段最新，即可上交。<br>
+   最后点 “Refresh” 确保所有字段最新，即可完成更换。
 
    ![](/pics/refresh.png){fig-align="center"}
 

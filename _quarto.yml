@@ -10,6 +10,8 @@ website:
       # - about.qmd
       - href: postNdx.qmd
         text: Blogs
+      - href: https://github.com/Cetubone/cetubone.github.io/issues
+        text: Issues
 
 format:
   html:
