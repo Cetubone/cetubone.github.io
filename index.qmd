@@ -23,7 +23,7 @@ Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0-91-generic x86_64)
 
  &#42; Documentation:  https://cetubone.github.io/postNdx.html
  &#42; Management:     https://github.com/Cetubone/cetubone.github.io
- &#42; Support:        https://ubuntu.com/advantage
+ &#42; Support:        bioziangz@outlook.com
 
 Last login- Fri Jan 31 14h20m15s 2025 from 192.168.1.6302
 </pre>
