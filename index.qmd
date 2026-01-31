@@ -1,8 +1,230 @@
 ---
-title: "光临寒舍蓬荜生辉"
+title: ""
+page-layout: custom
+css: styles.css
 ---
 
-[**Github**](https://github.com/Cetubone)
+<div class="terminal-container">
 
+<div class="ssh-session">
 
-![](/pics/pic.png){width="60%" fig-align="center"}
+<div class="command-line">
+<span class="prompt">local@laptop ~ $</span> <span class="command">ssh ziangz@Cetus-lab.local</span>
+</div>
+
+<pre class="ssh-output">
+The authenticity of host 'Cetus-lab.local (192.168.1.6302)' can't be established.
+ED25519 key fingerprint is SHA256-8x9d2l7mNpQrStUvWxYz.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? <span class="typed-text">yes</span>
+Warning- Permanently added 'Cetus-lab.local' (ED25519) to the list of known hosts.
+ziangz@Cetus-lab.local's password- <span class="password-stars">********</span>
+Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0-91-generic x86_64)
+
+ &#42; Documentation-  https://help.ubuntu.com
+ &#42; Management-     https://landscape.canonical.com
+ &#42; Support-        https://ubuntu.com/advantage
+
+Last login- Fri Jan 31 14h20m15s 2025 from 192.168.1.6302
+</pre>
+
+<div class="command-line">
+<span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">systemctl status kimicode</span>
+</div>
+
+<pre class="systemctl-status">
+&#9679; kimicode.service - Kimi Code AI Assistant (Drug Discovery Mode)
+     Loaded- loaded (/etc/systemd/system/kimicode.service; enabled; vendor preset- enabled)
+     Active- <span class="status-active">active (running)</span> since Fri 2025-01-31 14h25m00s CST; 5min ago
+       Docs- https://kimi.moonshot.cn
+   Main PID- 2048 (kimi-agent)
+      Tasks- 12 (limit- 32768)
+     Memory- 20480G
+     CGroup- /system.slice/kimicode.service
+             &#9492;&#9472;<span class="pid-highlight">2048</span> /usr/bin/kimi-agent --daemon --autocode --gpu-mem 16G
+</pre>
+
+<div class="command-line">
+<span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">kimicode --start-task "虚拟筛选+分子对接+MD模拟" --auto</span>
+</div>
+
+<pre class="kimi-boot-log">
+<span class="log-time">[14h25m32s]</span> <span class="log-level info">INFO</span> Initializing Kimi Code Agent v2.5...
+<span class="log-time">[14h25m33s]</span> <span class="log-level info">INFO</span> Loading chemistry modules- RDKit, Open Babel, PyMOL
+<span class="log-time">[14h25m34s]</span> <span class="log-level info">INFO</span> Connected to GROMACS 2023.3 API
+<span class="log-time">[14h25m35s]</span> <span class="log-level info">INFO</span> AutoDock Vina engine ready (exhaustiveness-32)
+<span class="log-time">[14h25m36s]</span> <span class="log-level warn">WARN</span> Detected human operator idle time &gt; 5min
+<span class="log-time">[14h25m36s]</span> <span class="log-level success">SUCCESS</span> Kimi Agent 已接管终端，主人可以去 <span class="highlight">&#127860; 喝茶摸鱼</span> 了
+</pre>
+
+<div class="command-line">
+<span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">htop</span> 
+</div>
+
+<div class="htop-panel">
+
+<div class="htop-header">
+<div class="htop-bars">
+<div class="bar-item">
+<span class="bar-label">CPU[||||||||||||||<span class="bar-empty">----</span>] 87.5%</span>
+<span class="bar-sublabel">Users- 2.5% System- 85.0% Kimi- 142%</span>
+</div>
+<div class="bar-item">
+<span class="bar-label">Mem[||||||||||||||<span class="bar-empty">--</span>] 14.3G/32.0G</span>
+<span class="bar-sublabel">Kimi进程占用- 13.8G</span>
+</div>
+<div class="bar-item">
+<span class="bar-label">Swp[||<span class="bar-empty">--------------</span>] 0.8G/16.0G</span>
+</div>
+</div>
+
+<div class="htop-tasks">
+Tasks- 256 total, 4 running, 252 sleeping, 0 stopped, 0 zombie<br>
+Load average- 3.87 2.45 1.12<br>
+Uptime- 15 days, 3h42m18s
+</div>
+</div>
+
+<div class="process-table">
+<div class="table-header">
+<div class="cell col-pid">PID</div>
+<div class="cell col-user">USER</div>
+<div class="cell col-virt">VIRT</div>
+<div class="cell col-res">RES</div>
+<div class="cell col-cpu">CPU%</div>
+<div class="cell col-mem">MEM%</div>
+<div class="cell col-time">TIME+</div>
+<div class="cell col-cmd">Command</div>
+</div>
+
+<div class="process-row idle">
+<div class="cell col-pid">1923</div>
+<div class="cell col-user user-ziangz">ziangz</div>
+<div class="cell col-virt">4.2M</div>
+<div class="cell col-res">1.2M</div>
+<div class="cell col-cpu cpu-low">0.0</div>
+<div class="cell col-mem">0.1</div>
+<div class="cell col-time">0h00m00s</div>
+<div class="cell col-cmd cmd-idle">/usr/bin/coffee-break --latte --location 星巴克</div>
+</div>
+
+<div class="process-row working highlight">
+<div class="cell col-pid">2048</div>
+<div class="cell col-user user-kimi">kimi</div>
+<div class="cell col-virt">18.2G</div>
+<div class="cell col-res">14.3G</div>
+<div class="cell col-cpu cpu-high">145.2</div>
+<div class="cell col-mem">44.7</div>
+<div class="cell col-time">2h34m12s</div>
+<div class="cell col-cmd cmd-active">python3 run_docking.py --receptor 6VXX.pdbqt --ligand library_50k.sdf</div>
+<div class="progress-bar"><div class="fill" style="width: 67%"></div></div>
+</div>
+
+<div class="process-row working">
+<div class="cell col-pid">2051</div>
+<div class="cell col-user user-kimi">kimi</div>
+<div class="cell col-virt">12.1G</div>
+<div class="cell col-res">8.7G</div>
+<div class="cell col-cpu cpu-high">98.5</div>
+<div class="cell col-mem">27.2</div>
+<div class="cell col-time">1h12m45s</div>
+<div class="cell col-cmd cmd-active">gmx mdrun -s md_complex.tpr -deffnm md_run -ntmpi 4</div>
+<div class="progress-bar"><div class="fill" style="width: 45%"></div></div>
+</div>
+
+<div class="process-row working">
+<div class="cell col-pid">2102</div>
+<div class="cell col-user user-kimi">kimi</div>
+<div class="cell col-virt">8.5G</div>
+<div class="cell col-res">6.2G</div>
+<div class="cell col-cpu cpu-med">78.3</div>
+<div class="cell col-mem">19.4</div>
+<div class="cell col-time">0h45m22s</div>
+<div class="cell col-cmd cmd-active">vina --config vina.conf --log screening_results.log</div>
+<div class="progress-bar"><div class="fill" style="width: 23%"></div></div>
+</div>
+
+<div class="process-row working">
+<div class="cell col-pid">2156</div>
+<div class="cell col-user user-kimi">kimi</div>
+<div class="cell col-virt">6.2G</div>
+<div class="cell col-res">4.1G</div>
+<div class="cell col-cpu cpu-med">65.0</div>
+<div class="cell col-mem">12.8</div>
+<div class="cell col-time">0h12m08s</div>
+<div class="cell col-cmd cmd-active">python3 analyze_fep.py --input results/ --plot binding_energy.png</div>
+<div class="progress-bar"><div class="fill" style="width: 12%"></div></div>
+</div>
+
+<div class="process-row system">
+<div class="cell col-pid">1</div>
+<div class="cell col-user root">root</div>
+<div class="cell col-virt">4.1M</div>
+<div class="cell col-res">2.3M</div>
+<div class="cell col-cpu cpu-low">0.1</div>
+<div class="cell col-mem">0.1</div>
+<div class="cell col-time">3h21m02s</div>
+<div class="cell col-cmd cmd-system">/sbin/init 咖啡温度保持服务 [RUNNING]</div>
+</div>
+</div>
+
+<div class="htop-footer">
+<span class="key">F1</span>Help <span class="key">F2</span>Setup <span class="key">F3</span>Search <span class="key">F4</span>Filter <span class="key">F5</span>Tree <span class="key">F6</span>SortBy <span class="key">F9</span>Kill <span class="key">F10</span>Quit
+</div>
+
+</div>
+
+<div class="command-line">
+<span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">tail -f /var/log/kimi-activity.log</span>
+</div>
+
+<div class="log-window">
+<div class="log-entry info">
+<span class="log-time">[14h32m01s]</span> <span class="log-level info">INFO</span> 自动修复- 分子对接脚本第 43 行 IndexError，已替换为安全索引
+</div>
+<div class="log-entry success">
+<span class="log-time">[14h33m15s]</span> <span class="log-level success">SUCCESS</span> 完成 12,000 分子虚拟筛选，发现 3 个潜在 hits (affinity &lt; -10.0 kcal/mol)
+</div>
+<div class="log-entry warn">
+<span class="log-time">[14h35m02s]</span> <span class="log-level warn">WARN</span> 检测到主人正在刷 Bilibili，自动延长 MD 模拟至 10000ns 并降低报告频率
+</div>
+<div class="log-entry info">
+<span class="log-time">[14h40m28s]</span> <span class="log-level info">INFO</span> FEP 计算 RMSD 收敛至 0.18 nm，正在生成 PMF 曲线
+</div>
+<div class="log-entry action">
+<span class="log-time">[14h45m11s]</span> <span class="log-level action">ACTION</span> 自动回复导师邮件- "正在全力冲刺计算，Figure 3-5 今晚交付 &#128170;"
+</div>
+<div class="log-entry error">
+<span class="log-time">[14h50m33s]</span> <span class="log-level error">ERROR</span> 老板路过实验室！已自动切换屏幕到 <span class="highlight">假装在看文献.pdf</span>
+</div>
+<div class="log-entry info">
+<span class="log-time">[14h52m01s]</span> <span class="log-level info">INFO</span> Gaussian 16 队列- 当前第 3/8 个任务，预计 2 小时后开始 DFT 优化...
+</div>
+</div>
+
+<div class="command-line">
+<span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">kimi --status-report</span>
+</div>
+
+<div class="status-box">
+<div class="status-header">
+<div class="status-title">&#128202; Kimi Agent 实时工作报告</div>
+<div class="status-uptime">Uptime- 2h 34m 12s</div>
+</div>
+<ul class="status-list">
+<li><span class="check">&#10003;</span> <span class="task-desc">分子对接脚本优化完成</span> <span class="task-meta">速度提升 40%</span></li>
+<li><span class="check">&#10003;</span> <span class="task-desc">Nature 风格论文插图生成</span> <span class="task-meta">Figure 3-5 已渲染</span></li>
+<li><span class="progress">&#9203;</span> <span class="task-desc">GROMACS 分子动力学模拟</span> <span class="task-meta">45/10000 ns (ETA -h-m)</span></li>
+<li><span class="pending">&#9675;</span> <span class="task-desc">网络药理学靶点富集分析</span> <span class="task-meta">等待队列中</span></li>
+<li><span class="warning">&#9888;</span> <span class="task-desc">建议主人继续摸鱼</span> <span class="task-meta">预计 18h00m 完成今日 KPI</span></li>
+</ul>
+<div class="coffee-status">
+&#9749; 咖啡剩余温度- <span class="temp">42&#176;C</span> <span class="coffee-bar"><span style="width: 35%"></span></span> (尚可饮用，无需返店)
+</div>
+</div>
+
+<div class="command-line">
+<span class="prompt">ziangz@Cetus-lab~$</span> <span class="cursor blink">_</span>
+</div>
+
+</div>

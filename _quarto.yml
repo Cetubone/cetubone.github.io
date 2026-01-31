@@ -17,11 +17,9 @@ website:
 
 format:
   html:
-    theme:
-      dark: cyborg
-      light: cosmo
+    theme: cyborg
     css: styles.css
-    toc: true
+    toc: false
     include-after-body: _include-body.html
 
 

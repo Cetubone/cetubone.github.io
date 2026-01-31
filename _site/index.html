@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>光临寒舍蓬荜生辉 – Cetubone</title>
+<title>Cetubone</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -37,12 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-3c87bd97f2d3ed8302ed67633272be33.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-5111478a3e739f981a6638106c7172e1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,167 +73,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = true;
-    const darkModeDefault = authorPrefersDark;
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -271,51 +109,357 @@ ul.task-list li input[type="checkbox"] {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-layout-custom page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">光临寒舍蓬荜生辉</h1>
+
+
+<div class="terminal-container">
+<div class="ssh-session">
+<div class="command-line">
+<p><span class="prompt">local@laptop ~ $</span> <span class="command">ssh ziangz@Cetus-lab.local</span></p>
+</div>
+<pre class="ssh-output">The authenticity of host 'Cetus-lab.local (192.168.1.6302)' can't be established.
+ED25519 key fingerprint is SHA256-8x9d2l7mNpQrStUvWxYz.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? <span class="typed-text">yes</span>
+Warning- Permanently added 'Cetus-lab.local' (ED25519) to the list of known hosts.
+ziangz@Cetus-lab.local's password- <span class="password-stars">********</span>
+Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0-91-generic x86_64)
+
+ * Documentation-  https://help.ubuntu.com
+ * Management-     https://landscape.canonical.com
+ * Support-        https://ubuntu.com/advantage
+
+Last login- Fri Jan 31 14h20m15s 2025 from 192.168.1.6302
+</pre>
+<div class="command-line">
+<p><span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">systemctl status kimicode</span></p>
+</div>
+<pre class="systemctl-status">● kimicode.service - Kimi Code AI Assistant (Drug Discovery Mode)
+     Loaded- loaded (/etc/systemd/system/kimicode.service; enabled; vendor preset- enabled)
+     Active- <span class="status-active">active (running)</span> since Fri 2025-01-31 14h25m00s CST; 5min ago
+       Docs- https://kimi.moonshot.cn
+   Main PID- 2048 (kimi-agent)
+      Tasks- 12 (limit- 32768)
+     Memory- 20480G
+     CGroup- /system.slice/kimicode.service
+             └─<span class="pid-highlight">2048</span> /usr/bin/kimi-agent --daemon --autocode --gpu-mem 16G
+</pre>
+<div class="command-line">
+<p><span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">kimicode –start-task “虚拟筛选+分子对接+MD模拟” –auto</span></p>
+</div>
+<pre class="kimi-boot-log"><span class="log-time">[14h25m32s]</span> <span class="log-level info">INFO</span> Initializing Kimi Code Agent v2.5...
+<span class="log-time">[14h25m33s]</span> <span class="log-level info">INFO</span> Loading chemistry modules- RDKit, Open Babel, PyMOL
+<span class="log-time">[14h25m34s]</span> <span class="log-level info">INFO</span> Connected to GROMACS 2023.3 API
+<span class="log-time">[14h25m35s]</span> <span class="log-level info">INFO</span> AutoDock Vina engine ready (exhaustiveness-32)
+<span class="log-time">[14h25m36s]</span> <span class="log-level warn">WARN</span> Detected human operator idle time &gt; 5min
+<span class="log-time">[14h25m36s]</span> <span class="log-level success">SUCCESS</span> Kimi Agent 已接管终端，主人可以去 <span class="highlight">🍴 喝茶摸鱼</span> 了
+</pre>
+<div class="command-line">
+<p><span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">htop</span></p>
+</div>
+<div class="htop-panel">
+<div class="htop-header">
+<div class="htop-bars">
+<div class="bar-item">
+<p><span class="bar-label">CPU[||||||||||||||<span class="bar-empty">—-</span>] 87.5%</span> <span class="bar-sublabel">Users- 2.5% System- 85.0% Kimi- 142%</span></p>
+</div>
+<div class="bar-item">
+<p><span class="bar-label">Mem[||||||||||||||<span class="bar-empty">–</span>] 14.3G/32.0G</span> <span class="bar-sublabel">Kimi进程占用- 13.8G</span></p>
+</div>
+<div class="bar-item">
+<p><span class="bar-label">Swp[||<span class="bar-empty">————–</span>] 0.8G/16.0G</span></p>
+</div>
+</div>
+<div class="htop-tasks">
+<p>Tasks- 256 total, 4 running, 252 sleeping, 0 stopped, 0 zombie<br> Load average- 3.87 2.45 1.12<br> Uptime- 15 days, 3h42m18s</p>
+</div>
+</div>
+<div class="process-table">
+<div class="table-header">
+<div class="cell col-pid">
+PID
+</div>
+<div class="cell col-user">
+USER
+</div>
+<div class="cell col-virt">
+VIRT
+</div>
+<div class="cell col-res">
+RES
+</div>
+<div class="cell col-cpu">
+CPU%
+</div>
+<div class="cell col-mem">
+MEM%
+</div>
+<div class="cell col-time">
+TIME+
+</div>
+<div class="cell col-cmd">
+Command
+</div>
+</div>
+<div class="process-row idle">
+<div class="cell col-pid">
+1923
+</div>
+<div class="cell col-user user-ziangz">
+ziangz
+</div>
+<div class="cell col-virt">
+4.2M
+</div>
+<div class="cell col-res">
+1.2M
+</div>
+<div class="cell col-cpu cpu-low">
+0.0
+</div>
+<div class="cell col-mem">
+0.1
+</div>
+<div class="cell col-time">
+0h00m00s
+</div>
+<div class="cell col-cmd cmd-idle">
+/usr/bin/coffee-break –latte –location 星巴克
+</div>
+</div>
+<div class="process-row working highlight">
+<div class="cell col-pid">
+2048
+</div>
+<div class="cell col-user user-kimi">
+kimi
+</div>
+<div class="cell col-virt">
+18.2G
+</div>
+<div class="cell col-res">
+14.3G
+</div>
+<div class="cell col-cpu cpu-high">
+145.2
+</div>
+<div class="cell col-mem">
+44.7
+</div>
+<div class="cell col-time">
+2h34m12s
+</div>
+<div class="cell col-cmd cmd-active">
+python3 run_docking.py –receptor 6VXX.pdbqt –ligand library_50k.sdf
+</div>
+<div class="progress-bar">
+<div class="fill" style="width: 67%">
+
+</div>
+</div>
+</div>
+<div class="process-row working">
+<div class="cell col-pid">
+2051
+</div>
+<div class="cell col-user user-kimi">
+kimi
+</div>
+<div class="cell col-virt">
+12.1G
+</div>
+<div class="cell col-res">
+8.7G
+</div>
+<div class="cell col-cpu cpu-high">
+98.5
+</div>
+<div class="cell col-mem">
+27.2
+</div>
+<div class="cell col-time">
+1h12m45s
+</div>
+<div class="cell col-cmd cmd-active">
+gmx mdrun -s md_complex.tpr -deffnm md_run -ntmpi 4
+</div>
+<div class="progress-bar">
+<div class="fill" style="width: 45%">
+
+</div>
+</div>
+</div>
+<div class="process-row working">
+<div class="cell col-pid">
+2102
+</div>
+<div class="cell col-user user-kimi">
+kimi
+</div>
+<div class="cell col-virt">
+8.5G
+</div>
+<div class="cell col-res">
+6.2G
+</div>
+<div class="cell col-cpu cpu-med">
+78.3
+</div>
+<div class="cell col-mem">
+19.4
+</div>
+<div class="cell col-time">
+0h45m22s
+</div>
+<div class="cell col-cmd cmd-active">
+vina –config vina.conf –log screening_results.log
+</div>
+<div class="progress-bar">
+<div class="fill" style="width: 23%">
+
+</div>
+</div>
+</div>
+<div class="process-row working">
+<div class="cell col-pid">
+2156
+</div>
+<div class="cell col-user user-kimi">
+kimi
+</div>
+<div class="cell col-virt">
+6.2G
+</div>
+<div class="cell col-res">
+4.1G
+</div>
+<div class="cell col-cpu cpu-med">
+65.0
+</div>
+<div class="cell col-mem">
+12.8
+</div>
+<div class="cell col-time">
+0h12m08s
+</div>
+<div class="cell col-cmd cmd-active">
+python3 analyze_fep.py –input results/ –plot binding_energy.png
+</div>
+<div class="progress-bar">
+<div class="fill" style="width: 12%">
+
+</div>
+</div>
+</div>
+<div class="process-row system">
+<div class="cell col-pid">
+1
+</div>
+<div class="cell col-user root">
+root
+</div>
+<div class="cell col-virt">
+4.1M
+</div>
+<div class="cell col-res">
+2.3M
+</div>
+<div class="cell col-cpu cpu-low">
+0.1
+</div>
+<div class="cell col-mem">
+0.1
+</div>
+<div class="cell col-time">
+3h21m02s
+</div>
+<div class="cell col-cmd cmd-system">
+/sbin/init 咖啡温度保持服务 [RUNNING]
+</div>
+</div>
+</div>
+<div class="htop-footer">
+<p><span class="key">F1</span>Help <span class="key">F2</span>Setup <span class="key">F3</span>Search <span class="key">F4</span>Filter <span class="key">F5</span>Tree <span class="key">F6</span>SortBy <span class="key">F9</span>Kill <span class="key">F10</span>Quit</p>
+</div>
+</div>
+<div class="command-line">
+<p><span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">tail -f /var/log/kimi-activity.log</span></p>
+</div>
+<div class="log-window">
+<div class="log-entry info">
+<p><span class="log-time">[14h32m01s]</span> <span class="log-level info">INFO</span> 自动修复- 分子对接脚本第 43 行 IndexError，已替换为安全索引</p>
+</div>
+<div class="log-entry success">
+<p><span class="log-time">[14h33m15s]</span> <span class="log-level success">SUCCESS</span> 完成 12,000 分子虚拟筛选，发现 3 个潜在 hits (affinity &lt; -10.0 kcal/mol)</p>
+</div>
+<div class="log-entry warn">
+<p><span class="log-time">[14h35m02s]</span> <span class="log-level warn">WARN</span> 检测到主人正在刷 Bilibili，自动延长 MD 模拟至 10000ns 并降低报告频率</p>
+</div>
+<div class="log-entry info">
+<p><span class="log-time">[14h40m28s]</span> <span class="log-level info">INFO</span> FEP 计算 RMSD 收敛至 0.18 nm，正在生成 PMF 曲线</p>
+</div>
+<div class="log-entry action">
+<p><span class="log-time">[14h45m11s]</span> <span class="log-level action">ACTION</span> 自动回复导师邮件- “正在全力冲刺计算，Figure 3-5 今晚交付 💪”</p>
+</div>
+<div class="log-entry error">
+<p><span class="log-time">[14h50m33s]</span> <span class="log-level error">ERROR</span> 老板路过实验室！已自动切换屏幕到 <span class="highlight">假装在看文献.pdf</span></p>
+</div>
+<div class="log-entry info">
+<p><span class="log-time">[14h52m01s]</span> <span class="log-level info">INFO</span> Gaussian 16 队列- 当前第 3/8 个任务，预计 2 小时后开始 DFT 优化…</p>
+</div>
+</div>
+<div class="command-line">
+<p><span class="prompt">ziangz@Cetus-lab~$</span> <span class="command">kimi –status-report</span></p>
+</div>
+<div class="status-box">
+<div class="status-header">
+<div class="status-title">
+📊 Kimi Agent 实时工作报告
+</div>
+<div class="status-uptime">
+Uptime- 2h 34m 12s
+</div>
+</div>
+<ul class="status-list">
+<li>
+<span class="check">✓</span> <span class="task-desc">分子对接脚本优化完成</span> <span class="task-meta">速度提升 40%</span>
+</li>
+<li>
+<span class="check">✓</span> <span class="task-desc">Nature 风格论文插图生成</span> <span class="task-meta">Figure 3-5 已渲染</span>
+</li>
+<li>
+<span class="progress">⏳</span> <span class="task-desc">GROMACS 分子动力学模拟</span> <span class="task-meta">45/10000 ns (ETA -h-m)</span>
+</li>
+<li>
+<span class="pending">○</span> <span class="task-desc">网络药理学靶点富集分析</span> <span class="task-meta">等待队列中</span>
+</li>
+<li>
+<span class="warning">⚠</span> <span class="task-desc">建议主人继续摸鱼</span> <span class="task-meta">预计 18h00m 完成今日 KPI</span>
+</li>
+</ul>
+<div class="coffee-status">
+<p>☕ 咖啡剩余温度- <span class="temp">42°C</span> <span class="coffee-bar"><span style="width: 35%"></span></span> (尚可饮用，无需返店)</p>
+</div>
+</div>
+<div class="command-line">
+<p><span class="prompt">ziangz@Cetus-lab~$</span> <span class="cursor blink">_</span></p>
+</div>
 </div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p><a href="https://github.com/Cetubone"><strong>Github</strong></a></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src=".\pics/pic.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
-</figure>
 </div>
 
 
-
-</main> <!-- /main -->
 <script>
 
 // 让站外链接默认在新标签页打开
@@ -339,19 +483,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
