@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="CetuBone">
+<meta name="dcterms.date" content="2026-06-02">
+<meta name="description" content="如何使用Vina、GROMACS和gmx_MMPBSA计算小分子配体与靶点蛋白的相互作用">
+
+<title>这个小分子和靶点存在相互作用吗？ – Cetubone</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5111478a3e739f981a6638106c7172e1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Cetubone</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../postNdx.html"> 
+<span class="menu-text">Blogs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/Cetubone/cetubone.github.io/issues"> 
+<span class="menu-text">Issues</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">这个小分子和靶点存在相互作用吗？</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">AutoDock Vina</div>
+    <div class="quarto-category">GROMACS</div>
+    <div class="quarto-category">gmx_MMPBSA</div>
+    <div class="quarto-category">affinity</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    如何使用Vina、GROMACS和gmx_MMPBSA计算小分子配体与靶点蛋白的相互作用
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>CetuBone <a href="mailto:bioziangz@outlook.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 2, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一前言" class="level1">
+<h1>一、前言</h1>
+<p>在药物发现的早期阶段，我们往往先通过虚拟筛选从海量化合物库中”打捞”出可能有效的苗头分子（hit）。但 docking 给出的结合模式只是一个静态快照，打分函数也仅仅是基于经验的近似估计——它回答了”这个小分子能否塞进口袋”，却没有真正回答”这个小分子与靶点之间是否存在稳定、可量化的相互作用”。</p>
+<p>要回答这个问题，我们需要从两个维度深入：一是通过分子动力学（MD）模拟观察配体-蛋白复合物在生理环境中的动态行为，看初始对接构象是否能在纳秒尺度上保持稳定；二是借助结合自由能计算（如 MM/PBSA 或 MM/GBSA）将构象波动转化为热力学数值，获得更接近实验亲和力的定量评估。</p>
+<p>本文将围绕一个完整的计算流程展开：使用 <strong>AutoDock Vina</strong> 快速完成小分子与靶点蛋白的刚性/半柔性对接，获得初始结合构象；随后利用 <strong>GROMACS</strong> 对最优构象进行显式溶剂下的平衡态 MD 模拟，捕获体系的动态特征；最后调用 <strong>gmx_MMPBSA</strong> 对模拟轨迹进行结合自由能分解，从总亲和力中拆解出范德华作用、静电作用、极性溶剂化能及非极性贡献，甚至精细到单个残基的相互作用能。这套工具链完全开源、可自动化、适合大规模并行，是从”虚拟筛选”迈向”亲和力预测”的最小可行路径。</p>
+<p>接下来，我们将逐步搭建这一流程，看看如何真正算清”这个小分子和靶点之间，到底有多大程度的相互作用”。</p>
+</section>
+<section id="二整体计算流程概览" class="level1">
+<h1>二、整体计算流程概览</h1>
+<p><img src="..\pics/pipeline_flowchart.png" class="img-fluid"></p>
+</section>
+<section id="三分子对接获取初始结合构象autodock-vina" class="level1">
+<h1>三、分子对接：获取初始结合构象（AutoDock Vina）</h1>
+<section id="受体蛋白准备从-pdb-到-pdbqt" class="level3">
+<h3 class="anchored" data-anchor-id="受体蛋白准备从-pdb-到-pdbqt">3.1 受体蛋白准备：从 PDB 到 PDBQT</h3>
+<p>从 RCSB PDB 下载靶点蛋白的晶体结构后，首先进行预处理：去除结晶水（<code>HETATM</code> 中 <code>HOH</code> 记录）、去除原有配体与缓冲液离子，保留完整的蛋白链。若存在缺失环区，可先用 <strong>Modeller</strong> 或 <strong>SWISS-MODEL</strong> 补全，避免对接口袋几何变形。</p>
+<p>预处理后的干净 <code>receptor.pdb</code> 需转换为 AutoDock 专用的 <strong>PDBQT</strong> 格式（包含原子类型、部分电荷与可旋转键信息）。这里使用 <strong>MGLTools</strong> 的命令行工具 <code>prepare_receptor4.py</code> 完成自动加氢与格式转换：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MGLTools 安装路径下的 Python 解释器（通常绑定在 $MGL_ROOT/bin/python）</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">$MGL_ROOT</span><span class="ex">/bin/python</span> <span class="va">$MGL_ROOT</span>/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_receptor4.py <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-r</span> receptor.pdb <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> receptor.pdbqt <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-A</span> hydrogens <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-U</span> nphs_lps_waters_nonstdres</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>参数说明： - <code>-A hydrogens</code>：使用内置规则为蛋白添加极性氢（Vina 的打分函数依赖极性氢位置）。 - <code>-U nphs_lps_waters_nonstdres</code>：去除非极性氢（Vina 内部会重新处理）、孤立原子、结晶水及非标准残基。</p>
+<p>转换完成后，检查 <code>receptor.pdbqt</code> 首部的 <code>REMARK</code> 行，确认总电荷与原子数合理，即可进入下一步。</p>
+<hr>
+</section>
+<section id="小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化" class="level3">
+<h3 class="anchored" data-anchor-id="小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化">3.2 小分子配体准备：RDKit 驱动的 3D 构象生成与能量最小化</h3>
+<p>对接输入的小分子通常以 SMILES 或 2D SDF 形式获得。我们需要将其转化为能量合理的 3D 构象，并导出为 <strong>MOL2</strong> 格式（供 MGLTools 进一步转为 PDBQT），同时保留几何信息。</p>
+<p>以下是一段基于 <strong>RDKit</strong> 的 Python 脚本，完成 SMILES → 3D 构象生成 → MMFF94 能量最小化 → MOL2 输出：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rdkit <span class="im">import</span> Chem</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rdkit.Chem <span class="im">import</span> AllChem, Descriptors</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rdkit.Chem <span class="im">import</span> rdMolTransforms</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prepare_ligand(smiles: <span class="bu">str</span>, output_mol2: <span class="bu">str</span>, n_conf: <span class="bu">int</span> <span class="op">=</span> <span class="dv">50</span>):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    mol <span class="op">=</span> Chem.MolFromSmiles(smiles)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mol <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Invalid SMILES string"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 添加氢原子</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    mol <span class="op">=</span> Chem.AddHs(mol)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 使用 ETKDGv3 生成多组初始 3D 构象</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    AllChem.EmbedMultipleConfs(</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        mol, </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        numConfs<span class="op">=</span>n_conf, </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>AllChem.ETKDGv3()</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># MMFF94 力场能量最小化，保留最低能量构象</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    energies <span class="op">=</span> []</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> conf_id <span class="kw">in</span> <span class="bu">range</span>(mol.GetNumConformers()):</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            ff <span class="op">=</span> AllChem.MMFFGetMoleculeForceField(mol, confId<span class="op">=</span>conf_id)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            ff.Minimize(maxIts<span class="op">=</span><span class="dv">500</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            energy <span class="op">=</span> ff.CalcEnergy()</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            energies.append((energy, conf_id))</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">Exception</span>:</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> energies:</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">RuntimeError</span>(<span class="st">"No valid conformer generated"</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 选取能量最低构象</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    best_e, best_id <span class="op">=</span> <span class="bu">min</span>(energies, key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">0</span>])</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Selected conformer </span><span class="sc">{</span>best_id<span class="sc">}</span><span class="ss"> with energy </span><span class="sc">{</span>best_e<span class="sc">:.2f}</span><span class="ss"> kcal/mol"</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 仅保留最优构象</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    conf <span class="op">=</span> mol.GetConformer(best_id)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    new_mol <span class="op">=</span> Chem.RWMol(mol)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cid <span class="kw">in</span> [c.GetId() <span class="cf">for</span> c <span class="kw">in</span> mol.GetConformers() <span class="cf">if</span> c.GetId() <span class="op">!=</span> best_id]:</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        new_mol.RemoveConformer(cid)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 输出为 MOL2（供 MGLTools 使用）</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    Chem.MolToMolFile(new_mol, output_mol2)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> new_mol</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 示例：对目标小分子执行准备</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>prepare_ligand(<span class="st">"CC(C)Cc1ccc(cc1)C(C)C(=O)O"</span>, <span class="st">"ligand.mol2"</span>, n_conf<span class="op">=</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>提示</strong>：RDKit 的 MOL2 输出在原子类型命名上与 Sybyl 规范略有差异，若 MGLTools 报 <code>atom type</code> 警告，通常不影响 Vina 对接，因为 MGLTools 会基于原子元素重新分配 AD4 原子类型。</p>
+</blockquote>
+<p>获得 <code>ligand.mol2</code> 后，再次调用 MGLTools 的 <code>prepare_ligand4.py</code> 生成 <code>ligand.pdbqt</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">$MGL_ROOT</span><span class="ex">/bin/python</span> <span class="va">$MGL_ROOT</span>/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.py <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">-l</span> ligand.mol2 <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> ligand.pdbqt <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-A</span> hydrogens <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-U</span> nphs <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-B</span> amide</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>参数说明： - <code>-U nphs</code>：去除非极性氢（Vina 使用其自身的原子模型）。 - <code>-B amide</code>：重新评估酰胺键的旋转性，避免不合理的可旋转键枚举。</p>
+<hr>
+</section>
+<section id="搜索空间定义pymol-插件-getbox-确定-grid-box" class="level3">
+<h3 class="anchored" data-anchor-id="搜索空间定义pymol-插件-getbox-确定-grid-box">3.3 搜索空间定义：PyMOL 插件 getbox 确定 Grid Box</h3>
+<p>对接的核心参数是搜索空间（Grid Box）的中心坐标与三维尺寸。若靶点已有共晶配体，最可靠的方式是以该配体的几何中心为口袋中心；若为先导化合物优化或 Apo 结构，则需要借助可视化工具划定口袋。</p>
+<p>我们使用 <strong>PyMOL 插件 <a href="https://github.com/MengwuXiao/Getbox-PyMOL-Plugin">getbox.py</a></strong> 交互式地确定 Box 参数。首先加载插件：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 在 PyMOL 命令行中运行</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>run <span class="op">/</span>path<span class="op">/</span>to<span class="op">/</span>getbox.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>加载受体与共晶配体（或预测口袋）后，执行：</p>
+<pre class="pymol"><code># 以共晶配体为参考，自动计算包含配体的最小包围盒
+getbox selection="resn LIG", margin=5.0, naming="vina"</code></pre>
+<p><code>getbox</code> 会输出可直接写入 Vina 配置文件的参数：</p>
+<pre><code>center_x =  12.345
+center_y = -4.567
+center_z =  34.890
+size_x   =  20.0
+size_y   =  22.0
+size_z   =  18.0</code></pre>
+<p>参数说明： - <code>margin=5.0</code>：在配体坐标极值基础上各方向外扩 5 Å，确保配体在对接过程中有足够的旋转与平移空间。 - <code>size_*</code>：建议每个维度至少覆盖 20–25 Å，过小会导致配体无法充分探索构象；过大则会显著增加计算量且引入非特异性结合噪音。</p>
+<p>将上述参数保存为 <code>config.txt</code>，作为 Vina 的输入配置文件：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">receptor </span><span class="ot">=</span><span class="st"> receptor.pdbqt</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">ligand   </span><span class="ot">=</span><span class="st"> ligand.pdbqt</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dt">center_x </span><span class="ot">=</span><span class="st">  </span><span class="fl">12.345</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="dt">center_y </span><span class="ot">=</span><span class="st"> </span><span class="dv">-</span><span class="fl">4.567</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="dt">center_z </span><span class="ot">=</span><span class="st">  </span><span class="fl">34.890</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="dt">size_x   </span><span class="ot">=</span><span class="st">  </span><span class="fl">20.0</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="dt">size_y   </span><span class="ot">=</span><span class="st">  </span><span class="fl">22.0</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="dt">size_z   </span><span class="ot">=</span><span class="st">  </span><span class="fl">18.0</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="dt">out      </span><span class="ot">=</span><span class="st"> docking_output.pdbqt</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="dt">log      </span><span class="ot">=</span><span class="st"> docking_log.txt</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="dt">exhaustiveness </span><span class="ot">=</span><span class="st"> </span><span class="dv">32</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="dt">num_modes      </span><span class="ot">=</span><span class="st"> </span><span class="dv">20</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="dt">energy_range   </span><span class="ot">=</span><span class="st"> </span><span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>关键参数解读： - <code>exhaustiveness = 32</code>：Vina 的搜索强度，默认值 8 对常规体系足够；若口袋较大或配体柔性键较多（&gt;10 个），建议提升至 32–64。 - <code>num_modes = 20</code>：输出构象数量上限。 - <code>energy_range = 4</code>：仅保留与最优解能量差在 4 kcal/mol 以内的构象，过滤高能噪音。</p>
+<hr>
+</section>
+<section id="命令行运行对接与结果筛选" class="level3">
+<h3 class="anchored" data-anchor-id="命令行运行对接与结果筛选">3.4 命令行运行对接与结果筛选</h3>
+<p>确认 <code>vina</code> 二进制文件在系统 PATH 中后，执行对接：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vina</span> <span class="at">--config</span> config.txt <span class="at">--cpu</span> 8</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>运行日志会实时输出各构象的预估结合能（<code>kcal/mol</code>）。对接完成后，结果文件 <code>docking_output.pdbqt</code> 包含多个 <code>MODEL</code> 记录的构象，按能量从低到高排序。</p>
+<p><strong>构象筛选与可视化验证：</strong></p>
+<ol type="1">
+<li><strong>能量排序</strong>：取 <code>docking_log.txt</code> 中 Rank 1 的构象作为初始候选。若前 3 个构象能量差异 &lt; 1.5 kcal/mol，需全部纳入后续 MD 评估。</li>
+<li><strong>RMSD 聚类</strong>：使用 <code>obrms</code>（Open Babel）或 Vina 内置聚类，剔除几何冗余构象。</li>
+<li><strong>相互作用检查</strong>：在 PyMOL 中加载 <code>receptor.pdbqt</code> 与 <code>docking_output.pdbqt</code>，检查最优构象是否保留了关键氢键（如与催化位点丝氨酸/天冬氨酸的相互作用）及疏水口袋的紧密填充。</li>
+</ol>
+<p>通过上述步骤，我们获得了一个能量合理、几何兼容的蛋白-配体初始复合物构象。该构象将作为下一章的输入，上传至 <strong>CHARMM-GUI</strong> 进行 GROMACS 拓扑生成。</p>
+</section>
+<section id="四md-模拟输入文件准备charmm-gui" class="level2">
+<h2 class="anchored" data-anchor-id="四md-模拟输入文件准备charmm-gui">四、MD 模拟输入文件准备（CHARMM-GUI）</h2>
+<p>对接给出了蛋白-配体的相对排布，但要把这个静态构象推进到分子动力学模拟，必须先解决一个关键问题：<strong>力场拓扑</strong>。手动为小分子编写 GROMACS 拓扑（原子类型、键长、键角、二面势、部分电荷）不仅繁琐，而且极易因参数不一致导致能量最小化失败或模拟过程中配体”散架”。<strong>CHARMM-GUI</strong> 的 Solution Builder 模块通过对接后的复合物 PDB 自动调用 <strong>CHARMM36m</strong> 蛋白力场与 <strong>CGenFF</strong> 小分子力场，直接输出 GROMACS 兼容的完整输入包，是这条开源流程中最稳妥的拓扑生成方案。</p>
+<hr>
+<section id="对接后复合物的格式整理" class="level3">
+<h3 class="anchored" data-anchor-id="对接后复合物的格式整理">4.1 对接后复合物的格式整理</h3>
+<p>在将结构上传至 CHARMM-GUI 之前，需要确保 PDB 文件满足以下规范：</p>
+<ol type="1">
+<li><strong>蛋白部分</strong>：保留标准氨基酸残基，去除所有 <code>HETATM</code> 记录中的结晶水与原有配体；N-端和 C-端建议保留 ACE/NME 封端（若对接时已处理），或保持天然末端以便 CHARMM-GUI 自动识别。</li>
+<li><strong>配体部分</strong>：将对接后的最优构象单独保存为 PDB/MOL2，再与蛋白合并为单一 <code>complex.pdb</code>。配体残基名建议统一为 <code>LIG</code>，链标识符设为 <code>B</code>（蛋白为 <code>A</code>），以便在后续分析中快速索引。</li>
+<li><strong>原子名冲突</strong>：检查配体中是否存在与蛋白残基重名的原子（如 <code>CA</code>、<code>CD1</code>），若有，用 PyMOL 或 RDKit 批量重命名为 <code>CAA</code>、<code>CDA</code> 等，避免 CHARMM-GUI 误解析。</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PyMOL 中快速保存复合物（配体残基名设为 LIG）</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">save</span> complex.pdb, <span class="er">(</span><span class="ex">protein</span> or organic<span class="kw">)</span><span class="ex">,</span> state=1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="配体力场参数cgenff-在线生成与质量评估" class="level3">
+<h3 class="anchored" data-anchor-id="配体力场参数cgenff-在线生成与质量评估">4.2 配体力场参数：CGenFF 在线生成与质量评估</h3>
+<p>CHARMM-GUI 本身不内置所有小分子参数，对于非标准配体，需先通过 <strong>CGenFF 服务器</strong>（https://cgenff.umaryland.edu）生成力场流文件（<code>.str</code>），内含 RTF（拓扑）与 PRM（参数）信息。</p>
+<p><strong>操作步骤：</strong></p>
+<ol type="1">
+<li>将 RDKit 生成的 <code>ligand.mol2</code>（见 3.2 节）上传至 CGenFF 服务器。</li>
+<li>服务器返回一个 <code>.str</code> 文件（如 <code>ligand.str</code>），同时给出 <strong>Penalty Score</strong>。</li>
+</ol>
+<p><strong>Penalty Score 判读：</strong> - <code>&lt; 10</code>：参数质量优秀，可直接使用。 - <code>10–50</code>：存在一定近似，建议用于初步筛选；若进入 lead optimization 阶段，需对高 penalty 的二面角进行 QM 再拟合。 - <code>&gt; 50</code>：参数可靠性低，不建议直接用于 MD，应考虑更换配体类似物或改用 GAFF/AMBER 力场路线。</p>
+<p>下载 <code>ligand.str</code> 备用。CHARMM-GUI 的 Solution Builder 会在上传复合物后提示你导入该 <code>.str</code> 文件。</p>
+<hr>
+</section>
+<section id="charmm-gui-solution-builder-操作流" class="level3">
+<h3 class="anchored" data-anchor-id="charmm-gui-solution-builder-操作流">4.3 CHARMM-GUI Solution Builder 操作流</h3>
+<p>进入 <strong>CHARMM-GUI</strong>（https://www.charmm-gui.org），按以下路径操作：</p>
+<p><strong>Step 1：选择模拟引擎</strong> - 导航至 <strong>Input Generator</strong> → <strong>Solution Builder</strong> - 在 Force Field 选项中选择 <strong>CHARMM36m</strong>（最新版蛋白力场，对 α-螺旋/β-折叠的骨架二面角描述更准）。 - 在 MD Engine 下拉菜单中明确选择 <strong>GROMACS</strong>，确保输出文件格式无需二次转换。</p>
+<p><strong>Step 2：上传结构</strong> - 上传 4.1 节整理好的 <code>complex.pdb</code>。 - 在 <strong>Heterogeneous Molecules</strong> 步骤中，系统会自动识别 <code>LIG</code> 残基。此时上传 4.2 节获得的 <code>ligand.str</code>，CHARMM-GUI 会自动解析其中的 RTF/PRM 并转换为 GROMACS 内部格式。</p>
+<p><strong>Step 3：系统构建参数设置</strong> - <strong>Box Type</strong>：推荐选择 <strong>Dodecahedron</strong>（十二面体）。在相同截断半径下，十二面体比立方体节省约 30% 的水分子数量，显著降低后续 MD 的计算成本。 - <strong>Box Size</strong>：设置 <strong>Edge Distance = 1.0 Å</strong> 从蛋白表面到盒子边缘（对应蛋白质原子最远距离 + 1.0 nm）。若蛋白为 elongated 构象或预计发生较大域运动，可放宽至 1.2 nm。 - <strong>Water Model</strong>：选择 <strong>TIP3P</strong>（CHARMM 参数化版本，与 CHARMM36m 兼容）。 - <strong>Ion Concentration</strong>：设置为 <strong>0.15 M NaCl</strong>，并勾选 <strong>Neutralize the system</strong>。CHARMM-GUI 会自动计算体系净电荷，并添加足量的 <code>NA+</code> / <code>CL-</code> 以中和并达到目标盐浓度。</p>
+<p><strong>Step 4：生成与下载</strong> - 提交后等待系统完成拓扑构建（通常 5–15 分钟）。 - 下载生成的 <code>.tgz</code> 压缩包（命名通常为 <code>charmm-gui-*.tgz</code>），解压后得到如下目录结构：</p>
+<pre><code>charmm-gui-XXXXX/
+├── step5_input.gro          # 初始坐标（已溶剂化、加离子）
+├── step5_input.pdb          # 同上，PDB 格式备用
+├── topol.top                  # 主拓扑文件
+├── toppar/
+│   ├── top_all36_charmm.rtf
+│   ├── par_all36m_prot.prm
+│   ├── top_all36_cgenff.rtf
+│   ├── par_all36_cgenff.prm
+│   └── ligand.itp           # 配体拓扑（关键文件）
+├── em/                        # 能量最小化 mdp 模板
+├── equil/                     # NVT/NPT 平衡 mdp 模板
+└── md/                        # 生产模拟 mdp 模板</code></pre>
+<hr>
+</section>
+<section id="拓扑文件整合与-gromacs-适配检查" class="level3">
+<h3 class="anchored" data-anchor-id="拓扑文件整合与-gromacs-适配检查">4.4 拓扑文件整合与 GROMACS 适配检查</h3>
+<p>CHARMM-GUI 已经自动将配体参数嵌入 <code>toppar/ligand.itp</code>，但你需要确认主拓扑文件 <code>topol.top</code> 正确引用了该文件。打开 <code>topol.top</code>，其头部应呈现如下结构：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Include forcefield parameters</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#include "toppar/forcefield.itp"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">; Include ligand topology</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#include "toppar/ligand.itp"</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">; Include water topology</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#include "toppar/top_tip3p.itp"</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">; Include ion topology</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#include "toppar/top_ions.itp"</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="kw">[ system ]</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">; Name</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="dt">Protein-Ligand Complex in Water</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="kw">[ molecules ]</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">; Compound        #mols</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="dt">Protein_chain_A     1</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="dt">LIG                 1</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="dt">SOL              10824</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="dt">NA                  35</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="dt">CL                  29</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>常见坑点与修正：</strong></p>
+<ol type="1">
+<li><p><strong>相对路径问题</strong>：<code>topol.top</code> 默认使用 <code>#include "toppar/xxx.itp"</code> 的相对路径。确保你在 GROMACS 工作目录下运行 <code>gmx grompp</code> 时，<code>toppar/</code> 文件夹与 <code>topol.top</code> 处于同级目录。</p></li>
+<li><p><strong>配体残基名不一致</strong>：若 <code>topol.top</code> 中 <code>[ molecules ]</code> 段的配体名为 <code>LIG</code>，而坐标文件（<code>.gro</code>）中的残基名为 <code>UNL</code>，<code>gmx grompp</code> 会报 <code>atom type not found</code> 或 <code>residue name mismatch</code>。需统一为同一命名。</p></li>
+<li><p><strong>CGenFF 到 GROMACS 的格式转换</strong>：若你未使用 CHARMM-GUI 而手动持有 CGenFF 的 <code>.str</code> 文件，需借助 <code>cgenff_charmm2gmx.py</code>（由 Justin Lemkul 维护的转换脚本）将其转为 <code>.itp</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> cgenff_charmm2gmx.py ligand.mol2 ligand.str charmm36</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>该脚本输出 <code>ligand.itp</code> 与 <code>ligand.prm</code>，需一并放入 <code>toppar/</code> 并在 <code>topol.top</code> 中 <code>#include</code>。</p></li>
+</ol>
+<hr>
+</section>
+<section id="快速验证能否成功编译运行" class="level3">
+<h3 class="anchored" data-anchor-id="快速验证能否成功编译运行">4.5 快速验证：能否成功编译运行？</h3>
+<p>在正式提交集群前，先用能量最小化（EM）步骤做一轮冒烟测试，确认拓扑与坐标无冲突：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 进入 charmm-gui 生成的 em/ 目录，或复制 mdp 到工作根目录</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> grompp <span class="at">-f</span> em/em.mdp <span class="at">-c</span> step5_input.gro <span class="at">-p</span> topol.top <span class="at">-o</span> em.tpr <span class="at">-maxwarn</span> 1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>若 <code>gmx grompp</code> 无致命错误（仅出现关于原子类型冗余的 Note 可忽略），说明 CHARMM-GUI 生成的输入文件已具备可运行条件。此时可进入下一章，使用 GROMACS 执行能量最小化与平衡化模拟。</p>
+<blockquote class="blockquote">
+<p><strong>提示</strong>：CHARMM-GUI 生成的 <code>.mdp</code> 模板中，截断半径（<code>rvdw</code>、<code>rcoulomb</code>）通常设为 1.2 nm，与 CHARMM36m 力场的短程截断惯例一致。若你的 GPU 资源紧张，可将其降至 1.0 nm，但需同步在 <code>.mdp</code> 中开启 Verlet 缓冲（<code>verlet-buffer-tolerance = 0.005</code>）以保证能量守恒。</p>
+</blockquote>
+</section>
+</section>
+<section id="五分子动力学模拟gromacs" class="level2">
+<h2 class="anchored" data-anchor-id="五分子动力学模拟gromacs">五、分子动力学模拟（GROMACS）</h2>
+<p>拓扑与坐标文件就绪后，体系仍是一个存在原子重叠、不合理接触与溶剂分布不均的”冷启动”构象。分子动力学的第一阶段目标并非直接采样，而是<strong>渐进式地消除几何应力、平衡热力学状态</strong>，最终让体系在目标温度与压力下达到物理合理。本章基于 GROMACS 202x 版本，分三阶段推进：能量最小化 → NVT/NPT 平衡化 → 生产模拟，并在最后对轨迹质量进行系统性评估。</p>
+<hr>
+<section id="能量最小化energy-minimization" class="level3">
+<h3 class="anchored" data-anchor-id="能量最小化energy-minimization">5.1 能量最小化（Energy Minimization）</h3>
+<p>能量最小化（EM）通过数值优化算法寻找局部势能最低点，消除对接与溶剂化过程中残留的原子碰撞。CHARMM-GUI 已在 <code>em/</code> 目录下生成模板 <code>em.mdp</code>，核心参数如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Run control</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dt">integrator  </span><span class="ot">=</span><span class="st"> steep         ; 最速下降法，适合初始大应力释放</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dt">emtol       </span><span class="ot">=</span><span class="st"> 1000.0      ; 最大力收敛阈值 (kJ/mol/nm)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="dt">emstep      </span><span class="ot">=</span><span class="st"> 0.01        ; 初始步长 (nm)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="dt">nsteps      </span><span class="ot">=</span><span class="st"> 50000       ; 最大步数上限</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">; Neighbor searching</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="dt">cutoff-scheme   </span><span class="ot">=</span><span class="st"> Verlet</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="dt">ns_type         </span><span class="ot">=</span><span class="st"> grid</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="dt">coulombtype     </span><span class="ot">=</span><span class="st"> PME</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="dt">rcoulomb        </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.2</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="dt">rvdw            </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.2</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="dt">pbc             </span><span class="ot">=</span><span class="st"> xyz</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">; Constraints - EM阶段通常关闭约束，让氢键自由弛豫</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="dt">constraints     </span><span class="ot">=</span><span class="st"> none</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>执行 EM：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> grompp <span class="at">-f</span> em/em.mdp <span class="at">-c</span> step5_input.gro <span class="at">-p</span> topol.top <span class="at">-o</span> em.tpr <span class="at">-maxwarn</span> 1</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> mdrun <span class="at">-v</span> <span class="at">-deffnm</span> em</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>收敛判断与排错：</strong> - 正常情况：势能（Potential Energy）应单调下降，最终稳定在负值区（如 -5×10⁵ kJ/mol 量级，视体系大小而定）。 - 若 EM 在几百步内势能飙升或出现 <code>LINCS/SETTLE warning</code>，说明拓扑与坐标存在严重冲突。常见原因： - <strong>配体拓扑错误</strong>：CGenFF 参数与坐标文件原子顺序不一致（见 4.4 节残基名冲突）。 - <strong>溶剂盒子过小</strong>：蛋白边缘与盒子边界重叠，需返回 CHARMM-GUI 增大 Edge Distance。 - <strong>离子位置冲突</strong>：自动添加的离子恰好落在蛋白表面带电口袋，可手动在 <code>step5_input.gro</code> 中微调离子坐标，或增大盒子。</p>
+<hr>
+</section>
+<section id="平衡化阶段nvt-与-npt" class="level3">
+<h3 class="anchored" data-anchor-id="平衡化阶段nvt-与-npt">5.2 平衡化阶段：NVT 与 NPT</h3>
+<p>能量最小化后的体系处于 0 K，需分两步升温并平衡至生理条件。此阶段<strong>必须对蛋白骨架与配体施加位置约束</strong>（Position Restraints），防止在溶剂化层尚未平衡时，蛋白或配体因热扰动偏离对接构象。</p>
+<section id="nvt-系综恒温定容" class="level4">
+<h4 class="anchored" data-anchor-id="nvt-系综恒温定容">5.2.1 NVT 系综（恒温定容）</h4>
+<p>NVT 阶段的核心是让溶剂和离子在固定体积下达到目标温度，同时保持溶质几何冻结。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Run control</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="dt">integrator  </span><span class="ot">=</span><span class="st"> md</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="dt">dt          </span><span class="ot">=</span><span class="st"> 0.002       ; 2 fs 步长</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="dt">nsteps      </span><span class="ot">=</span><span class="st"> 50000       ; 100 ps</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="dt">continuation </span><span class="ot">=</span><span class="st"> </span><span class="kw">no</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">; Temperature coupling</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="dt">tcoupl      </span><span class="ot">=</span><span class="st"> V-rescale</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="dt">tc-grps     </span><span class="ot">=</span><span class="st"> Protein_LIG Water_and_ions</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="dt">tau_t       </span><span class="ot">=</span><span class="st"> 1.0  1.0</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="dt">ref_t       </span><span class="ot">=</span><span class="st"> 300  300</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">; Position restraints</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="dt">define      </span><span class="ot">=</span><span class="st"> -DPOSRES    ; 启用蛋白与配体的位置约束</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">; Constraints</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="dt">constraints     </span><span class="ot">=</span><span class="st"> h-bonds</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="dt">constraint-algorithm </span><span class="ot">=</span><span class="st"> LINCS</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">; Nonbonded</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="dt">cutoff-scheme   </span><span class="ot">=</span><span class="st"> Verlet</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="dt">coulombtype     </span><span class="ot">=</span><span class="st"> PME</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="dt">rcoulomb        </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.2</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="dt">rvdw            </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.2</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="dt">DispCorr        </span><span class="ot">=</span><span class="st"> EnerPres</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="dt">pbc             </span><span class="ot">=</span><span class="st"> xyz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>关键参数说明：</strong> - <code>tcoupl = V-rescale</code>：速度 rescaling 温控器，对初始速度分布不敏感，适合平衡化阶段快速达到目标温度。 - <code>tc-grps = Protein_LIG Water_and_ions</code>：将蛋白与配体合并为一个热浴组，水与离子为另一组。若配体质量较小，也可单独成组，但需确保各组原子数 &gt; 100，避免动能统计涨落过大。 - <code>define = -DPOSRES</code>：GROMACS 预编译指令，启用 <code>topol.top</code> 中 <code>#ifdef POSRES</code> 块下的位置约束。CHARMM-GUI 已自动生成蛋白的 <code>posre.itp</code>，但<strong>配体的位置约束文件通常需要手动生成</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 基于配体坐标生成位置约束文件（力常数 1000 kJ/mol/nm²）</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> genrestr <span class="at">-f</span> step5_input.gro <span class="at">-o</span> posre_lig.itp <span class="at">-fc</span> 1000 1000 1000</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择组：LIG（或配体对应的组编号）</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>随后在 <code>topol.top</code> 的配体 <code>ligand.itp</code> 引用段后添加：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ifdef POSRES</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#include "posre_lig.itp"</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#endif</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>运行 NVT：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> grompp <span class="at">-f</span> nvt.mdp <span class="at">-c</span> em.gro <span class="at">-r</span> em.gro <span class="at">-p</span> topol.top <span class="at">-o</span> nvt.tpr</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> mdrun <span class="at">-deffnm</span> nvt <span class="at">-v</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>提示</strong>：<code>-r em.gro</code> 提供位置约束的参考坐标。若 EM 后原子顺序未变，可直接复用 <code>-c</code> 文件；若经过 <code>gmx editconf</code> 等操作，务必确保 <code>-r</code> 指向原始参考构象。</p>
+</blockquote>
+<p><strong>监测指标：</strong> 温度曲线应在 5–10 ps 内稳定在 300 K，无剧烈震荡。若温度长时间偏离或出现 <code>Temperature coupling not converging</code>，检查热浴组划分是否合理。</p>
+</section>
+<section id="npt-系综恒温恒压" class="level4">
+<h4 class="anchored" data-anchor-id="npt-系综恒温恒压">5.2.2 NPT 系综（恒温恒压）</h4>
+<p>溶剂密度在 NVT 阶段可能偏离生理值，NPT 阶段通过压力耦合释放体积约束，让盒子尺寸弛豫至平衡密度。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Run control</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dt">integrator  </span><span class="ot">=</span><span class="st"> md</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="dt">dt          </span><span class="ot">=</span><span class="st"> </span><span class="fl">0.002</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="dt">nsteps      </span><span class="ot">=</span><span class="st"> 50000       ; 100 ps（可延长至 500 ps 用于大体系）</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="dt">continuation </span><span class="ot">=</span><span class="st"> yes        ; 续跑模式，从 NVT 速度继续</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">; Temperature coupling</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="dt">tcoupl      </span><span class="ot">=</span><span class="st"> V-rescale</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="dt">tc-grps     </span><span class="ot">=</span><span class="st"> Protein_LIG Water_and_ions</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="dt">tau_t       </span><span class="ot">=</span><span class="st"> 1.0  1.0</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="dt">ref_t       </span><span class="ot">=</span><span class="st"> 300  300</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">; Pressure coupling</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="dt">pcoupl              </span><span class="ot">=</span><span class="st"> C-rescale      ; GROMACS 2021+ 推荐，比 Berendsen 更物理</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="dt">pcoupltype          </span><span class="ot">=</span><span class="st"> isotropic</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="dt">tau_p               </span><span class="ot">=</span><span class="st"> </span><span class="fl">5.0</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="dt">ref_p               </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.0</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="dt">compressibility     </span><span class="ot">=</span><span class="st"> 4.46e-5</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co">; Position restraints（保持启用）</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="dt">define      </span><span class="ot">=</span><span class="st"> -DPOSRES</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co">; Constraints &amp; Nonbonded（同 NVT）</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="dt">constraints     </span><span class="ot">=</span><span class="st"> h-bonds</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="dt">constraint-algorithm </span><span class="ot">=</span><span class="st"> LINCS</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="dt">cutoff-scheme   </span><span class="ot">=</span><span class="st"> Verlet</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="dt">coulombtype     </span><span class="ot">=</span><span class="st"> PME</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="dt">rcoulomb        </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.2</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="dt">rvdw            </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.2</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="dt">DispCorr        </span><span class="ot">=</span><span class="st"> EnerPres</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="dt">pbc             </span><span class="ot">=</span><span class="st"> xyz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>运行 NPT：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> grompp <span class="at">-f</span> npt.mdp <span class="at">-c</span> nvt.gro <span class="at">-t</span> nvt.cpt <span class="at">-r</span> nvt.gro <span class="at">-p</span> topol.top <span class="at">-o</span> npt.tpr</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> mdrun <span class="at">-deffnm</span> npt <span class="at">-v</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>关键参数说明：</strong> - <code>pcoupl = C-rescale</code>：GROMACS 2021 起引入的弱耦合压力控制改进版，避免了经典 Berendsen 耦合对涨落的压制，同时比 Parrinello-Rahman 更稳定，适合平衡化阶段。 - <code>continuation = yes</code>：读取 NVT 的 <code>.cpt</code> 检查点文件中的速度信息，保证时间连续性。 - <code>tau_p = 5.0</code>：压力耦合时间常数。CHARMM36m/TIP3P 体系建议 5.0 ps，过短会导致盒子尺寸震荡，过长则收敛缓慢。</p>
+<p><strong>监测指标：</strong> - <strong>密度（Density）</strong>：应在 20–50 ps 内收敛至 ~1000 kg/m³（TIP3P 在 300 K、1 bar 下的参考值）。 - <strong>盒子体积（Volume）</strong>：若持续膨胀或收缩，说明体系净电荷未完全中和或离子强度设置不当。 - <strong>蛋白 RMSD</strong>：受位置约束限制，骨架 RMSD 应 &lt; 0.05 nm；若出现 &gt; 0.1 nm 的跳变，检查约束文件是否正确加载。</p>
+<hr>
+</section>
+</section>
+<section id="生产模拟production-md" class="level3">
+<h3 class="anchored" data-anchor-id="生产模拟production-md">5.3 生产模拟（Production MD）</h3>
+<p>当密度与温度稳定后，解除位置约束，启动无偏采样。生产模拟的时长直接决定自由能计算的统计可靠性，建议至少 <strong>50 ns</strong>，若配体结合模式存在慢交换或构象异构，可延长至 200 ns 甚至使用副本交换（REMD）增强采样。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Run control</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dt">integrator  </span><span class="ot">=</span><span class="st"> md</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="dt">dt          </span><span class="ot">=</span><span class="st"> </span><span class="fl">0.002</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="dt">nsteps      </span><span class="ot">=</span><span class="st"> 25000000    ; 50 ns = 50,000,000 fs / 2 fs = 25,000,000 步</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="dt">continuation </span><span class="ot">=</span><span class="st"> </span><span class="kw">yes</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">; Temperature coupling</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="dt">tcoupl      </span><span class="ot">=</span><span class="st"> Nose-Hoover    ; 生产阶段改用 Nose-Hoover，保持正则系综</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="dt">tc-grps     </span><span class="ot">=</span><span class="st"> Protein_LIG Water_and_ions</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="dt">tau_t       </span><span class="ot">=</span><span class="st"> 1.0  1.0</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="dt">ref_t       </span><span class="ot">=</span><span class="st"> 300  300</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">; Pressure coupling</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="dt">pcoupl              </span><span class="ot">=</span><span class="st"> Parrinello-Rahman  ; 生产阶段用 Parrinello-Rahman</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="dt">pcoupltype          </span><span class="ot">=</span><span class="st"> isotropic</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="dt">tau_p               </span><span class="ot">=</span><span class="st"> </span><span class="fl">5.0</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="dt">ref_p               </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.0</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="dt">compressibility     </span><span class="ot">=</span><span class="st"> 4.46e-5</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co">; Constraints - 全氢键约束，允许 2 fs 步长</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="dt">constraints         </span><span class="ot">=</span><span class="st"> h-bonds</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="dt">constraint-algorithm </span><span class="ot">=</span><span class="st"> LINCS</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="dt">lincs-order         </span><span class="ot">=</span><span class="st"> </span><span class="dv">4</span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="dt">lincs-iter          </span><span class="ot">=</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="co">; Nonbonded</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="dt">cutoff-scheme       </span><span class="ot">=</span><span class="st"> Verlet</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="dt">coulombtype         </span><span class="ot">=</span><span class="st"> PME</span></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="dt">pme-order           </span><span class="ot">=</span><span class="st"> </span><span class="dv">4</span></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="dt">fourierspacing      </span><span class="ot">=</span><span class="st"> </span><span class="fl">0.12</span></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a><span class="dt">rcoulomb            </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.2</span></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a><span class="dt">rvdw                </span><span class="ot">=</span><span class="st"> </span><span class="fl">1.2</span></span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="dt">rvdw-switch         </span><span class="ot">=</span><span class="st"> 1.0    ; CHARMM 力场建议开启 VdW 切换</span></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="dt">DispCorr            </span><span class="ot">=</span><span class="st"> EnerPres</span></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a><span class="dt">pbc                 </span><span class="ot">=</span><span class="st"> xyz</span></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a><span class="co">; Output control - 平衡输出频率与存储成本</span></span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a><span class="dt">nstxout-compressed  </span><span class="ot">=</span><span class="st"> 5000   ; xtc 每 10 ps 一帧</span></span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a><span class="dt">nstenergy           </span><span class="ot">=</span><span class="st"> 5000   ; 能量输出每 10 ps</span></span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a><span class="dt">nstlog              </span><span class="ot">=</span><span class="st"> 5000   ; 日志每 10 ps</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>执行生产模拟：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> grompp <span class="at">-f</span> md.mdp <span class="at">-c</span> npt.gro <span class="at">-t</span> npt.cpt <span class="at">-p</span> topol.top <span class="at">-o</span> md_50ns.tpr</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> mdrun <span class="at">-deffnm</span> md_50ns <span class="at">-v</span> <span class="at">-nb</span> gpu <span class="at">-pin</span> on</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>性能优化提示：</strong> - <code>-nb gpu</code>：将非键相互作用卸载至 GPU，可将 50 ns 模拟时间从数周缩短至数天（视体系大小与 GPU 型号而定）。 - <code>-pin on</code>：将 MPI 线程绑定至固定 CPU 核心，减少缓存抖动。 - <strong>续跑机制</strong>：若集群有 wall-time 限制，模拟会自动输出 <code>.cpt</code> 检查点文件。中断后使用 <code>gmx mdrun -cpi md_50ns.cpt -append</code> 无缝续跑。</p>
+<hr>
+</section>
+<section id="轨迹质量评估" class="level3">
+<h3 class="anchored" data-anchor-id="轨迹质量评估">5.4 轨迹质量评估</h3>
+<p>生产模拟结束后，必须对轨迹进行系统性质量审查，排除漂移、解离或周期性边界条件（PBC）假象，再进入第六章的自由能计算。</p>
+<section id="去除周期性边界条件与中心对齐" class="level4">
+<h4 class="anchored" data-anchor-id="去除周期性边界条件与中心对齐">5.4.1 去除周期性边界条件与中心对齐</h4>
+<p>GROMACS 的 PBC 会导致跨边界的原子坐标跳变，直接分析会得到虚假的配体”瞬移”。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 创建索引组：蛋白+配体（复合物）</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> make_ndx <span class="at">-f</span> md_50ns.gro <span class="at">-o</span> index.ndx</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 输入：1 | 13  （假设 1=Protein, 13=LIG，具体编号用 gmx make_ndx 列表确认）</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 命名：q</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 去除 PBC 并以复合物为中心</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> trjconv <span class="at">-s</span> md_50ns.tpr <span class="at">-f</span> md_50ns.xtc <span class="at">-o</span> md_center.xtc <span class="at">-center</span> <span class="at">-pbc</span> mol <span class="at">-ur</span> compact</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择中心组：Protein_LIG</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择输出组：Protein_LIG（或 System，若需保留水环境）</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="rmsd-与-rmsf-分析" class="level4">
+<h4 class="anchored" data-anchor-id="rmsd-与-rmsf-分析">5.4.2 RMSD 与 RMSF 分析</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 蛋白骨架 RMSD</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> rms <span class="at">-s</span> md_50ns.tpr <span class="at">-f</span> md_center.xtc <span class="at">-o</span> rmsd_protein.xvg <span class="at">-xvg</span> none</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择：Backbone for least squares fit, Backbone for RMSD calculation</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 配体重原子 RMSD（评估结合稳定性）</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> rms <span class="at">-s</span> md_50ns.tpr <span class="at">-f</span> md_center.xtc <span class="at">-o</span> rmsd_ligand.xvg <span class="at">-xvg</span> none</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择：Protein for fit, LIG for RMSD</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>判读标准：</strong> - <strong>蛋白骨架 RMSD</strong>：应在 5–10 ns 内达到平台期，稳态值 0.15–0.30 nm 为典型范围。若持续上升超过 0.40 nm，提示蛋白发生域运动或去折叠，需延长模拟或检查力场参数。 - <strong>配体 RMSD</strong>：理想情况下应在 0.10–0.25 nm 区间波动。若配体 RMSD 在模拟中后期持续攀升并 &gt; 0.40 nm，说明初始对接构象在 MD 力场下不稳定，可能已发生解离或口袋漂移，该体系不宜直接用于 MM/PBSA 结合能计算。</p>
+</section>
+<section id="氢键动态分析" class="level4">
+<h4 class="anchored" data-anchor-id="氢键动态分析">5.4.3 氢键动态分析</h4>
+<p>氢键占有率是判断结合模式是否保留对接关键相互作用的核心指标。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> hbond <span class="at">-s</span> md_50ns.tpr <span class="at">-f</span> md_center.xtc <span class="at">-num</span> hbond.xvg <span class="at">-hbm</span> hbond_matrix.xpm</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择供体：LIG</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择受体：Protein</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>输出文件 <code>hbond.xvg</code> 给出总氢键数随时间变化。若关键氢键（如配体羰基与蛋白主链酰胺）的<strong>时间占有率 &gt; 50%</strong>，说明对接识别的相互作用在动态环境中得以维持；若占有率 &lt; 20%，则该相互作用可能是 docking 假象，需在第六章结合能分解中重点关注其能量贡献是否被高估。</p>
+</section>
+<section id="可视化抽查" class="level4">
+<h4 class="anchored" data-anchor-id="可视化抽查">5.4.4 可视化抽查</h4>
+<p>最后一步，将中心对齐后的轨迹加载至 <strong>PyMOL</strong> 或 <strong>VMD</strong>： - 检查配体是否始终停留在对接口袋内，无溶剂渗透导致的口袋扩张。 - 观察蛋白 N-端/C-端或柔性 loop 区域是否有异常摆动（若这些区域远离口袋，通常不影响结合能计算，但需在 MM/PBSA 的残基分解中排除）。</p>
+<p>当 RMSD 曲线平稳、关键氢键保留、配体无逃逸迹象时，即可确认该轨迹具备统计代表性，进入第六章使用 <strong>gmx_MMPBSA</strong> 进行结合自由能计算。</p>
+</section>
+</section>
+</section>
+<section id="六结合自由能计算gmx_mmpbsa" class="level2">
+<h2 class="anchored" data-anchor-id="六结合自由能计算gmx_mmpbsa">六、结合自由能计算（gmx_MMPBSA）</h2>
+<p>生产模拟给出了配体-蛋白复合物在显式溶剂与离子环境中的动态轨迹，但轨迹本身仍是一组离散坐标，无法直接回答”结合有多强”。<strong>MM/PBSA</strong>（Molecular Mechanics / Poisson-Boltzmann Surface Area）通过热力学循环将显式溶剂轨迹”投影”到连续介质模型中，把数百万帧的构象涨落转化为一个可比较的结合自由能数值（ΔG_bind），是目前从 MD 轨迹评估蛋白-配体亲和力最成熟的开源方法之一。</p>
+<hr>
+<section id="mmpbsa-方法原理简述" class="level3">
+<h3 class="anchored" data-anchor-id="mmpbsa-方法原理简述">6.1 MM/PBSA 方法原理简述</h3>
+<p>MM/PBSA 的核心是构建一个热力学循环，将溶剂化的受体、溶剂化的配体与溶剂化的复合物，通过三个独立的”气相+溶剂化”计算联系起来：</p>
+<p><span class="math display">\[\Delta G_{\text{bind}} = \Delta G_{\text{complex}} - (\Delta G_{\text{receptor}} + \Delta G_{\text{ligand}})\]</span></p>
+<p>其中每个体系的自由能被拆解为：</p>
+<p><span class="math display">\[\Delta G = \Delta E_{\text{MM}} + \Delta G_{\text{solv}} - T\Delta S\]</span></p>
+<p>各项物理意义如下：</p>
+<ul>
+<li><strong><span class="math inline">\(\Delta E_{\text{MM}}\)</span></strong>：气相分子力学能，包含范德华相互作用（<span class="math inline">\(\Delta E_{\text{vdW}}\)</span>）、静电相互作用（<span class="math inline">\(\Delta E_{\text{elec}}\)</span>）与内部形变能（键长/键角/二面角，在刚性对接-MD 流程中通常自相抵消）。</li>
+<li><strong><span class="math inline">\(\Delta G_{\text{solv}}\)</span></strong>：溶剂化自由能，进一步分为：
+<ul>
+<li><strong>极性部分（<span class="math inline">\(\Delta G_{\text{PB}}\)</span>）</strong>：通过求解 Poisson-Boltzmann 方程计算电荷在介电边界重排的能量，由 <strong>APBS</strong> 或 <strong>AmberTools</strong> 的 PBSA 模块完成。</li>
+<li><strong>非极性部分（<span class="math inline">\(\Delta G_{\text{SA}}\)</span>）</strong>：与溶剂可及表面积（SASA）成正比，近似为 <span class="math inline">\(\gamma \cdot \text{SASA} + b\)</span>，反映疏水效应。</li>
+</ul></li>
+<li><strong><span class="math inline">\(-T\Delta S\)</span></strong>：构象熵罚项，配体与受体结合时自由度降低，此项通常为不利于结合的正值。</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>实用取舍</strong>：对于同一靶点下的不同配体进行<strong>相对比较</strong>（如排序 IC50 趋势），各配体的构象熵差异常被近似抵消，因此可先计算 <span class="math inline">\(\Delta H = \Delta E_{\text{MM}} + \Delta G_{\text{solv}}\)</span> 进行初步筛选；若需绝对值对比实验 <span class="math inline">\(K_d\)</span>，再对代表性构象补充正态模式熵（NMODE）或准谐振近似（QH）。</p>
+</blockquote>
+<hr>
+</section>
+<section id="环境准备与安装" class="level3">
+<h3 class="anchored" data-anchor-id="环境准备与安装">6.2 环境准备与安装</h3>
+<p>gmx_MMPBSA 是 <strong>AmberTools</strong> 中 <code>MMPBSA.py</code> 的 GROMACS 适配封装，依赖 Amber 的 PB/GB 求解器与拓扑转换库。推荐通过 conda 一键安装：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建独立环境，避免与 RDKit/GROMACS 环境冲突</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> gmx_mmpbsa python=3.9 <span class="at">-y</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate gmx_mmpbsa</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装 AmberTools（包含 mmpbsa_py、sander、parmed）</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge ambertools=23</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装 gmx_MMPBSA</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install gmx_MMPBSA</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>安装后验证：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx_MMPBSA</span> <span class="at">--help</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> mmpbsa_py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>CHARMM 力场兼容性提示</strong>：gmx_MMPBSA 底层通过 <strong>parmed</strong> 将 GROMACS 拓扑（<code>.top</code>/<code>.tpr</code>）转换为 Amber 的 <code>prmtop</code>。CHARMM36m 与 CGenFF 的原子类型、LJ 参数及 1-4 相互作用缩放因子（<code>scnb=2.0</code>, <code>scee=1.0</code>）与 Amber 不同，parmed 在转换时会自动映射，但需确保你的 GROMACS 版本与 parmed 版本兼容（GROMACS 2021+ 配合 AmberTools 23 通常无问题）。</p>
+</blockquote>
+<hr>
+</section>
+<section id="输入文件准备" class="level3">
+<h3 class="anchored" data-anchor-id="输入文件准备">6.3 输入文件准备</h3>
+<p>gmx_MMPBSA 需要三类输入：拓扑、轨迹、索引组。其中拓扑与索引是最易出错的环节。</p>
+<section id="索引组定义.ndx" class="level4">
+<h4 class="anchored" data-anchor-id="索引组定义.ndx">6.3.1 索引组定义（<code>.ndx</code>）</h4>
+<p>第五章已生成 <code>index.ndx</code>，但 MM/PBSA 需要明确区分受体（Receptor）、配体（Ligand）与复合物（Complex）。重新整理索引文件：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> make_ndx <span class="at">-f</span> md_50ns.gro <span class="at">-o</span> mmpbsa.ndx <span class="op">&lt;&lt; EOF</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="st">1 | 13</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="st">name 16 Complex</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="st">name 1 Protein</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="st">name 13 LIG</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="st">q</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>编号说明：<code>1</code> 和 <code>13</code> 仅为示例，实际编号请在 <code>gmx make_ndx</code> 的列表中确认。确保 <code>Protein</code> 组包含所有蛋白原子（不含结晶水/离子），<code>LIG</code> 组仅含配体原子。</p>
+</blockquote>
+</section>
+<section id="轨迹抽稀平衡段选取" class="level4">
+<h4 class="anchored" data-anchor-id="轨迹抽稀平衡段选取">6.3.2 轨迹抽稀（平衡段选取）</h4>
+<p>50 ns 轨迹若每 10 ps 一帧，共 5000 帧。对全部帧执行 PB 求解计算量过大，且平衡初期的构象可能尚未完全弛豫。建议截取<strong>稳定段</strong>并适度抽稀：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 截取 10–50 ns 的稳定段，每 100 ps 取一帧（共 400 帧）</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> trjconv <span class="at">-f</span> md_center.xtc <span class="at">-o</span> md_mmpbsa.xtc <span class="dt">\</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-b</span> 10000 <span class="at">-e</span> 50000 <span class="at">-dt</span> 100 <span class="dt">\</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-s</span> md_50ns.tpr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>帧数建议： - <strong>快速筛选</strong>：100–200 帧，2–4 小时完成。 - <strong>发表级精度</strong>：500–1000 帧，标准误差可降至 &lt; 1.5 kcal/mol。</p>
+</section>
+<section id="拓扑文件处理" class="level4">
+<h4 class="anchored" data-anchor-id="拓扑文件处理">6.3.3 拓扑文件处理</h4>
+<p>gmx_MMPBSA 支持直接读取复合物 <code>.tpr</code> 文件，并自动根据索引组拆分受体与配体拓扑（v1.5+）。只需确保： - <code>md_50ns.tpr</code> 由第五章的 <code>md_50ns.tpr</code> 提供（包含完整力场参数）。 - 若报错 <code>prmtop conversion failed</code>，可手动用 parmed 生成 Amber 拓扑作为备用：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 备用方案：parmed 手动转换</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> parmed <span class="im">as</span> pmd</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>gromacs_top <span class="op">=</span> pmd.load_file(<span class="st">'topol.top'</span>, xyz<span class="op">=</span><span class="st">'md_50ns.gro'</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>gromacs_top.save(<span class="st">'complex.prmtop'</span>, <span class="bu">format</span><span class="op">=</span><span class="st">'amber'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="计算参数配置mmpbsa.in" class="level3">
+<h3 class="anchored" data-anchor-id="计算参数配置mmpbsa.in">6.4 计算参数配置（<code>mmpbsa.in</code>）</h3>
+<p>gmx_MMPBSA 使用 Amber 风格的输入文件控制计算行为。针对 CHARMM 力场与蛋白-配体体系，推荐配置如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&amp;general</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="dt">sys_name</span><span class="ot">=</span><span class="st">"Protein-Ligand",</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="dt">startframe</span><span class="ot">=</span><span class="st">1, endframe=400, interval=1,</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 受体/配体组编号对应 mmpbsa.ndx 中的顺序</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="dt">receptor_mol</span><span class="ot">=</span><span class="st">1, ligand_mol=13,</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="dt">verbose</span><span class="ot">=</span><span class="st">2, keep_files=0,</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="dt">/</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&amp;pb</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># PB 求解器参数</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="dt">istrng</span><span class="ot">=</span><span class="st">0.15,        # 离子强度 0.15 M，匹配第五章溶剂化条件</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="dt">indi</span><span class="ot">=</span><span class="st">2.0,           # 溶质介电常数。蛋白内部极性环境取 2.0（1.0 偏苛刻，4.0 用于高度极性口袋）</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="dt">exdi</span><span class="ot">=</span><span class="st">80.0,          # 溶剂介电常数</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="dt">fillratio</span><span class="ot">=</span><span class="st">4.0,      # 网格填充比，越大越精确，内存消耗立方增长</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="dt">probe</span><span class="ot">=</span><span class="st">1.4,          # 探针半径（Å），标准值</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="dt">molsurf</span><span class="ot">=</span><span class="st">0,          # 使用 LCPO 算法计算 SASA</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 表面张力系数：CHARMM 力场通常沿用 0.0072 kcal/(mol·Å²)</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="dt">surften</span><span class="ot">=</span><span class="st">0.0072,</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="dt">/</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="dt">&amp;decomp</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 残基分解：逐残基计算对结合能的贡献</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="dt">idecomp</span><span class="ot">=</span><span class="st">2,          # 2=基于残基对（pairwise），适合识别热点</span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="dt">dec_verbose</span><span class="ot">=</span><span class="st">3,      # 输出详细分解表</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="dt">/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>参数解读：</strong></p>
+<ul>
+<li><code>indi=2.0</code>：蛋白内部介电常数的选择是 MM/PBSA 中争议最大的参数之一。对于以疏水相互作用为主的配体，1.0 可能高估静电惩罚；对于富含氢键的极性口袋，4.0 更合适。建议对同一体系做 <strong>1.0 / 2.0 / 4.0 的敏感性测试</strong>，观察 ΔG_bind 的相对排序是否改变。</li>
+<li><code>fillratio=4.0</code>：PB 方程在蛋白表面附近求解精度敏感。若配体带电基团深入口袋深处，可提升至 6.0 以换取更平滑的介电边界。</li>
+<li><code>keep_files=0</code>：计算完成后删除中间帧的临时拓扑，节省磁盘空间。</li>
+</ul>
+<hr>
+</section>
+<section id="执行计算与并行加速" class="level3">
+<h3 class="anchored" data-anchor-id="执行计算与并行加速">6.5 执行计算与并行加速</h3>
+<p>单帧 MM/PBSA 计算量集中在 PB 方程求解，400 帧串行可能需要数小时至一天。gmx_MMPBSA 支持基于 MPI 的多帧并行：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 串行运行（调试或单帧测试）</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx_MMPBSA</span> <span class="at">-O</span> <span class="dt">\</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-i</span> mmpbsa.in <span class="dt">\</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-cs</span> md_50ns.tpr <span class="dt">\</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-ci</span> mmpbsa.ndx <span class="dt">\</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-cg</span> 1 13 <span class="dt">\</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">-ct</span> md_mmpbsa.xtc</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># MPI 并行（推荐，8 核并行处理 400 帧）</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="ex">mpirun</span> <span class="at">-np</span> 8 gmx_MMPBSA_MPI <span class="at">-O</span> <span class="dt">\</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">-i</span> mmpbsa.in <span class="dt">\</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">-cs</span> md_50ns.tpr <span class="dt">\</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">-ci</span> mmpbsa.ndx <span class="dt">\</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">-cg</span> 1 13 <span class="dt">\</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">-ct</span> md_mmpbsa.xtc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>运行监控：</strong> - 终端会逐帧输出 PB 求解进度。若某帧出现 <code>PB Bomb</code> 或 <code>sander error</code>，通常是原子坐标异常（如 NaN 或配体原子与蛋白主链重叠），需回溯检查该帧轨迹。 - 计算完成后，工作目录下生成 <code>FINAL_RESULTS_MMPBSA.dat</code> 与 <code>DECOMP_MMPBSA.dat</code>。</p>
+<hr>
+</section>
+<section id="结果解析" class="level3">
+<h3 class="anchored" data-anchor-id="结果解析">6.6 结果解析</h3>
+<section id="总结合自由能与分项能量" class="level4">
+<h4 class="anchored" data-anchor-id="总结合自由能与分项能量">6.6.1 总结合自由能与分项能量</h4>
+<p><code>FINAL_RESULTS_MMPBSA.dat</code> 的核心输出结构如下（示例）：</p>
+<pre><code>DELTA Energy Terms:
+  VDWAALS     = -42.3452  # 范德华，通常为负（吸引）
+  EEL         = -28.1234  # 气相静电
+  EPB         =  35.6789  # 极性溶剂化（去溶剂化惩罚，通常为正）
+  ENPOLAR     =  -5.2341  # 非极性溶剂化（疏水驱动，通常为负）
+  EDISPER     =   0.0000  # 色散校正（部分版本）
+  DELTA TOTAL = -40.0238  # 近似 ΔG_bind（不含熵）</code></pre>
+<p><strong>判读逻辑：</strong> - <strong>ΔG_bind ≈ -40.0 kcal/mol</strong>：这一数值对绝对亲和力明显过负（实验通常 -6 ~ -12 kcal/mol），因为尚未扣除 <code>-TΔS</code> 项。但作为<strong>相对比较</strong>，它仍然有效。 - <strong>静电 vs 疏水</strong>：若 <code>EEL</code> 与 <code>EPB</code> 几乎抵消（如本例 -28 vs +36），说明净静电贡献接近中性，结合主要由 <strong>VDWAALS + ENPOLAR</strong>（疏水效应）驱动。这类配体通常对口袋形状互补性要求高，对突变容忍度低。 - <strong>强静电锚定</strong>：若 <code>EEL</code> 显著负于 <code>EPB</code>（如 EEL=-50, EPB=+30），说明存在未被水溶剂化完全屏蔽的盐桥或强氢键，配体可能具有较高选择性。</p>
+</section>
+<section id="残基分解分析decomposition" class="level4">
+<h4 class="anchored" data-anchor-id="残基分解分析decomposition">6.6.2 残基分解分析（Decomposition）</h4>
+<p><code>DECOMP_MMPBSA.dat</code> 提供了每个氨基酸残基对结合能的贡献，是理解 SAR（构效关系）与指导优化的核心数据。提取并可视化热点残基：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 解析 DECOMP 输出（gmx_MMPBSA 也提供 API，以下为手动解析示例）</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 关注 TDC（Total Decomposition Contribution）列</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>decomp <span class="op">=</span> pd.read_csv(<span class="st">'DECOMP_MMPBSA.dat'</span>, sep<span class="op">=</span><span class="st">'</span><span class="er">\</span><span class="st">s+'</span>, skiprows<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>hotspots <span class="op">=</span> decomp[decomp[<span class="st">'TDC'</span>] <span class="op">&lt;</span> <span class="op">-</span><span class="fl">1.0</span>]  <span class="co"># 贡献 &lt; -1.0 kcal/mol 视为热点</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"热点残基（疏水/范德华主导）："</span>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hotspots[hotspots[<span class="st">'VDWAALS'</span>] <span class="op">&lt;</span> hotspots[<span class="st">'EEL'</span>]][[<span class="st">'Residue'</span>, <span class="st">'VDWAALS'</span>, <span class="st">'TDC'</span>]])</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">极性锚定残基（静电主导）："</span>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hotspots[hotspots[<span class="st">'EEL'</span>] <span class="op">&lt;</span> hotspots[<span class="st">'VDWAALS'</span>]][[<span class="st">'Residue'</span>, <span class="st">'EEL'</span>, <span class="st">'TDC'</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>典型发现：</strong> - <strong>疏水口袋壁</strong>（如 PHE82, LEU134）：VDW 贡献 -2 ~ -4 kcal/mol，是配体芳环或烷基链的”着陆区”。 - <strong>守门残基</strong>（如 ASP189, SER205）：静电贡献显著，形成氢键网络。若此处突变为非极性残基，亲和力可能断崖式下跌。 - <strong>排斥位点</strong>（TDC &gt; +0.5 kcal/mol）：提示配体某官能团与该残基存在立体冲突或电荷排斥，是下一轮优化的切除目标。</p>
+</section>
+<section id="映射至三维结构" class="level4">
+<h4 class="anchored" data-anchor-id="映射至三维结构">6.6.3 映射至三维结构</h4>
+<p>将残基分解结果映射到蛋白表面的 B-factor 或颜色梯度，可直观展示能量热点：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 PyMOL 的 Python API 或手动修改 PDB B-factor 列</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 以下为生成 PyMOL 着色脚本的快速方案</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'color_hotspots.pml'</span>, <span class="st">'w'</span>) <span class="im">as</span> f:</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"from pymol import cmd</span><span class="ch">\\</span><span class="st">n"</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"cmd.load('receptor.pdb', 'rec')</span><span class="ch">\\</span><span class="st">n"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, row <span class="kw">in</span> hotspots.iterrows():</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>        resi <span class="op">=</span> row[<span class="st">'Residue'</span>].split(<span class="st">':'</span>)[<span class="dv">1</span>]  <span class="co"># 假设格式 CHAIN:RESNUM</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>        color <span class="op">=</span> <span class="st">"red"</span> <span class="cf">if</span> row[<span class="st">'TDC'</span>] <span class="op">&lt;</span> <span class="op">-</span><span class="fl">2.0</span> <span class="cf">else</span> <span class="st">"orange"</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>        f.write(<span class="ss">f"cmd.color('</span><span class="sc">{</span>color<span class="sc">}</span><span class="ss">', 'rec and resi </span><span class="sc">{</span>resi<span class="sc">}</span><span class="ss">')</span><span class="ch">\\</span><span class="ss">n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在 PyMOL 中运行 <code>@color_hotspots.pml</code>，即可将高贡献残基标红，直接指导下一轮基于结构的药物设计（SBDD）。</p>
+<hr>
+</section>
+</section>
+<section id="方法局限与进阶方向" class="level3">
+<h3 class="anchored" data-anchor-id="方法局限与进阶方向">6.7 方法局限与进阶方向</h3>
+<p>MM/PBSA 是一条高性价比的亲和力估算路径，但需清醒认识其边界：</p>
+<ol type="1">
+<li><strong>熵贡献缺失</strong>：<code>-TΔS</code> 未纳入时，对柔性配体或大环化合物的 ΔG 估计偏负。若需绝对值，建议对末段 50 帧运行 <code>&amp;nmodes</code> 或 <code>&amp;qh</code> 模块，但计算成本增加 5–10 倍。</li>
+<li><strong>静电近似</strong>：PB 方程基于介电均质假设，对金属离子、强极化基团或质子化状态动态变化的体系（如组氨酸互变异构）描述有限。</li>
+<li><strong>采样不足</strong>：50 ns 对慢交换体系可能只捕捉到单一构象亚态。若配体 RMSD 存在多峰分布，需延长模拟或引入加速采样（aMD、metadynamics）后再做 MM/PBSA。</li>
+</ol>
+<p>当 MM/PBSA 的相对排序与实验 IC50 出现系统性偏离时，标志着该体系已触及本流程的方法天花板，此时应考虑升级至 <strong>FEP/TI</strong>（自由能微扰）或 <strong>ABFE</strong>（绝对结合自由能）框架——但那是另一个故事了。</p>
+<p>至此，我们已完成从分子对接、拓扑构建、动态模拟到结合自由能估算的完整开源计算流程。</p>
+</section>
+</section>
+<section id="七总结与展望" class="level2">
+<h2 class="anchored" data-anchor-id="七总结与展望">七、总结与展望</h2>
+<p>从第二章到第六章，我们搭建了一条完全基于开源工具的计算管线，回答了一个药物发现中最基础却最关键的问题：<strong>这个小分子与靶点之间，是否存在稳定且可量化的相互作用？</strong></p>
+<p>回顾整条链路：以 <strong>AutoDock Vina</strong> 从海量化合物中快速打捞初始结合模式；以 <strong>CHARMM-GUI</strong> 的 CGenFF 接口解决小分子力场参数化的”最后一公里”；以 <strong>GROMACS</strong> 在显式溶剂与生理离子强度下弛豫体系、捕获动态行为；最终以 <strong>gmx_MMPBSA</strong> 将纳秒尺度的构象涨落翻译为结合自由能的数值语言。五个阶段环环相扣，文件从 PDBQT 流向 Best Pose，再凝结为 GROMACS 的拓扑与轨迹，最终收敛为一个带误差棒的 ΔG_bind 估算值。</p>
+<hr>
+<section id="这套流程的方法论定位" class="level3">
+<h3 class="anchored" data-anchor-id="这套流程的方法论定位">7.1 这套流程的方法论定位</h3>
+<p>在工业界的药物发现管线中，这条链路通常被部署在<strong>苗头化合物验证（hit validation）</strong>与<strong>先导化合物优化前期（early lead optimization）</strong>之间。它的核心价值并非取代湿实验，而是在合成与纯化之前完成三重筛选：</p>
+<ol type="1">
+<li><strong>几何筛选</strong>：MD 轨迹中的配体 RMSD 与氢键占有率，直接剔除那些在动力学环境中无法维持对接姿态的”假阳性”分子。</li>
+<li><strong>热力学筛选</strong>：MM/PBSA 的 ΔG_bind 相对比较，为同源系列化合物提供亲和力排序，缩小合成清单。</li>
+<li><strong>机制筛选</strong>：残基分解分析揭示关键相互作用热点，指导下一轮 SAR 改造时”保留什么、切除什么、替换什么”。</li>
+</ol>
+<p>与高通量对接（HTVS）相比，这套流程的单分子计算成本高出 2–3 个数量级；但与一轮定向合成-活性测试的周期（数周、数万元）相比，它在 GPU 集群上消耗的只是数十小时的机时与零许可费用。</p>
+<hr>
+</section>
+<section id="局限性与边界条件" class="level3">
+<h3 class="anchored" data-anchor-id="局限性与边界条件">7.2 局限性与边界条件</h3>
+<p>清醒地认识这套流程的边界，比盲目扩展其应用范围更重要：</p>
+<ul>
+<li><strong>对接的先天近视</strong>：Vina 的打分函数基于经验权重，对金属配位、芳香-芳香相互作用、卤键等弱相互作用的描述粗糙。若靶点口袋依赖 Zn²⁺ 或卤键锚定，初始构象可能已偏离真实结合模式，后续 MD 与 MM/PBSA 只是在错误的起点上做精修。</li>
+<li><strong>力场的参数化瓶颈</strong>：CGenFF 的 Penalty Score 是小分子 MD 的”阿喀琉斯之踵”。对于结构新颖、超出训练集化学空间的配体（如大环、共价弹头、PROTAC linker），CGenFF 的参数外推可能失真，此时应果断切换至 GAFF/AMBER 或 QM/MM 混合力场。</li>
+<li><strong>MM/PBSA 的熵盲区</strong>：我们计算的是焓主导的近似 ΔG，忽略了构象熵罚与去溶剂化熵。对于柔性大环配体或诱导契合显著的体系，省略 <code>-TΔS</code> 可能导致亲和力排序反转。</li>
+<li><strong>采样时间的尺度鸿沟</strong>：50–200 ns 的常规 MD 对毫秒级的构象交换（如 loop 闭合、配体翻转）仍然只是惊鸿一瞥。若轨迹 RMSD 未收敛、配体存在多峰分布，MM/PBSA 的统计平均可能建立在偏采样之上。</li>
+</ul>
+<hr>
+</section>
+<section id="进阶方向" class="level3">
+<h3 class="anchored" data-anchor-id="进阶方向">7.3 进阶方向</h3>
+<p>当这套开源基线流程成为日常操作后，以下几个方向值得探索：</p>
+<p><strong>更精确的自由能方法</strong> - <strong>FEP/TI（Free Energy Perturbation / Thermodynamic Integration）</strong>：利用 GROMACS 的 <code>couple-moltype</code> 功能或 OpenFE、Perses 等开源框架，进行相对结合自由能（RBFE）计算。对于同源系列化合物的亲和力差值，FEP 的精度可达 1 kcal/mol 以内，足以区分亚微摩尔与纳摩尔级别的活性差异。 - <strong>ABFE（Absolute Binding Free Energy）</strong>：通过双拓扑或单拓扑解耦策略，直接计算配体从溶剂化状态到结合状态的绝对自由能变化，摆脱”相对”排序的局限。</p>
+<p><strong>增强采样与构象探索</strong> - <strong>aMD（Accelerated MD）</strong> 或 <strong>GaMD</strong>：在 GROMACS 中通过 boost 势能面降低能垒，捕捉配体的解离/再结合路径。 - <strong>Metadynamics / REST</strong>：针对特定集合变量（配体-口袋距离、二面角扭转）施加偏置势，高效采样稀有事件。</p>
+<p><strong>自动化与 AI 辅助</strong> - 将本章的 shell 命令封装为 <strong>Snakemake</strong> 或 <strong>Nextflow</strong> 工作流，实现从 SMILES 输入到 ΔG_bind 输出的无人值守计算。 - 利用 MM/PBSA 生成的残基分解数据训练图神经网络（GNN），建立”口袋-配体”相互作用指纹到结合能的代理模型（Surrogate Model），实现毫秒级推理。</p>
+<p><strong>多尺度耦合</strong> - 对配体结合/解离的过渡态，采用 <strong>QM/MM</strong> 方法（CP2K、PySCF 接口）精确描述键的断裂与形成；对长程构象变化，保留 MD 的统计优势。这种”量子活性区 + 经典环境”的混合策略，是共价抑制剂与酶催化机制研究的必经之路。</p>
+<hr>
+</section>
+<section id="结语" class="level3">
+<h3 class="anchored" data-anchor-id="结语">7.4 结语</h3>
+<p>计算化学的魅力在于，它允许我们在原子尚未被合成出来之前，先在硅基世界中预演它们的行为。本文描述的这条 Vina → CHARMM-GUI → GROMACS → gmx_MMPBSA 管线，正是这样一种”预演”的最小可行方案。它不追求绝对精确，而是追求在开源生态内、在合理的计算成本下，获得一个<strong>物理自洽、可比较、可解释</strong>的亲和力估计。</p>
+<p>最终，当我们把 MM/PBSA 输出的热点残基映射到蛋白表面，把 ΔG_bind 的排序与实验 IC50 的散点图并置，把轨迹中稳定存在的氢键与晶体学电子密度对比——我们才真正开始理解，那个在对接软件里被赋予负分的小分子，是否真的在分子动力学的喧嚣中，与靶点蛋白跳完了一支足够持久的舞。</p>
+<p>而这支舞的终章，终究要在湿实验的试管里奏响。计算只是让那声琴音，来得更早一些、更准一些。</p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/41853685/">我的分子动力学模拟相关文章</a></p>
+
+
+</section>
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section></div></main> <!-- /main -->
+<script>
+
+// 让站外链接默认在新标签页打开
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  const root = new URL(location.href).origin;
+
+  document.querySelectorAll('a[href^="http"]:not([href^="' + root + '"])')
+
+    .forEach(a => {
+
+      a.setAttribute('target', '_blank');
+
+      a.setAttribute('rel', 'noopener');
+
+    });
+
+});
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
