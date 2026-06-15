@@ -2,6 +2,36 @@
 title: "About"
 ---
 
-About this site
+## whoami
 
-还没写完
+- **ID**: CetuBone
+- **身份**: 贵州大学 博士研究生
+- **方向**: 计算化学、计算机辅助药物设计（CADD）、网络药理学
+- **常用工具**: AutoDock Vina · GROMACS · RDKit · Python · Quarto
+- **邮箱**: [bioziangz@163.com](mailto:bioziangz@163.com)
+- **GitHub**: [Cetubone](https://github.com/Cetubone)
+
+## cat ./this-site.txt
+
+这个站点用来记录我在计算化学和药物发现过程中学到的东西，包括：
+
+- 分子对接与结合自由能计算
+- 分子动力学模拟流程
+- 网络药理学与靶点预测
+- 各种折腾笔记和踩坑记录
+
+本站由 [Quarto](https://quarto.org/) 构建，部署在 [GitHub Pages](https://pages.github.com/)。
+
+## cat ./license.txt
+
+除非特别说明，本站原创内容采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 协议。
+
+## ls ./links/
+
+- [博客列表](/postNdx.qmd)
+- [GitHub Issues](https://github.com/Cetubone/cetubone.github.io/issues)
+- [给我发邮件](mailto:bioziangz@163.com)
+
+---
+
+欢迎通过邮件或 GitHub Issues 交流、提问或合作。

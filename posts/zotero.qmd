@@ -5,7 +5,7 @@ description: "如何使用Zotero在Word中插入引用。"
 categories: [Zotero]
 author:
   - name: CetuBone
-    email: bioziangz@outlook.com
+    email: bioziangz@163.com
 license: CC BY-NC-SA 4.0
 resources: "files/wps.vba.exe"
 draft: false

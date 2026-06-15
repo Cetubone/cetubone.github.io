@@ -88,7 +88,35 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n还没写完"
+    "text": "ID: CetuBone\n身份: 贵州大学 博士研究生\n方向: 计算化学、计算机辅助药物设计（CADD）、网络药理学\n常用工具: AutoDock Vina · GROMACS · RDKit · Python · Quarto\n邮箱: bioziangz@163.com\nGitHub: Cetubone"
+  },
+  {
+    "objectID": "about.html#whoami",
+    "href": "about.html#whoami",
+    "title": "About",
+    "section": "",
+    "text": "ID: CetuBone\n身份: 贵州大学 博士研究生\n方向: 计算化学、计算机辅助药物设计（CADD）、网络药理学\n常用工具: AutoDock Vina · GROMACS · RDKit · Python · Quarto\n邮箱: bioziangz@163.com\nGitHub: Cetubone"
+  },
+  {
+    "objectID": "about.html#cat-.this-site.txt",
+    "href": "about.html#cat-.this-site.txt",
+    "title": "About",
+    "section": "cat ./this-site.txt",
+    "text": "cat ./this-site.txt\n这个站点用来记录我在计算化学和药物发现过程中学到的东西，包括：\n\n分子对接与结合自由能计算\n分子动力学模拟流程\n网络药理学与靶点预测\n各种折腾笔记和踩坑记录\n\n本站由 Quarto 构建，部署在 GitHub Pages。"
+  },
+  {
+    "objectID": "about.html#cat-.license.txt",
+    "href": "about.html#cat-.license.txt",
+    "title": "About",
+    "section": "cat ./license.txt",
+    "text": "cat ./license.txt\n除非特别说明，本站原创内容采用 CC BY-NC-SA 4.0 协议。"
+  },
+  {
+    "objectID": "about.html#ls-.links",
+    "href": "about.html#ls-.links",
+    "title": "About",
+    "section": "ls ./links/",
+    "text": "ls ./links/\n\n博客列表\nGitHub Issues\n给我发邮件\n\n\n欢迎通过邮件或 GitHub Issues 交流、提问或合作。"
   },
   {
     "objectID": "posts/affinity.html",

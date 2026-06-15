@@ -30,6 +30,11 @@ body {
   overflow-x: hidden;
 }
 
+#quarto-appendix.default {
+  background-color: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+}
+
 .terminal-container {
   max-width: 900px;
   margin: 0 auto;

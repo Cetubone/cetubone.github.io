@@ -5,7 +5,7 @@ description: "如何使用Vina、GROMACS和gmx_MMPBSA计算小分子配体与靶
 categories: [AutoDock Vina, GROMACS, gmx_MMPBSA, affinity]
 author:
   - name: CetuBone
-    email: bioziangz@outlook.com
+    email: bioziangz@163.com
 license: CC BY-NC-SA 4.0
 draft: false
 ---
