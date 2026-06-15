@@ -1,0 +1,153 @@
+---
+title: "我的分子可能结合在哪些蛋白表面？"
+date: 2026-06-15
+description: "如何利用Super-PRED预测小分子潜在靶点，并使用STRING数据库可视化、富集并确定后续验证靶点"
+categories: [网络药理学, Super-PRED]
+author:
+  - name: CetuBone
+    email: bioziangz@outlook.com
+license: CC BY-NC-SA 4.0
+draft: true
+---
+
+# 问题背景
+
+拿到一个活性小分子后，最常见的疑问是：**它可能作用于哪些蛋白？** 实验筛选通量有限，而网络药理学方法可以快速给出候选靶点列表，为后续验证提供方向。
+
+本文记录一个实用流程：
+
+1. 用 **Super-PRED** 预测小分子的潜在靶点
+2. 用 **STRING** 构建蛋白互作网络并可视化
+3. 通过网络拓扑和富集分析筛选核心靶点
+4. 确定优先验证靶点
+
+# Super-PRED 靶点预测
+
+## Super-PRED 是什么
+
+Super-PRED 是一个基于**化学相似性**和**机器学习**的在线靶点预测工具。它把输入小分子与已知活性化合物库比对，返回最有可能结合的蛋白靶点及概率。
+
+## 输入准备
+
+- 分子结构：SMILES 字符串 或 SDF/MOL 文件
+- 推荐先用 RDKit、Open Babel 或 ChemDraw 检查/标准化 SMILES
+
+## 操作步骤
+
+1. 打开 Super-PRED 网站：https://prediction.charite.de/subpages/target_prediction.php
+![](pics/PixPin_2026-06-15_17-06-59.png){fig-align="center"}
+2. 选择输入方式（SMILES / Draw / Upload）
+3. 提交任务，等待预测完成
+4. 下载结果表格，关注以下列：
+   - `Target Name`：预测靶点
+   - `Probability`：预测概率
+   - `Uniprot ID`：蛋白在 Uniprot 数据库的编号
+![](pics/PixPin_2026-06-15_17-09-52.png){fig-align="center"}
+
+## 结果筛选建议
+
+- 保留 `Probability ≥ 0.6` 或排名靠前的靶点
+- Super-PRED 默认物种为人类，如研究对象为其他生物建议利用 Uniprot 数据库的 ID mapping 功能导出靶点蛋白列表的FASTA序列文件用于后续PPI分析。
+![](pics/uniprotIDMapping.png){fig-align="center"}
+![](pics/uniprotdown.png){fig-align="center"}
+![](pics/uniprotdownsele.png){fig-align="center"}
+
+# STRING 网络构建与分析
+
+## STRING 是什么
+
+STRING（Search Tool for the Retrieval of Interacting Genes/Proteins）是一个整合已知和预测蛋白互作关系的数据库，支持直接上传基因列表构建 PPI 网络。
+
+## 上传靶点列表
+
+1. 打开 https://string-db.org/
+2. 选择 “Search” → 在*Multiple Proteins by Names / Identifiers*中输入整理好的 Gene Symbol 列表
+3. 选择物种（人类选 *Homo sapiens*，蚜虫选 *aphididae (taxid:27482)*）
+
+::: {.callout-warning}
+如果研究物种是人以外的物种例如蚜虫，可以从Uniport获取Super-PRED预测结果的蛋白序列文件，并将其输入String数据库的*Single / Multiple Proteins by Sequence*工具，同时输入物种，该工具会进行blast将序列比对到目标物种。
+![](pics/stringFASTA.png){fig-align="center"}
+![](pics/stringblast.png){fig-align="center"}
+:::
+
+4. 提交后进入网络视图
+
+![](pics/stringNetwork.png){fig-align="center"}
+## 网络可视化调整
+
+- 使用 Analysis 面板查看功能富集
+- 导出网络图为 PNG/SVG 或下载 TSV 边列表
+
+# 核心靶点筛选
+
+## 拓扑参数解读
+
+将 STRING 导出的边列表导入 Cytoscape 或用 Python/R 计算：
+
+| 参数 | 含义 | 筛选意义 |
+|------|------|---------|
+| Degree | 连接数 | 直接互作伙伴越多，越可能是核心枢纽 |
+| Betweenness Centrality | 中介中心性 | 控制信息流通的关键节点 |
+| Closeness Centrality | 接近中心性 | 与其他节点平均距离短 |
+| Eigenvector Centrality | 特征向量中心性 | 连接其他重要节点的程度 |
+
+## 推荐筛选策略
+
+- 综合 Degree + Betweenness 排序，取 Top 10–20
+- 结合 Super-PRED 原始概率打分进行加权
+- 优先选择已有文献报道与研究方向相关的靶点
+
+# 功能富集与通路定位
+
+## 使用 STRING 内置分析
+
+提交基因列表后，STRING 会自动给出：
+
+- GO 富集（BP / CC / MF）
+- KEGG 通路富集
+- 蛋白结构域富集
+
+## 结果解读要点
+
+- 关注与表型/疾病高度相关的通路
+- 通路中的多个靶点同时出现，提示该通路可能是作用机制
+- 把通路信息与核心靶点对应，形成“小分子—核心靶点—关键通路”的假说链条
+
+# 确定后续验证靶点
+
+## 综合排序
+
+建议从以下维度给候选靶点评分：
+
+1. **预测可靠性**：Super-PRED 概率 / 相似度
+2. **网络重要性**：拓扑参数排名
+3. **通路相关性**：是否落在关键通路中
+4. **实验可行性**：是否有商业化抗体、抑制剂、检测方法
+5. **文献支持**：是否与已知药理作用一致
+
+## 验证优先级建议
+
+| 优先级 | 特征 | 验证方式 |
+|--------|------|---------|
+| 高 | 高预测分 + 高网络中心性 + 相关通路 | 分子对接、SPR/CETSA、基因敲低/过表达 |
+| 中 | 单项突出或文献支持 | 报告基因、酶活抑制 |
+| 低 | 仅预测分高但无后续支持 | 作为备选，暂不验证 |
+
+## 结合计算验证
+参考本站另一文章《[这个小分子和靶点存在相互作用吗？](posts/affinity.qmd)》
+
+# 局限性与注意事项
+
+- 预测结果是**假说**，必须通过实验验证
+- Super-PRED 训练集偏向已知药物/配体，新颖骨架预测可能不准
+- STRING 的互作关系包含预测结果，需结合实验证据判断
+- 物种选择要一致，避免把人类疾病靶点与小鼠/大鼠数据混用
+
+# 参考资源
+
+- Super-PRED：https://prediction.charite.de/subpages/target_prediction.php
+- STRING：https://string-db.org/
+- Cytoscape：https://cytoscape.org/
+- Szklarczyk, D. et al. STRING v12: protein–protein association networks. *Nucleic Acids Research*, 2025.
+
+
