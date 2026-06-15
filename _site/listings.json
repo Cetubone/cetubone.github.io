@@ -2,6 +2,7 @@
   {
     "listing": "/postNdx.html",
     "items": [
+      "/posts/network-pharmacology.html",
       "/posts/affinity.html",
       "/posts/conda.html",
       "/posts/zotero.html",

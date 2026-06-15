@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="CetuBone">
+<meta name="dcterms.date" content="2026-06-15">
+<meta name="description" content="如何利用Super-PRED预测小分子潜在靶点，并使用STRING数据库可视化、富集并确定后续验证靶点">
 
-<title>全部文章 – Cetubone</title>
+<title>我的分子可能结合在哪些蛋白表面？ – Cetubone</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,25 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dc37ba3c1cae6ddf925fd6a821c182b0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-dc37ba3c1cae6ddf925fd6a821c182b0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,77 +73,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-description','listing-date','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Cetubone</span>
     </a>
   </div>
@@ -153,11 +96,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./postNdx.html" aria-current="page"> 
+    <a class="nav-link" href="../postNdx.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
   <li class="nav-item">
@@ -165,7 +108,7 @@ window.Quarto = {
 <span class="menu-text">Issues</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -176,23 +119,44 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">全部文章</h1>
+<h1 class="title">我的分子可能结合在哪些蛋白表面？</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">网络药理学</div>
+    <div class="quarto-category">Super-PRED</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    如何利用Super-PRED预测小分子潜在靶点，并使用STRING数据库可视化、富集并确定后续验证靶点
+  </div>
 </div>
 
 
+<div class="quarto-title-meta">
 
-<div class="quarto-title-meta column-page">
-
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>CetuBone <a href="mailto:bioziangz@outlook.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 15, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -202,143 +166,228 @@ window.Quarto = {
 </header>
 
 
+<section id="问题背景" class="level1">
+<h1>问题背景</h1>
+<p>拿到一个活性小分子后，最常见的疑问是：<strong>它可能作用于哪些蛋白？</strong> 实验筛选通量有限，而网络药理学方法可以快速给出候选靶点列表，为后续验证提供方向。</p>
+<p>本文记录一个实用流程：</p>
+<ol type="1">
+<li>用 <strong>Super-PRED</strong> 预测小分子的潜在靶点</li>
+<li>用 <strong>STRING</strong> 构建蛋白互作网络并可视化</li>
+<li>通过网络拓扑和富集分析筛选核心靶点</li>
+<li>确定优先验证靶点</li>
+</ol>
+</section>
+<section id="super-pred-靶点预测" class="level1">
+<h1>Super-PRED 靶点预测</h1>
+<section id="super-pred-是什么" class="level2">
+<h2 class="anchored" data-anchor-id="super-pred-是什么">Super-PRED 是什么</h2>
+<p>Super-PRED 是一个基于<strong>化学相似性</strong>和<strong>机器学习</strong>的在线靶点预测工具。它把输入小分子与已知活性化合物库比对，返回最有可能结合的蛋白靶点及概率。</p>
+</section>
+<section id="输入准备" class="level2">
+<h2 class="anchored" data-anchor-id="输入准备">输入准备</h2>
+<ul>
+<li>分子结构：SMILES 字符串 或 SDF/MOL 文件</li>
+<li>推荐先用 RDKit、Open Babel 或 ChemDraw 检查/标准化 SMILES</li>
+</ul>
+</section>
+<section id="操作步骤" class="level2">
+<h2 class="anchored" data-anchor-id="操作步骤">操作步骤</h2>
+<ol type="1">
+<li>打开 Super-PRED 网站：https://prediction.charite.de/subpages/target_prediction.php <img src="..\pics/PixPin_2026-06-15_17-06-59.png" class="img-fluid quarto-figure quarto-figure-center"></li>
+<li>选择输入方式（SMILES / Draw / Upload）</li>
+<li>提交任务，等待预测完成</li>
+<li>下载结果表格，关注以下列：
+<ul>
+<li><code>Target Name</code>：预测靶点</li>
+<li><code>Probability</code>：预测概率</li>
+<li><code>Uniprot ID</code>：蛋白在 Uniprot 数据库的编号 <img src="..\pics/PixPin_2026-06-15_17-09-52.png" class="img-fluid quarto-figure quarto-figure-center"></li>
+</ul></li>
+</ol>
+</section>
+<section id="结果筛选建议" class="level2">
+<h2 class="anchored" data-anchor-id="结果筛选建议">结果筛选建议</h2>
+<ul>
+<li>保留 <code>Probability ≥ 0.6</code> 或排名靠前的靶点</li>
+<li>Super-PRED 默认物种为人类，如研究对象为其他生物建议利用 Uniprot 数据库的 ID mapping 功能导出靶点蛋白列表的FASTA序列文件用于后续PPI分析。 <img src="..\pics/uniprotIDMapping.png" class="img-fluid quarto-figure quarto-figure-center"> <img src="..\pics/uniprotdown.png" class="img-fluid quarto-figure quarto-figure-center"> <img src="..\pics/uniprotdownsele.png" class="img-fluid quarto-figure quarto-figure-center"></li>
+</ul>
+</section>
+</section>
+<section id="string-网络构建与分析" class="level1">
+<h1>STRING 网络构建与分析</h1>
+<section id="string-是什么" class="level2">
+<h2 class="anchored" data-anchor-id="string-是什么">STRING 是什么</h2>
+<p>STRING（Search Tool for the Retrieval of Interacting Genes/Proteins）是一个整合已知和预测蛋白互作关系的数据库，支持直接上传基因列表构建 PPI 网络。</p>
+</section>
+<section id="上传靶点列表" class="level2">
+<h2 class="anchored" data-anchor-id="上传靶点列表">上传靶点列表</h2>
+<ol type="1">
+<li>打开 https://string-db.org/</li>
+<li>选择 “Search” → 在<em>Multiple Proteins by Names / Identifiers</em>中输入整理好的 Gene Symbol 列表</li>
+<li>选择物种（人类选 <em>Homo sapiens</em>，蚜虫选 <em>aphididae (taxid:27482)</em>）</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>如果研究物种是人以外的物种例如蚜虫，可以从Uniport获取Super-PRED预测结果的蛋白序列文件，并将其输入String数据库的<em>Single / Multiple Proteins by Sequence</em>工具，同时输入物种，该工具会进行blast将序列比对到目标物种。 <img src="..\pics/stringFASTA.png" class="img-fluid quarto-figure quarto-figure-center"> <img src="..\pics/stringblast.png" class="img-fluid quarto-figure quarto-figure-center"></p>
+</div>
+</div>
+<ol start="4" type="1">
+<li>提交后进入网络视图</li>
+</ol>
+<p><img src="..\pics/stringNetwork.png" class="img-fluid quarto-figure quarto-figure-center"> ## 网络可视化调整</p>
+<ul>
+<li>使用 Analysis 面板查看功能富集</li>
+<li>导出网络图为 PNG/SVG 或下载 TSV 边列表</li>
+</ul>
+</section>
+</section>
+<section id="核心靶点筛选" class="level1">
+<h1>核心靶点筛选</h1>
+<section id="拓扑参数解读" class="level2">
+<h2 class="anchored" data-anchor-id="拓扑参数解读">拓扑参数解读</h2>
+<p>将 STRING 导出的边列表导入 Cytoscape 或用 Python/R 计算：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>含义</th>
+<th>筛选意义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Degree</td>
+<td>连接数</td>
+<td>直接互作伙伴越多，越可能是核心枢纽</td>
+</tr>
+<tr class="even">
+<td>Betweenness Centrality</td>
+<td>中介中心性</td>
+<td>控制信息流通的关键节点</td>
+</tr>
+<tr class="odd">
+<td>Closeness Centrality</td>
+<td>接近中心性</td>
+<td>与其他节点平均距离短</td>
+</tr>
+<tr class="even">
+<td>Eigenvector Centrality</td>
+<td>特征向量中心性</td>
+<td>连接其他重要节点的程度</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="推荐筛选策略" class="level2">
+<h2 class="anchored" data-anchor-id="推荐筛选策略">推荐筛选策略</h2>
+<ul>
+<li>综合 Degree + Betweenness 排序，取 Top 10–20</li>
+<li>结合 Super-PRED 原始概率打分进行加权</li>
+<li>优先选择已有文献报道与研究方向相关的靶点</li>
+</ul>
+</section>
+</section>
+<section id="功能富集与通路定位" class="level1">
+<h1>功能富集与通路定位</h1>
+<section id="使用-string-内置分析" class="level2">
+<h2 class="anchored" data-anchor-id="使用-string-内置分析">使用 STRING 内置分析</h2>
+<p>提交基因列表后，STRING 会自动给出：</p>
+<ul>
+<li>GO 富集（BP / CC / MF）</li>
+<li>KEGG 通路富集</li>
+<li>蛋白结构域富集 <img src="..\pics/stringEnrich.png" class="img-fluid quarto-figure quarto-figure-center"></li>
+</ul>
+</section>
+<section id="结果解读要点" class="level2">
+<h2 class="anchored" data-anchor-id="结果解读要点">结果解读要点</h2>
+<ul>
+<li>关注与表型/疾病高度相关的通路</li>
+<li>通路中的多个靶点同时出现，提示该通路可能是作用机制</li>
+<li>把通路信息与核心靶点对应，形成“小分子—核心靶点—关键通路”的假说链条</li>
+</ul>
+</section>
+</section>
+<section id="确定后续验证靶点" class="level1">
+<h1>确定后续验证靶点</h1>
+<section id="综合排序" class="level2">
+<h2 class="anchored" data-anchor-id="综合排序">综合排序</h2>
+<p>建议从以下维度给候选靶点评分：</p>
+<ol type="1">
+<li><strong>预测可靠性</strong>：Super-PRED 概率 / 相似度</li>
+<li><strong>网络重要性</strong>：拓扑参数排名</li>
+<li><strong>通路相关性</strong>：是否落在关键通路中</li>
+<li><strong>实验可行性</strong>：是否有商业化抗体、抑制剂、检测方法</li>
+<li><strong>文献支持</strong>：是否与已知药理作用一致</li>
+</ol>
+</section>
+<section id="验证优先级建议" class="level2">
+<h2 class="anchored" data-anchor-id="验证优先级建议">验证优先级建议</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 26%">
+<col style="width: 39%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>优先级</th>
+<th>特征</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>高</td>
+<td>高预测分 + 高网络中心性 + 相关通路</td>
+<td>分子对接、SPR/CETSA、基因敲低/过表达</td>
+</tr>
+<tr class="even">
+<td>中</td>
+<td>单项突出或文献支持</td>
+<td>报告基因、酶活抑制</td>
+</tr>
+<tr class="odd">
+<td>低</td>
+<td>仅预测分高但无后续支持</td>
+<td>作为备选，暂不验证</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="结合亲和力的计算验证" class="level2">
+<h2 class="anchored" data-anchor-id="结合亲和力的计算验证">结合亲和力的计算验证</h2>
+<p>参考本站另一文章《<a href="../posts/affinity.html">这个小分子和靶点存在相互作用吗？</a>》 可计算结合亲和力后选取亲和力较强的蛋白-配体对进行湿实验验证。</p>
+</section>
+</section>
+<section id="局限性与注意事项" class="level1">
+<h1>局限性与注意事项</h1>
+<ul>
+<li>预测结果是<strong>假说</strong>，必须通过实验验证</li>
+<li>Super-PRED 训练集偏向已知药物/配体，新颖骨架预测可能不准</li>
+<li>STRING 的互作关系包含预测结果，需结合实验证据判断</li>
+</ul>
+</section>
+<section id="参考资源" class="level1">
+<h1>参考资源</h1>
+<ul>
+<li>Super-PRED: https://prediction.charite.de/subpages/target_prediction.php</li>
+<li>Uniprot:</li>
+<li>STRING: https://string-db.org/</li>
+<li>Cytoscape: https://cytoscape.org/</li>
+<li>Szklarczyk, D. et al.&nbsp;STRING v12: protein–protein association networks. <em>Nucleic Acids Research</em>, 2025.</li>
+</ul>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="JUU3JUJEJTkxJUU3JUJCJTlDJUU4JThEJUFGJUU3JTkwJTg2JUU1JUFEJUE2JTJDU3VwZXItUFJFRA==" data-listing-date-sort="1781452800000" data-listing-file-modified-sort="1781520156977" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="256">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/network-pharmacology.html" class="no-external">我的分子可能结合在哪些蛋白表面？</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU3JUJEJTkxJUU3JUJCJTlDJUU4JThEJUFGJUU3JTkwJTg2JUU1JUFEJUE2'); return false;">网络药理学</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U3VwZXItUFJFRA=='); return false;">Super-PRED</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/network-pharmacology.html" class="no-external">
-<p>如何利用Super-PRED预测小分子潜在靶点，并使用STRING数据库可视化、富集并确定后续验证靶点</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/network-pharmacology.html" class="no-external">
-<div class="listing-date">
-Jun 15, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="QXV0b0RvY2slMjBWaW5hJTJDR1JPTUFDUyUyQ2dteF9NTVBCU0ElMkNhZmZpbml0eQ==" data-listing-date-sort="1780329600000" data-listing-file-modified-sort="1781516676149" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3481">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/affinity.html" class="no-external">这个小分子和靶点存在相互作用吗？</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('QXV0b0RvY2slMjBWaW5h'); return false;">AutoDock Vina</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('R1JPTUFDUw=='); return false;">GROMACS</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Z214X01NUEJTQQ=='); return false;">gmx_MMPBSA</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YWZmaW5pdHk='); return false;">affinity</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/affinity.html" class="no-external">
-<p>如何使用Vina、GROMACS和gmx_MMPBSA计算小分子配体与靶点蛋白的相互作用</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/affinity.html" class="no-external">
-<div class="listing-date">
-Jun 2, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Y29uZGElMkNSJTJDUHl0aG9u" data-listing-date-sort="1769443200000" data-listing-file-modified-sort="1769654264736" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="31">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/conda.html" class="no-external">Conda这么用</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y29uZGE='); return false;">conda</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/conda.html" class="no-external">
-<p>Conda介绍及使用方法。</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/conda.html" class="no-external">
-<div class="listing-date">
-Jan 27, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Wm90ZXJv" data-listing-date-sort="1769356800000" data-listing-file-modified-sort="1769654284039" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="131">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/zotero.html" class="no-external">Zotero这么用</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Wm90ZXJv'); return false;">Zotero</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/zotero.html" class="no-external">
-<p>如何使用Zotero在Word中插入引用。</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/zotero.html" class="no-external">
-<div class="listing-date">
-Jan 26, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="VlN2b2RlJTJDSnVweXRlciUyQ1IlMkNQeXRob24=" data-listing-date-sort="1768838400000" data-listing-file-modified-sort="1769654274326" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="229">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/NoteBook_via_VScode.html" class="no-external">Jupyter NoteBook via VScode</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VlN2b2Rl'); return false;">VSvode</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('SnVweXRlcg=='); return false;">Jupyter</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/NoteBook_via_VScode.html" class="no-external">
-<p>如何使用 VScode 远程连接（ssh）服务器，并在 Jupyter NoteBook 中运行 R 及 Python 代码。</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/NoteBook_via_VScode.html" class="no-external">
-<div class="listing-date">
-Jan 20, 2026
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section></div></main> <!-- /main -->
 <script>
 
 // 让站外链接默认在新标签页打开
