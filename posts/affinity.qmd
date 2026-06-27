@@ -19,7 +19,7 @@ draft: false
 接下来，我们将逐步搭建这一流程，看看如何真正算清"这个小分子和靶点之间，到底有多大程度的相互作用"。
 
 # 二、整体计算流程概览
-![](/pics/pipeline_flowchart.png)
+![](/pics/affinity/pipeline_flowchart.png)
 
 # 三、分子对接：获取初始结合构象（AutoDock Vina）
 ### 3.1 受体蛋白准备：从 PDB 到 PDBQT
@@ -682,7 +682,7 @@ which mmpbsa_py
 
 gmx_MMPBSA 需要三类输入：拓扑、轨迹、索引组。其中拓扑与索引是最易出错的环节。
 
-#### 6.3.1 索引组定义（`.ndx`）
+#### 6.3.1 索引组定义（.ndx）
 
 第五章已生成 `index.ndx`，但 MM/PBSA 需要明确区分受体（Receptor）、配体（Ligand）与复合物（Complex）。重新整理索引文件：
 
@@ -728,7 +728,7 @@ gromacs_top.save('complex.prmtop', format='amber')
 
 ---
 
-### 6.4 计算参数配置（`mmpbsa.in`）
+### 6.4 计算参数配置（mmpbsa.in）
 
 gmx_MMPBSA 使用 Amber 风格的输入文件控制计算行为。针对 CHARMM 力场与蛋白-配体体系，推荐配置如下：
 
