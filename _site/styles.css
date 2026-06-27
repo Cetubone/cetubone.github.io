@@ -16,6 +16,28 @@
   --font-mono: 'Consolas', 'Monaco', 'Lucida Console', 'Liberation Mono', 'Courier New', monospace;
 }
 
+#quarto-sidebar,
+#quarto-sidebar .sidebar,
+.sidebar.sidebar-navigation,
+.sidebar nav[role="doc-toc"] {
+  background-color: var(--bg-color) !important;
+}
+
+#quarto-sidebar .sidebar nav[role="doc-toc"] > ul a {
+  border-left-color: var(--border-color);
+  color: var(--fg-color);
+}
+
+#quarto-sidebar .sidebar nav[role="doc-toc"] > h2#toc-title {
+  color: var(--fg-color);
+}
+
+#quarto-sidebar .sidebar nav[role="doc-toc"] ul > li > a:hover,
+#quarto-sidebar .sidebar nav[role="doc-toc"] ul > li > a.active {
+  color: var(--accent-blue) !important;
+  border-left-color: var(--accent-blue);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
