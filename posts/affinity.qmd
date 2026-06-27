@@ -8,6 +8,10 @@ author:
     email: bioziangz@163.com
 license: CC BY-NC-SA 4.0
 draft: false
+toc: true
+toc-depth: 3
+toc-location: left
+toc-title: contents
 ---
 # 一、前言
 在药物发现的早期阶段，我们往往先通过虚拟筛选从海量化合物库中"打捞"出可能有效的苗头分子（hit）。但 docking 给出的结合模式只是一个静态快照，打分函数也仅仅是基于经验的近似估计——它回答了"这个小分子能否塞进口袋"，却没有真正回答"这个小分子与靶点之间是否存在稳定、可量化的相互作用"。

@@ -142,7 +142,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -185,8 +185,59 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">contents</h2>
+   
+  <ul>
+  <li><a href="#一前言" id="toc-一前言" class="nav-link active" data-scroll-target="#一前言">一、前言</a></li>
+  <li><a href="#二整体计算流程概览" id="toc-二整体计算流程概览" class="nav-link" data-scroll-target="#二整体计算流程概览">二、整体计算流程概览</a></li>
+  <li><a href="#三分子对接获取初始结合构象autodock-vina" id="toc-三分子对接获取初始结合构象autodock-vina" class="nav-link" data-scroll-target="#三分子对接获取初始结合构象autodock-vina">三、分子对接：获取初始结合构象（AutoDock Vina）</a>
+  <ul class="collapse">
+  <li><a href="#受体蛋白准备从-pdb-到-pdbqt" id="toc-受体蛋白准备从-pdb-到-pdbqt" class="nav-link" data-scroll-target="#受体蛋白准备从-pdb-到-pdbqt">3.1 受体蛋白准备：从 PDB 到 PDBQT</a></li>
+  <li><a href="#小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化" id="toc-小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化" class="nav-link" data-scroll-target="#小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化">3.2 小分子配体准备：RDKit 驱动的 3D 构象生成与能量最小化</a></li>
+  <li><a href="#搜索空间定义pymol-插件-getbox-确定-grid-box" id="toc-搜索空间定义pymol-插件-getbox-确定-grid-box" class="nav-link" data-scroll-target="#搜索空间定义pymol-插件-getbox-确定-grid-box">3.3 搜索空间定义：PyMOL 插件 getbox 确定 Grid Box</a></li>
+  <li><a href="#命令行运行对接与结果筛选" id="toc-命令行运行对接与结果筛选" class="nav-link" data-scroll-target="#命令行运行对接与结果筛选">3.4 命令行运行对接与结果筛选</a></li>
+  <li><a href="#四md-模拟输入文件准备charmm-gui" id="toc-四md-模拟输入文件准备charmm-gui" class="nav-link" data-scroll-target="#四md-模拟输入文件准备charmm-gui">四、MD 模拟输入文件准备（CHARMM-GUI）</a>
+  <ul class="collapse">
+  <li><a href="#对接后复合物的格式整理" id="toc-对接后复合物的格式整理" class="nav-link" data-scroll-target="#对接后复合物的格式整理">4.1 对接后复合物的格式整理</a></li>
+  <li><a href="#配体力场参数cgenff-在线生成与质量评估" id="toc-配体力场参数cgenff-在线生成与质量评估" class="nav-link" data-scroll-target="#配体力场参数cgenff-在线生成与质量评估">4.2 配体力场参数：CGenFF 在线生成与质量评估</a></li>
+  <li><a href="#charmm-gui-solution-builder-操作流" id="toc-charmm-gui-solution-builder-操作流" class="nav-link" data-scroll-target="#charmm-gui-solution-builder-操作流">4.3 CHARMM-GUI Solution Builder 操作流</a></li>
+  <li><a href="#拓扑文件整合与-gromacs-适配检查" id="toc-拓扑文件整合与-gromacs-适配检查" class="nav-link" data-scroll-target="#拓扑文件整合与-gromacs-适配检查">4.4 拓扑文件整合与 GROMACS 适配检查</a></li>
+  <li><a href="#快速验证能否成功编译运行" id="toc-快速验证能否成功编译运行" class="nav-link" data-scroll-target="#快速验证能否成功编译运行">4.5 快速验证：能否成功编译运行？</a></li>
+  </ul></li>
+  <li><a href="#五分子动力学模拟gromacs" id="toc-五分子动力学模拟gromacs" class="nav-link" data-scroll-target="#五分子动力学模拟gromacs">五、分子动力学模拟（GROMACS）</a>
+  <ul class="collapse">
+  <li><a href="#能量最小化energy-minimization" id="toc-能量最小化energy-minimization" class="nav-link" data-scroll-target="#能量最小化energy-minimization">5.1 能量最小化（Energy Minimization）</a></li>
+  <li><a href="#平衡化阶段nvt-与-npt" id="toc-平衡化阶段nvt-与-npt" class="nav-link" data-scroll-target="#平衡化阶段nvt-与-npt">5.2 平衡化阶段：NVT 与 NPT</a></li>
+  <li><a href="#生产模拟production-md" id="toc-生产模拟production-md" class="nav-link" data-scroll-target="#生产模拟production-md">5.3 生产模拟（Production MD）</a></li>
+  <li><a href="#轨迹质量评估" id="toc-轨迹质量评估" class="nav-link" data-scroll-target="#轨迹质量评估">5.4 轨迹质量评估</a></li>
+  </ul></li>
+  <li><a href="#六结合自由能计算gmx_mmpbsa" id="toc-六结合自由能计算gmx_mmpbsa" class="nav-link" data-scroll-target="#六结合自由能计算gmx_mmpbsa">六、结合自由能计算（gmx_MMPBSA）</a>
+  <ul class="collapse">
+  <li><a href="#mmpbsa-方法原理简述" id="toc-mmpbsa-方法原理简述" class="nav-link" data-scroll-target="#mmpbsa-方法原理简述">6.1 MM/PBSA 方法原理简述</a></li>
+  <li><a href="#环境准备与安装" id="toc-环境准备与安装" class="nav-link" data-scroll-target="#环境准备与安装">6.2 环境准备与安装</a></li>
+  <li><a href="#输入文件准备" id="toc-输入文件准备" class="nav-link" data-scroll-target="#输入文件准备">6.3 输入文件准备</a></li>
+  <li><a href="#计算参数配置mmpbsa.in" id="toc-计算参数配置mmpbsa.in" class="nav-link" data-scroll-target="#计算参数配置mmpbsa.in">6.4 计算参数配置（mmpbsa.in）</a></li>
+  <li><a href="#执行计算与并行加速" id="toc-执行计算与并行加速" class="nav-link" data-scroll-target="#执行计算与并行加速">6.5 执行计算与并行加速</a></li>
+  <li><a href="#结果解析" id="toc-结果解析" class="nav-link" data-scroll-target="#结果解析">6.6 结果解析</a></li>
+  <li><a href="#方法局限与进阶方向" id="toc-方法局限与进阶方向" class="nav-link" data-scroll-target="#方法局限与进阶方向">6.7 方法局限与进阶方向</a></li>
+  </ul></li>
+  <li><a href="#七总结与展望" id="toc-七总结与展望" class="nav-link" data-scroll-target="#七总结与展望">七、总结与展望</a>
+  <ul class="collapse">
+  <li><a href="#这套流程的方法论定位" id="toc-这套流程的方法论定位" class="nav-link" data-scroll-target="#这套流程的方法论定位">7.1 这套流程的方法论定位</a></li>
+  <li><a href="#局限性与边界条件" id="toc-局限性与边界条件" class="nav-link" data-scroll-target="#局限性与边界条件">7.2 局限性与边界条件</a></li>
+  <li><a href="#进阶方向" id="toc-进阶方向" class="nav-link" data-scroll-target="#进阶方向">7.3 进阶方向</a></li>
+  <li><a href="#结语" id="toc-结语" class="nav-link" data-scroll-target="#结语">7.4 结语</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 

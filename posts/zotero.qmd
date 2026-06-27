@@ -9,6 +9,10 @@ author:
 license: CC BY-NC-SA 4.0
 resources: "files/wps.vba.exe"
 draft: false
+toc: true
+toc-depth: 3
+toc-location: left
+toc-title: contents
 ---
 
 # Zotero是什么
