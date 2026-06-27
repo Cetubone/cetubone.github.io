@@ -193,14 +193,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="操作步骤" class="level2">
 <h2 class="anchored" data-anchor-id="操作步骤">操作步骤</h2>
 <ol type="1">
-<li>打开 Super-PRED 网站：https://prediction.charite.de/subpages/target_prediction.php <img src="..\pics/PixPin_2026-06-15_17-06-59.png" class="img-fluid quarto-figure quarto-figure-center"></li>
+<li>打开 Super-PRED 网站：https://prediction.charite.de/subpages/target_prediction.php <img src="..\pics/network-pharmacology/PixPin_2026-06-15_17-06-59.png" class="img-fluid quarto-figure quarto-figure-center"></li>
 <li>选择输入方式（SMILES / Draw / Upload）</li>
 <li>提交任务，等待预测完成</li>
 <li>下载结果表格，关注以下列：
 <ul>
 <li><code>Target Name</code>：预测靶点</li>
 <li><code>Probability</code>：预测概率</li>
-<li><code>Uniprot ID</code>：蛋白在 Uniprot 数据库的编号 <img src="..\pics/PixPin_2026-06-15_17-09-52.png" class="img-fluid quarto-figure quarto-figure-center"></li>
+<li><code>Uniprot ID</code>：蛋白在 Uniprot 数据库的编号 <img src="..\pics/network-pharmacology/PixPin_2026-06-15_17-09-52.png" class="img-fluid quarto-figure quarto-figure-center"></li>
 </ul></li>
 </ol>
 </section>
@@ -208,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="结果筛选建议">结果筛选建议</h2>
 <ul>
 <li>保留 <code>Probability ≥ 0.6</code> 或排名靠前的靶点</li>
-<li>Super-PRED 默认物种为人类，如研究对象为其他生物建议利用 Uniprot 数据库的 ID mapping 功能导出靶点蛋白列表的FASTA序列文件用于后续PPI分析。 <img src="..\pics/uniprotIDMapping.png" class="img-fluid quarto-figure quarto-figure-center"> <img src="..\pics/uniprotdown.png" class="img-fluid quarto-figure quarto-figure-center"> <img src="..\pics/uniprotdownsele.png" class="img-fluid quarto-figure quarto-figure-center"></li>
+<li>Super-PRED 默认物种为人类，如研究对象为其他生物建议利用 Uniprot 数据库的 ID mapping 功能导出靶点蛋白列表的FASTA序列文件用于后续PPI分析。 <img src="..\pics/network-pharmacology/uniprotIDMapping.png" class="img-fluid quarto-figure quarto-figure-center"> <img src="..\pics/network-pharmacology/uniprotdown.png" class="img-fluid quarto-figure quarto-figure-center"> <img src="..\pics/network-pharmacology/uniprotdownsele.png" class="img-fluid quarto-figure quarto-figure-center"></li>
 </ul>
 </section>
 </section>
@@ -235,13 +235,13 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>如果研究物种是人以外的物种例如蚜虫，可以从Uniport获取Super-PRED预测结果的蛋白序列文件，并将其输入String数据库的<em>Single / Multiple Proteins by Sequence</em>工具，同时输入物种，该工具会进行blast将序列比对到目标物种。 <img src="..\pics/stringFASTA.png" class="img-fluid quarto-figure quarto-figure-center"> <img src="..\pics/stringblast.png" class="img-fluid quarto-figure quarto-figure-center"></p>
+<p>如果研究物种是人以外的物种例如蚜虫，可以从Uniport获取Super-PRED预测结果的蛋白序列文件，并将其输入String数据库的<em>Single / Multiple Proteins by Sequence</em>工具，同时输入物种，该工具会进行blast将序列比对到目标物种。 <img src="..\pics/network-pharmacology/stringFASTA.png" class="img-fluid quarto-figure quarto-figure-center"> <img src="..\pics/network-pharmacology/stringblast.png" class="img-fluid quarto-figure quarto-figure-center"></p>
 </div>
 </div>
 <ol start="4" type="1">
 <li>提交后进入网络视图</li>
 </ol>
-<p><img src="..\pics/stringNetwork.png" class="img-fluid quarto-figure quarto-figure-center"> ## 网络可视化调整</p>
+<p><img src="..\pics/network-pharmacology/stringNetwork.png" class="img-fluid quarto-figure quarto-figure-center"> ## 网络可视化调整</p>
 <ul>
 <li>使用 Analysis 面板查看功能富集</li>
 <li>导出网络图为 PNG/SVG 或下载 TSV 边列表</li>
@@ -302,7 +302,7 @@ Warning
 <ul>
 <li>GO 富集（BP / CC / MF）</li>
 <li>KEGG 通路富集</li>
-<li>蛋白结构域富集 <img src="..\pics/stringEnrich.png" class="img-fluid quarto-figure quarto-figure-center"></li>
+<li>蛋白结构域富集 <img src="..\pics/network-pharmacology/stringEnrich.png" class="img-fluid quarto-figure quarto-figure-center"></li>
 </ul>
 </section>
 <section id="结果解读要点" class="level2">

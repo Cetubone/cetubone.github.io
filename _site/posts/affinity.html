@@ -241,7 +241,7 @@ window.Quarto = {
 </section>
 <section id="二整体计算流程概览" class="level1">
 <h1>二、整体计算流程概览</h1>
-<p><img src="..\pics/pipeline_flowchart.png" class="img-fluid"></p>
+<p><img src="..\pics/affinity/pipeline_flowchart.png" class="img-fluid"></p>
 </section>
 <section id="三分子对接获取初始结合构象autodock-vina" class="level1">
 <h1>三、分子对接：获取初始结合构象（AutoDock Vina）</h1>
@@ -732,7 +732,7 @@ size_z   =  18.0</code></pre>
 <h3 class="anchored" data-anchor-id="输入文件准备">6.3 输入文件准备</h3>
 <p>gmx_MMPBSA 需要三类输入：拓扑、轨迹、索引组。其中拓扑与索引是最易出错的环节。</p>
 <section id="索引组定义.ndx" class="level4">
-<h4 class="anchored" data-anchor-id="索引组定义.ndx">6.3.1 索引组定义（<code>.ndx</code>）</h4>
+<h4 class="anchored" data-anchor-id="索引组定义.ndx">6.3.1 索引组定义（.ndx）</h4>
 <p>第五章已生成 <code>index.ndx</code>，但 MM/PBSA 需要明确区分受体（Receptor）、配体（Ligand）与复合物（Complex）。重新整理索引文件：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> make_ndx <span class="at">-f</span> md_50ns.gro <span class="at">-o</span> mmpbsa.ndx <span class="op">&lt;&lt; EOF</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="st">1 | 13</span></span>
@@ -765,7 +765,7 @@ size_z   =  18.0</code></pre>
 </section>
 </section>
 <section id="计算参数配置mmpbsa.in" class="level3">
-<h3 class="anchored" data-anchor-id="计算参数配置mmpbsa.in">6.4 计算参数配置（<code>mmpbsa.in</code>）</h3>
+<h3 class="anchored" data-anchor-id="计算参数配置mmpbsa.in">6.4 计算参数配置（mmpbsa.in）</h3>
 <p>gmx_MMPBSA 使用 Amber 风格的输入文件控制计算行为。针对 CHARMM 力场与蛋白-配体体系，推荐配置如下：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&amp;general</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="dt">sys_name</span><span class="ot">=</span><span class="st">"Protein-Ligand",</span></span>

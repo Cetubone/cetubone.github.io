@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="CetuBone">
-<meta name="dcterms.date" content="2026-01-26">
-<meta name="description" content="如何使用Zotero在Word中插入引用。">
+<meta name="dcterms.date" content="2026-01-27">
+<meta name="description" content="Conda介绍及使用方法。">
 
-<title>Zotero这么用 – Cetubone</title>
+<title>Conda这么用 – Cetubone</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +25,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -128,15 +163,17 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Zotero这么用</h1>
+<h1 class="title">Conda这么用</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Zotero</div>
+    <div class="quarto-category">conda</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">Python</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    如何使用Zotero在Word中插入引用。
+    Conda介绍及使用方法。
   </div>
 </div>
 
@@ -153,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 26, 2026</p>
+      <p class="date">January 27, 2026</p>
     </div>
   </div>
   
@@ -165,69 +202,115 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="zotero是什么" class="level1">
-<h1>Zotero是什么</h1>
-<p>Zotero 是一款开源免费的文献管理工具，可一键抓取网页、数据库或 PDF 中的元数据，自动分类生成引用，支持 Word、LibreOffice 插件实时插入参考文献，云端同步配合多设备协作。</p>
+<section id="conda是什么" class="level1">
+<h1>Conda是什么</h1>
+<p>根据<a href="https://conda.io/projects/conda/en/latest/index.html">Conda官方文档</a>，Conda是一个开源的包和环境管理系统，可在Windows、Mac OS和Linux上运行。</p>
+<p>Conda能够快速安装、运行和更新软件包及其依赖项；并方便地创建、保存、加载和切换项目特定的软件环境。虽然Conda最初是为Python程序创建的，但Conda可以打包和分发用于任何语言的软件，例如R、Ruby、Lua、Scala、Java、JavaScript、C、C++、FORTRAN。</p>
 </section>
-<section id="安装" class="level1">
-<h1>安装</h1>
-<p>Windows端：<a href="https://www.zotero.org/">官网</a>下载安装包，按指示安装，可同时下载浏览器插件方便收藏文献</p>
+<section id="condaminiconda和anaconda" class="level1">
+<h1>Conda、Miniconda和Anaconda</h1>
+<p>Conda作为包管理器，是Miniconda和Anaconda的基础和核心。</p>
+<ul>
+<li>Anaconda是一个Python/R数据科学发行版，它包含了Conda以及大量预装的科学计算包。包含250+预装的数据科学包（NumPy、Pandas、Scipy、Matplotlib、Jupyter等），并提供Anaconda Navigator可视化工具，由此其安装包约3-5GB，占用空间较大。</li>
+<li>Miniconda 是Anaconda的精简版，只包含Conda、Python和少量必要依赖。拥有完整的Conda功能，与Anaconda无异，而没有预装臃肿的软件包。</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>以下的演示都基于Miniconda</strong></p>
+</blockquote>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="..\pics/zotero/zotero.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="conda_files/figure-html/e5f7140e-1-miniconda_vs_anaconda.png" class="img-fluid figure-img"></p>
+<figcaption><a href="https://kaust-vislab.github.io/python-novice-gapminder/00-getting-started-with-conda/index.html">图像来源</a></figcaption>
 </figure>
 </div>
 </section>
-<section id="使用" class="level1">
-<h1>使用</h1>
-<ol type="1">
-<li><p><strong>引</strong> —— 先把所有文献一次性收进 Zotero 打开 Zotero → 用浏览器插件（Zotero Connector）把你要参考的期刊文章、网页、PDF 统统点一下“保存到 Zotero”。<br> 这一步保证后面插入时，下拉列表里能直接搜到，而不是临时手动敲。</p></li>
-<li><p><strong>标</strong> —— 在 Word/WPS 里先选好“引用样式” 打开论文文档 → Zotero 选项卡 → “Document Preferences”（文档首选项）→ 选好你学校要求的样式（如 GB/T 7714-2015、APA 7、Chicago…）→ OK。</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\pics/zotero/DP.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
+<section id="miniconda安装" class="level1">
+<h1>Miniconda安装</h1>
+<p>参考<a href="https://www.anaconda.com/docs/getting-started/miniconda/install">官方文档</a>，下载对应操作系统平台的安装包，按照提示安装即可。</p>
+<div id="5bcb09f7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;bat&quot;}}" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>conda <span class="op">--</span>version <span class="co"># 查看Conda版本</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>conda 24.11.3</code></pre>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\pics/zotero/refStyle.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
 </div>
-<p>这一步决定后面正文的“(作者, 年份)”格式和文末排序规则，先定好再插不会乱。</p></li>
-<li><p><strong>插</strong> —— 正文里逐句“Insert Citation” 光标放在需要引用的句子末尾 → 点 “Add/Edit Citation” → 在弹出的框里输入关键词（作者或标题）→ 选中对应文献 → 回车。<br>
-想一次引多篇就继续搜下一篇，回车即可叠加。<br></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\pics/zotero/cite.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\pics/zotero/citeOut.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>整篇论文写完后，<strong>再把光标移到文末想出现“参考文献”那一行</strong> → 点 “Add/Edit Bibliography”，Zotero 会一次性把所有已引条目生成完整列表。<br>
-（很多人漏的就是这后半句，所以出现“正文有，文末空”。）</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\pics/zotero/endCite.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div></li>
-<li><p><strong>换</strong> —— 定稿前统一刷新格式<br>
-导师若要求换样式（GB→APA）、或把中文“等”改成“et al”，只需：<br>
-Document Preferences 里直接换样式 → OK → Zotero 会自动把正文和文末全部刷新，无需手改任何一个字。<br>
-最后点 “Refresh” 确保所有字段最新，即可完成更换。</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\pics/zotero/refresh.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div></li>
-</ol>
-<p>照“引→标→插→换”四步走，就不会再出现“只有正文没有文末”或“手动改格式改到崩溃”的情况。</p>
 </section>
-<section id="注" class="level1">
-<h1>注</h1>
-<p>在WPS中使用Zotero时<a href="https://blog.csdn.net/zp357252539/article/details/98737401">需要安装VBA</a>，<a href="..\files/wps.vba.zip">此处</a>给出VBA安装包</p>
+<section id="查看conda已创建的环境" class="level1">
+<h1>查看Conda已创建的环境</h1>
+<p>命令<code>conda env list</code>查看已创建的环境列表。<br> Miniconda安装完成后默认环境为<code>base</code></p>
+<div id="0b69a23d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;bat&quot;}}" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>conda env <span class="bu">list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+# conda environments:
+#
+base                 * D:\conda
+meme                   D:\conda\envs\meme
+obabel                 D:\conda\envs\obabel
+pubchem                D:\conda\envs\pubchem
+py2                    D:\conda\envs\py2
+rdkit                  D:\conda\envs\rdkit
+</code></pre>
+</div>
+</div>
+<p>输出的两列中，第一列为环境名，通常即右侧环境地址的目录名称。<br> <code>*</code>标识当前激活的环境</p>
+</section>
+<section id="创建环境" class="level1">
+<h1>创建环境</h1>
+<p>使用命令<code>conda create -n 环境名称</code>创建环境，由此创建的环境为空环境不包含其他包，如需Python或R可如下安装：</p>
+<div id="c10ad478" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;powershell&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>conda create <span class="op">-</span>n rdkit python rdkit <span class="op">-</span>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="激活退出环境" class="level1">
+<h1>激活/退出环境</h1>
+<p>使用命令<code>conda activate 环境名/环境路径</code>可切换至目标环境</p>
+<div id="b0bb4339" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>conda activate rdkit</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>conda env <span class="bu">list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+# conda environments:
+#
+base                   D:\conda
+meme                   D:\conda\envs\meme
+obabel                 D:\conda\envs\obabel
+pubchem                D:\conda\envs\pubchem
+py2                    D:\conda\envs\py2
+rdkit                * D:\conda\envs\rdkit
+</code></pre>
+</div>
+</div>
+<p>命令<code>conda deactivate</code>将退出当前激活的环境，退回至<code>base</code></p>
+<div id="89335fa3" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>conda deactivate</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>conda env <span class="bu">list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+# conda environments:
+#
+base                 * D:\conda
+meme                   D:\conda\envs\meme
+obabel                 D:\conda\envs\obabel
+pubchem                D:\conda\envs\pubchem
+py2                    D:\conda\envs\py2
+rdkit                  D:\conda\envs\rdkit
+</code></pre>
+</div>
+</div>
+<p>在每个独立的环境中可以安装不同版本的Python、R或者其他编程语言如Ruby、Lua、Scala、Java、JavaScript、C等。Python或R的第三方软件包也可以在不同的独立环境中安装不同的版本，方便解决不同版本的依赖问题。</p>
+</section>
+<section id="安装软件" class="level1">
+<h1>安装软件</h1>
+<p>使用命令<code>conda install 软件名</code>命令在当前已激活的环境中安装软件包。部分软件可能不在默认channels中</p>
+<p>具体软件的安装命令可在<a href="https://anaconda.org/">Anacond官网</a>搜索。<br> 例如搜索<code>pandas</code>：</p>
+<p><img src="conda_files/figure-html/c9b0e2c7-1-image.png" class="img-fluid"></p>
+<p>按照需求版本选择安装channel，例如需要安装pandas 3.0.0，则选择channel conda-forge中的pandas包：</p>
+<p><img src="conda_files/figure-html/2f7708c5-1-image.png" class="img-fluid"></p>
+<p>由给出的命令安装即可</p>
+</section>
+<section id="参考" class="level1">
+<h1>参考</h1>
+<p><a href="https://www.anaconda.com/docs/main">Anaconda官方文档</a><br> <a href="https://kaust-vislab.github.io/python-novice-gapminder/">Introduction to Python for Data Science</a></p>
 
 
 </section>
