@@ -38,6 +38,26 @@
   border-left-color: var(--accent-blue);
 }
 
+#quarto-document-content p {
+  line-height: 1.5;
+}
+
+#quarto-document-content > p,
+#quarto-document-content section > p,
+#quarto-document-content div > p {
+  text-indent: 2em;
+}
+
+#quarto-document-content p:has(> img),
+#quarto-document-content p:has(> .quarto-figure),
+#quarto-document-content .callout p,
+#quarto-document-content li > p,
+#quarto-document-content .quarto-title-meta p,
+#quarto-document-content .date,
+#quarto-document-content .abstract p {
+  text-indent: 0;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
