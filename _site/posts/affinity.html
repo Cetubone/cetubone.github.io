@@ -198,6 +198,7 @@ window.Quarto = {
   <li><a href="#小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化" id="toc-小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化" class="nav-link" data-scroll-target="#小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化">3.2 小分子配体准备：RDKit 驱动的 3D 构象生成与能量最小化</a></li>
   <li><a href="#搜索空间定义pymol-插件-getbox-确定-grid-box" id="toc-搜索空间定义pymol-插件-getbox-确定-grid-box" class="nav-link" data-scroll-target="#搜索空间定义pymol-插件-getbox-确定-grid-box">3.3 搜索空间定义：PyMOL 插件 getbox 确定 Grid Box</a></li>
   <li><a href="#命令行运行对接与结果筛选" id="toc-命令行运行对接与结果筛选" class="nav-link" data-scroll-target="#命令行运行对接与结果筛选">3.4 命令行运行对接与结果筛选</a></li>
+  </ul></li>
   <li><a href="#四md-模拟输入文件准备charmm-gui" id="toc-四md-模拟输入文件准备charmm-gui" class="nav-link" data-scroll-target="#四md-模拟输入文件准备charmm-gui">四、MD 模拟输入文件准备（CHARMM-GUI）</a>
   <ul class="collapse">
   <li><a href="#对接后复合物的格式整理" id="toc-对接后复合物的格式整理" class="nav-link" data-scroll-target="#对接后复合物的格式整理">4.1 对接后复合物的格式整理</a></li>
@@ -209,18 +210,38 @@ window.Quarto = {
   <li><a href="#五分子动力学模拟gromacs" id="toc-五分子动力学模拟gromacs" class="nav-link" data-scroll-target="#五分子动力学模拟gromacs">五、分子动力学模拟（GROMACS）</a>
   <ul class="collapse">
   <li><a href="#能量最小化energy-minimization" id="toc-能量最小化energy-minimization" class="nav-link" data-scroll-target="#能量最小化energy-minimization">5.1 能量最小化（Energy Minimization）</a></li>
-  <li><a href="#平衡化阶段nvt-与-npt" id="toc-平衡化阶段nvt-与-npt" class="nav-link" data-scroll-target="#平衡化阶段nvt-与-npt">5.2 平衡化阶段：NVT 与 NPT</a></li>
+  <li><a href="#平衡化阶段nvt-与-npt" id="toc-平衡化阶段nvt-与-npt" class="nav-link" data-scroll-target="#平衡化阶段nvt-与-npt">5.2 平衡化阶段：NVT 与 NPT</a>
+  <ul class="collapse">
+  <li><a href="#nvt-系综恒温定容" id="toc-nvt-系综恒温定容" class="nav-link" data-scroll-target="#nvt-系综恒温定容">5.2.1 NVT 系综（恒温定容）</a></li>
+  <li><a href="#npt-系综恒温恒压" id="toc-npt-系综恒温恒压" class="nav-link" data-scroll-target="#npt-系综恒温恒压">5.2.2 NPT 系综（恒温恒压）</a></li>
+  </ul></li>
   <li><a href="#生产模拟production-md" id="toc-生产模拟production-md" class="nav-link" data-scroll-target="#生产模拟production-md">5.3 生产模拟（Production MD）</a></li>
-  <li><a href="#轨迹质量评估" id="toc-轨迹质量评估" class="nav-link" data-scroll-target="#轨迹质量评估">5.4 轨迹质量评估</a></li>
+  <li><a href="#轨迹质量评估" id="toc-轨迹质量评估" class="nav-link" data-scroll-target="#轨迹质量评估">5.4 轨迹质量评估</a>
+  <ul class="collapse">
+  <li><a href="#去除周期性边界条件与中心对齐" id="toc-去除周期性边界条件与中心对齐" class="nav-link" data-scroll-target="#去除周期性边界条件与中心对齐">5.4.1 去除周期性边界条件与中心对齐</a></li>
+  <li><a href="#rmsd-与-rmsf-分析" id="toc-rmsd-与-rmsf-分析" class="nav-link" data-scroll-target="#rmsd-与-rmsf-分析">5.4.2 RMSD 与 RMSF 分析</a></li>
+  <li><a href="#氢键动态分析" id="toc-氢键动态分析" class="nav-link" data-scroll-target="#氢键动态分析">5.4.3 氢键动态分析</a></li>
+  <li><a href="#可视化抽查" id="toc-可视化抽查" class="nav-link" data-scroll-target="#可视化抽查">5.4.4 可视化抽查</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#六结合自由能计算gmx_mmpbsa" id="toc-六结合自由能计算gmx_mmpbsa" class="nav-link" data-scroll-target="#六结合自由能计算gmx_mmpbsa">六、结合自由能计算（gmx_MMPBSA）</a>
   <ul class="collapse">
   <li><a href="#mmpbsa-方法原理简述" id="toc-mmpbsa-方法原理简述" class="nav-link" data-scroll-target="#mmpbsa-方法原理简述">6.1 MM/PBSA 方法原理简述</a></li>
   <li><a href="#环境准备与安装" id="toc-环境准备与安装" class="nav-link" data-scroll-target="#环境准备与安装">6.2 环境准备与安装</a></li>
-  <li><a href="#输入文件准备" id="toc-输入文件准备" class="nav-link" data-scroll-target="#输入文件准备">6.3 输入文件准备</a></li>
+  <li><a href="#输入文件准备" id="toc-输入文件准备" class="nav-link" data-scroll-target="#输入文件准备">6.3 输入文件准备</a>
+  <ul class="collapse">
+  <li><a href="#索引组定义.ndx" id="toc-索引组定义.ndx" class="nav-link" data-scroll-target="#索引组定义.ndx">6.3.1 索引组定义（.ndx）</a></li>
+  <li><a href="#轨迹抽稀平衡段选取" id="toc-轨迹抽稀平衡段选取" class="nav-link" data-scroll-target="#轨迹抽稀平衡段选取">6.3.2 轨迹抽稀（平衡段选取）</a></li>
+  <li><a href="#拓扑文件处理" id="toc-拓扑文件处理" class="nav-link" data-scroll-target="#拓扑文件处理">6.3.3 拓扑文件处理</a></li>
+  </ul></li>
   <li><a href="#计算参数配置mmpbsa.in" id="toc-计算参数配置mmpbsa.in" class="nav-link" data-scroll-target="#计算参数配置mmpbsa.in">6.4 计算参数配置（mmpbsa.in）</a></li>
   <li><a href="#执行计算与并行加速" id="toc-执行计算与并行加速" class="nav-link" data-scroll-target="#执行计算与并行加速">6.5 执行计算与并行加速</a></li>
-  <li><a href="#结果解析" id="toc-结果解析" class="nav-link" data-scroll-target="#结果解析">6.6 结果解析</a></li>
+  <li><a href="#结果解析" id="toc-结果解析" class="nav-link" data-scroll-target="#结果解析">6.6 结果解析</a>
+  <ul class="collapse">
+  <li><a href="#总结合自由能与分项能量" id="toc-总结合自由能与分项能量" class="nav-link" data-scroll-target="#总结合自由能与分项能量">6.6.1 总结合自由能与分项能量</a></li>
+  <li><a href="#残基分解分析decomposition" id="toc-残基分解分析decomposition" class="nav-link" data-scroll-target="#残基分解分析decomposition">6.6.2 残基分解分析（Decomposition）</a></li>
+  <li><a href="#映射至三维结构" id="toc-映射至三维结构" class="nav-link" data-scroll-target="#映射至三维结构">6.6.3 映射至三维结构</a></li>
+  </ul></li>
   <li><a href="#方法局限与进阶方向" id="toc-方法局限与进阶方向" class="nav-link" data-scroll-target="#方法局限与进阶方向">6.7 方法局限与进阶方向</a></li>
   </ul></li>
   <li><a href="#七总结与展望" id="toc-七总结与展望" class="nav-link" data-scroll-target="#七总结与展望">七、总结与展望</a>
@@ -229,7 +250,6 @@ window.Quarto = {
   <li><a href="#局限性与边界条件" id="toc-局限性与边界条件" class="nav-link" data-scroll-target="#局限性与边界条件">7.2 局限性与边界条件</a></li>
   <li><a href="#进阶方向" id="toc-进阶方向" class="nav-link" data-scroll-target="#进阶方向">7.3 进阶方向</a></li>
   <li><a href="#结语" id="toc-结语" class="nav-link" data-scroll-target="#结语">7.4 结语</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -296,8 +316,8 @@ window.Quarto = {
 </section>
 <section id="三分子对接获取初始结合构象autodock-vina" class="level1">
 <h1>三、分子对接：获取初始结合构象（AutoDock Vina）</h1>
-<section id="受体蛋白准备从-pdb-到-pdbqt" class="level3">
-<h3 class="anchored" data-anchor-id="受体蛋白准备从-pdb-到-pdbqt">3.1 受体蛋白准备：从 PDB 到 PDBQT</h3>
+<section id="受体蛋白准备从-pdb-到-pdbqt" class="level2">
+<h2 class="anchored" data-anchor-id="受体蛋白准备从-pdb-到-pdbqt">3.1 受体蛋白准备：从 PDB 到 PDBQT</h2>
 <p>从 RCSB PDB 下载靶点蛋白的晶体结构后，首先进行预处理：去除结晶水（<code>HETATM</code> 中 <code>HOH</code> 记录）、去除原有配体与缓冲液离子，保留完整的蛋白链。若存在缺失环区，可先用 <strong>Modeller</strong> 或 <strong>SWISS-MODEL</strong> 补全，避免对接口袋几何变形。</p>
 <p>预处理后的干净 <code>receptor.pdb</code> 需转换为 AutoDock 专用的 <strong>PDBQT</strong> 格式（包含原子类型、部分电荷与可旋转键信息）。这里使用 <strong>MGLTools</strong> 的命令行工具 <code>prepare_receptor4.py</code> 完成自动加氢与格式转换：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MGLTools 安装路径下的 Python 解释器（通常绑定在 $MGL_ROOT/bin/python）</span></span>
@@ -310,8 +330,8 @@ window.Quarto = {
 <p>转换完成后，检查 <code>receptor.pdbqt</code> 首部的 <code>REMARK</code> 行，确认总电荷与原子数合理，即可进入下一步。</p>
 <hr>
 </section>
-<section id="小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化" class="level3">
-<h3 class="anchored" data-anchor-id="小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化">3.2 小分子配体准备：RDKit 驱动的 3D 构象生成与能量最小化</h3>
+<section id="小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化" class="level2">
+<h2 class="anchored" data-anchor-id="小分子配体准备rdkit-驱动的-3d-构象生成与能量最小化">3.2 小分子配体准备：RDKit 驱动的 3D 构象生成与能量最小化</h2>
 <p>对接输入的小分子通常以 SMILES 或 2D SDF 形式获得。我们需要将其转化为能量合理的 3D 构象，并导出为 <strong>MOL2</strong> 格式（供 MGLTools 进一步转为 PDBQT），同时保留几何信息。</p>
 <p>以下是一段基于 <strong>RDKit</strong> 的 Python 脚本，完成 SMILES → 3D 构象生成 → MMFF94 能量最小化 → MOL2 输出：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rdkit <span class="im">import</span> Chem</span>
@@ -376,8 +396,8 @@ window.Quarto = {
 <p>参数说明： - <code>-U nphs</code>：去除非极性氢（Vina 使用其自身的原子模型）。 - <code>-B amide</code>：重新评估酰胺键的旋转性，避免不合理的可旋转键枚举。</p>
 <hr>
 </section>
-<section id="搜索空间定义pymol-插件-getbox-确定-grid-box" class="level3">
-<h3 class="anchored" data-anchor-id="搜索空间定义pymol-插件-getbox-确定-grid-box">3.3 搜索空间定义：PyMOL 插件 getbox 确定 Grid Box</h3>
+<section id="搜索空间定义pymol-插件-getbox-确定-grid-box" class="level2">
+<h2 class="anchored" data-anchor-id="搜索空间定义pymol-插件-getbox-确定-grid-box">3.3 搜索空间定义：PyMOL 插件 getbox 确定 Grid Box</h2>
 <p>对接的核心参数是搜索空间（Grid Box）的中心坐标与三维尺寸。若靶点已有共晶配体，最可靠的方式是以该配体的几何中心为口袋中心；若为先导化合物优化或 Apo 结构，则需要借助可视化工具划定口袋。</p>
 <p>我们使用 <strong>PyMOL 插件 <a href="https://github.com/MengwuXiao/Getbox-PyMOL-Plugin">getbox.py</a></strong> 交互式地确定 Box 参数。首先加载插件：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 在 PyMOL 命令行中运行</span></span>
@@ -414,8 +434,8 @@ size_z   =  18.0</code></pre>
 <p>关键参数解读： - <code>exhaustiveness = 32</code>：Vina 的搜索强度，默认值 8 对常规体系足够；若口袋较大或配体柔性键较多（&gt;10 个），建议提升至 32–64。 - <code>num_modes = 20</code>：输出构象数量上限。 - <code>energy_range = 4</code>：仅保留与最优解能量差在 4 kcal/mol 以内的构象，过滤高能噪音。</p>
 <hr>
 </section>
-<section id="命令行运行对接与结果筛选" class="level3">
-<h3 class="anchored" data-anchor-id="命令行运行对接与结果筛选">3.4 命令行运行对接与结果筛选</h3>
+<section id="命令行运行对接与结果筛选" class="level2">
+<h2 class="anchored" data-anchor-id="命令行运行对接与结果筛选">3.4 命令行运行对接与结果筛选</h2>
 <p>确认 <code>vina</code> 二进制文件在系统 PATH 中后，执行对接：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vina</span> <span class="at">--config</span> config.txt <span class="at">--cpu</span> 8</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>运行日志会实时输出各构象的预估结合能（<code>kcal/mol</code>）。对接完成后，结果文件 <code>docking_output.pdbqt</code> 包含多个 <code>MODEL</code> 记录的构象，按能量从低到高排序。</p>
@@ -427,12 +447,13 @@ size_z   =  18.0</code></pre>
 </ol>
 <p>通过上述步骤，我们获得了一个能量合理、几何兼容的蛋白-配体初始复合物构象。该构象将作为下一章的输入，上传至 <strong>CHARMM-GUI</strong> 进行 GROMACS 拓扑生成。</p>
 </section>
-<section id="四md-模拟输入文件准备charmm-gui" class="level2">
-<h2 class="anchored" data-anchor-id="四md-模拟输入文件准备charmm-gui">四、MD 模拟输入文件准备（CHARMM-GUI）</h2>
+</section>
+<section id="四md-模拟输入文件准备charmm-gui" class="level1">
+<h1>四、MD 模拟输入文件准备（CHARMM-GUI）</h1>
 <p>对接给出了蛋白-配体的相对排布，但要把这个静态构象推进到分子动力学模拟，必须先解决一个关键问题：<strong>力场拓扑</strong>。手动为小分子编写 GROMACS 拓扑（原子类型、键长、键角、二面势、部分电荷）不仅繁琐，而且极易因参数不一致导致能量最小化失败或模拟过程中配体”散架”。<strong>CHARMM-GUI</strong> 的 Solution Builder 模块通过对接后的复合物 PDB 自动调用 <strong>CHARMM36m</strong> 蛋白力场与 <strong>CGenFF</strong> 小分子力场，直接输出 GROMACS 兼容的完整输入包，是这条开源流程中最稳妥的拓扑生成方案。</p>
 <hr>
-<section id="对接后复合物的格式整理" class="level3">
-<h3 class="anchored" data-anchor-id="对接后复合物的格式整理">4.1 对接后复合物的格式整理</h3>
+<section id="对接后复合物的格式整理" class="level2">
+<h2 class="anchored" data-anchor-id="对接后复合物的格式整理">4.1 对接后复合物的格式整理</h2>
 <p>在将结构上传至 CHARMM-GUI 之前，需要确保 PDB 文件满足以下规范：</p>
 <ol type="1">
 <li><strong>蛋白部分</strong>：保留标准氨基酸残基，去除所有 <code>HETATM</code> 记录中的结晶水与原有配体；N-端和 C-端建议保留 ACE/NME 封端（若对接时已处理），或保持天然末端以便 CHARMM-GUI 自动识别。</li>
@@ -443,8 +464,8 @@ size_z   =  18.0</code></pre>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">save</span> complex.pdb, <span class="er">(</span><span class="ex">protein</span> or organic<span class="kw">)</span><span class="ex">,</span> state=1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="配体力场参数cgenff-在线生成与质量评估" class="level3">
-<h3 class="anchored" data-anchor-id="配体力场参数cgenff-在线生成与质量评估">4.2 配体力场参数：CGenFF 在线生成与质量评估</h3>
+<section id="配体力场参数cgenff-在线生成与质量评估" class="level2">
+<h2 class="anchored" data-anchor-id="配体力场参数cgenff-在线生成与质量评估">4.2 配体力场参数：CGenFF 在线生成与质量评估</h2>
 <p>CHARMM-GUI 本身不内置所有小分子参数，对于非标准配体，需先通过 <strong>CGenFF 服务器</strong>（https://cgenff.umaryland.edu）生成力场流文件（<code>.str</code>），内含 RTF（拓扑）与 PRM（参数）信息。</p>
 <p><strong>操作步骤：</strong></p>
 <ol type="1">
@@ -455,8 +476,8 @@ size_z   =  18.0</code></pre>
 <p>下载 <code>ligand.str</code> 备用。CHARMM-GUI 的 Solution Builder 会在上传复合物后提示你导入该 <code>.str</code> 文件。</p>
 <hr>
 </section>
-<section id="charmm-gui-solution-builder-操作流" class="level3">
-<h3 class="anchored" data-anchor-id="charmm-gui-solution-builder-操作流">4.3 CHARMM-GUI Solution Builder 操作流</h3>
+<section id="charmm-gui-solution-builder-操作流" class="level2">
+<h2 class="anchored" data-anchor-id="charmm-gui-solution-builder-操作流">4.3 CHARMM-GUI Solution Builder 操作流</h2>
 <p>进入 <strong>CHARMM-GUI</strong>（https://www.charmm-gui.org），按以下路径操作：</p>
 <p><strong>Step 1：选择模拟引擎</strong> - 导航至 <strong>Input Generator</strong> → <strong>Solution Builder</strong> - 在 Force Field 选项中选择 <strong>CHARMM36m</strong>（最新版蛋白力场，对 α-螺旋/β-折叠的骨架二面角描述更准）。 - 在 MD Engine 下拉菜单中明确选择 <strong>GROMACS</strong>，确保输出文件格式无需二次转换。</p>
 <p><strong>Step 2：上传结构</strong> - 上传 4.1 节整理好的 <code>complex.pdb</code>。 - 在 <strong>Heterogeneous Molecules</strong> 步骤中，系统会自动识别 <code>LIG</code> 残基。此时上传 4.2 节获得的 <code>ligand.str</code>，CHARMM-GUI 会自动解析其中的 RTF/PRM 并转换为 GROMACS 内部格式。</p>
@@ -477,8 +498,8 @@ size_z   =  18.0</code></pre>
 └── md/                        # 生产模拟 mdp 模板</code></pre>
 <hr>
 </section>
-<section id="拓扑文件整合与-gromacs-适配检查" class="level3">
-<h3 class="anchored" data-anchor-id="拓扑文件整合与-gromacs-适配检查">4.4 拓扑文件整合与 GROMACS 适配检查</h3>
+<section id="拓扑文件整合与-gromacs-适配检查" class="level2">
+<h2 class="anchored" data-anchor-id="拓扑文件整合与-gromacs-适配检查">4.4 拓扑文件整合与 GROMACS 适配检查</h2>
 <p>CHARMM-GUI 已经自动将配体参数嵌入 <code>toppar/ligand.itp</code>，但你需要确认主拓扑文件 <code>topol.top</code> 正确引用了该文件。打开 <code>topol.top</code>，其头部应呈现如下结构：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Include forcefield parameters</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#include "toppar/forcefield.itp"</span></span>
@@ -513,8 +534,8 @@ size_z   =  18.0</code></pre>
 </ol>
 <hr>
 </section>
-<section id="快速验证能否成功编译运行" class="level3">
-<h3 class="anchored" data-anchor-id="快速验证能否成功编译运行">4.5 快速验证：能否成功编译运行？</h3>
+<section id="快速验证能否成功编译运行" class="level2">
+<h2 class="anchored" data-anchor-id="快速验证能否成功编译运行">4.5 快速验证：能否成功编译运行？</h2>
 <p>在正式提交集群前，先用能量最小化（EM）步骤做一轮冒烟测试，确认拓扑与坐标无冲突：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 进入 charmm-gui 生成的 em/ 目录，或复制 mdp 到工作根目录</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> grompp <span class="at">-f</span> em/em.mdp <span class="at">-c</span> step5_input.gro <span class="at">-p</span> topol.top <span class="at">-o</span> em.tpr <span class="at">-maxwarn</span> 1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -524,12 +545,12 @@ size_z   =  18.0</code></pre>
 </blockquote>
 </section>
 </section>
-<section id="五分子动力学模拟gromacs" class="level2">
-<h2 class="anchored" data-anchor-id="五分子动力学模拟gromacs">五、分子动力学模拟（GROMACS）</h2>
+<section id="五分子动力学模拟gromacs" class="level1">
+<h1>五、分子动力学模拟（GROMACS）</h1>
 <p>拓扑与坐标文件就绪后，体系仍是一个存在原子重叠、不合理接触与溶剂分布不均的”冷启动”构象。分子动力学的第一阶段目标并非直接采样，而是<strong>渐进式地消除几何应力、平衡热力学状态</strong>，最终让体系在目标温度与压力下达到物理合理。本章基于 GROMACS 202x 版本，分三阶段推进：能量最小化 → NVT/NPT 平衡化 → 生产模拟，并在最后对轨迹质量进行系统性评估。</p>
 <hr>
-<section id="能量最小化energy-minimization" class="level3">
-<h3 class="anchored" data-anchor-id="能量最小化energy-minimization">5.1 能量最小化（Energy Minimization）</h3>
+<section id="能量最小化energy-minimization" class="level2">
+<h2 class="anchored" data-anchor-id="能量最小化energy-minimization">5.1 能量最小化（Energy Minimization）</h2>
 <p>能量最小化（EM）通过数值优化算法寻找局部势能最低点，消除对接与溶剂化过程中残留的原子碰撞。CHARMM-GUI 已在 <code>em/</code> 目录下生成模板 <code>em.mdp</code>，核心参数如下：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Run control</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dt">integrator  </span><span class="ot">=</span><span class="st"> steep         ; 最速下降法，适合初始大应力释放</span></span>
@@ -553,11 +574,11 @@ size_z   =  18.0</code></pre>
 <p><strong>收敛判断与排错：</strong> - 正常情况：势能（Potential Energy）应单调下降，最终稳定在负值区（如 -5×10⁵ kJ/mol 量级，视体系大小而定）。 - 若 EM 在几百步内势能飙升或出现 <code>LINCS/SETTLE warning</code>，说明拓扑与坐标存在严重冲突。常见原因： - <strong>配体拓扑错误</strong>：CGenFF 参数与坐标文件原子顺序不一致（见 4.4 节残基名冲突）。 - <strong>溶剂盒子过小</strong>：蛋白边缘与盒子边界重叠，需返回 CHARMM-GUI 增大 Edge Distance。 - <strong>离子位置冲突</strong>：自动添加的离子恰好落在蛋白表面带电口袋，可手动在 <code>step5_input.gro</code> 中微调离子坐标，或增大盒子。</p>
 <hr>
 </section>
-<section id="平衡化阶段nvt-与-npt" class="level3">
-<h3 class="anchored" data-anchor-id="平衡化阶段nvt-与-npt">5.2 平衡化阶段：NVT 与 NPT</h3>
+<section id="平衡化阶段nvt-与-npt" class="level2">
+<h2 class="anchored" data-anchor-id="平衡化阶段nvt-与-npt">5.2 平衡化阶段：NVT 与 NPT</h2>
 <p>能量最小化后的体系处于 0 K，需分两步升温并平衡至生理条件。此阶段<strong>必须对蛋白骨架与配体施加位置约束</strong>（Position Restraints），防止在溶剂化层尚未平衡时，蛋白或配体因热扰动偏离对接构象。</p>
-<section id="nvt-系综恒温定容" class="level4">
-<h4 class="anchored" data-anchor-id="nvt-系综恒温定容">5.2.1 NVT 系综（恒温定容）</h4>
+<section id="nvt-系综恒温定容" class="level3">
+<h3 class="anchored" data-anchor-id="nvt-系综恒温定容">5.2.1 NVT 系综（恒温定容）</h3>
 <p>NVT 阶段的核心是让溶剂和离子在固定体积下达到目标温度，同时保持溶质几何冻结。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Run control</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="dt">integrator  </span><span class="ot">=</span><span class="st"> md</span></span>
@@ -601,8 +622,8 @@ size_z   =  18.0</code></pre>
 </blockquote>
 <p><strong>监测指标：</strong> 温度曲线应在 5–10 ps 内稳定在 300 K，无剧烈震荡。若温度长时间偏离或出现 <code>Temperature coupling not converging</code>，检查热浴组划分是否合理。</p>
 </section>
-<section id="npt-系综恒温恒压" class="level4">
-<h4 class="anchored" data-anchor-id="npt-系综恒温恒压">5.2.2 NPT 系综（恒温恒压）</h4>
+<section id="npt-系综恒温恒压" class="level3">
+<h3 class="anchored" data-anchor-id="npt-系综恒温恒压">5.2.2 NPT 系综（恒温恒压）</h3>
 <p>溶剂密度在 NVT 阶段可能偏离生理值，NPT 阶段通过压力耦合释放体积约束，让盒子尺寸弛豫至平衡密度。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Run control</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dt">integrator  </span><span class="ot">=</span><span class="st"> md</span></span>
@@ -643,8 +664,8 @@ size_z   =  18.0</code></pre>
 <hr>
 </section>
 </section>
-<section id="生产模拟production-md" class="level3">
-<h3 class="anchored" data-anchor-id="生产模拟production-md">5.3 生产模拟（Production MD）</h3>
+<section id="生产模拟production-md" class="level2">
+<h2 class="anchored" data-anchor-id="生产模拟production-md">5.3 生产模拟（Production MD）</h2>
 <p>当密度与温度稳定后，解除位置约束，启动无偏采样。生产模拟的时长直接决定自由能计算的统计可靠性，建议至少 <strong>50 ns</strong>，若配体结合模式存在慢交换或构象异构，可延长至 200 ns 甚至使用副本交换（REMD）增强采样。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Run control</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dt">integrator  </span><span class="ot">=</span><span class="st"> md</span></span>
@@ -692,11 +713,11 @@ size_z   =  18.0</code></pre>
 <p><strong>性能优化提示：</strong> - <code>-nb gpu</code>：将非键相互作用卸载至 GPU，可将 50 ns 模拟时间从数周缩短至数天（视体系大小与 GPU 型号而定）。 - <code>-pin on</code>：将 MPI 线程绑定至固定 CPU 核心，减少缓存抖动。 - <strong>续跑机制</strong>：若集群有 wall-time 限制，模拟会自动输出 <code>.cpt</code> 检查点文件。中断后使用 <code>gmx mdrun -cpi md_50ns.cpt -append</code> 无缝续跑。</p>
 <hr>
 </section>
-<section id="轨迹质量评估" class="level3">
-<h3 class="anchored" data-anchor-id="轨迹质量评估">5.4 轨迹质量评估</h3>
+<section id="轨迹质量评估" class="level2">
+<h2 class="anchored" data-anchor-id="轨迹质量评估">5.4 轨迹质量评估</h2>
 <p>生产模拟结束后，必须对轨迹进行系统性质量审查，排除漂移、解离或周期性边界条件（PBC）假象，再进入第六章的自由能计算。</p>
-<section id="去除周期性边界条件与中心对齐" class="level4">
-<h4 class="anchored" data-anchor-id="去除周期性边界条件与中心对齐">5.4.1 去除周期性边界条件与中心对齐</h4>
+<section id="去除周期性边界条件与中心对齐" class="level3">
+<h3 class="anchored" data-anchor-id="去除周期性边界条件与中心对齐">5.4.1 去除周期性边界条件与中心对齐</h3>
 <p>GROMACS 的 PBC 会导致跨边界的原子坐标跳变，直接分析会得到虚假的配体”瞬移”。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 创建索引组：蛋白+配体（复合物）</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> make_ndx <span class="at">-f</span> md_50ns.gro <span class="at">-o</span> index.ndx</span>
@@ -708,8 +729,8 @@ size_z   =  18.0</code></pre>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择中心组：Protein_LIG</span></span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择输出组：Protein_LIG（或 System，若需保留水环境）</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="rmsd-与-rmsf-分析" class="level4">
-<h4 class="anchored" data-anchor-id="rmsd-与-rmsf-分析">5.4.2 RMSD 与 RMSF 分析</h4>
+<section id="rmsd-与-rmsf-分析" class="level3">
+<h3 class="anchored" data-anchor-id="rmsd-与-rmsf-分析">5.4.2 RMSD 与 RMSF 分析</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 蛋白骨架 RMSD</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> rms <span class="at">-s</span> md_50ns.tpr <span class="at">-f</span> md_center.xtc <span class="at">-o</span> rmsd_protein.xvg <span class="at">-xvg</span> none</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择：Backbone for least squares fit, Backbone for RMSD calculation</span></span>
@@ -719,27 +740,27 @@ size_z   =  18.0</code></pre>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择：Protein for fit, LIG for RMSD</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>判读标准：</strong> - <strong>蛋白骨架 RMSD</strong>：应在 5–10 ns 内达到平台期，稳态值 0.15–0.30 nm 为典型范围。若持续上升超过 0.40 nm，提示蛋白发生域运动或去折叠，需延长模拟或检查力场参数。 - <strong>配体 RMSD</strong>：理想情况下应在 0.10–0.25 nm 区间波动。若配体 RMSD 在模拟中后期持续攀升并 &gt; 0.40 nm，说明初始对接构象在 MD 力场下不稳定，可能已发生解离或口袋漂移，该体系不宜直接用于 MM/PBSA 结合能计算。</p>
 </section>
-<section id="氢键动态分析" class="level4">
-<h4 class="anchored" data-anchor-id="氢键动态分析">5.4.3 氢键动态分析</h4>
+<section id="氢键动态分析" class="level3">
+<h3 class="anchored" data-anchor-id="氢键动态分析">5.4.3 氢键动态分析</h3>
 <p>氢键占有率是判断结合模式是否保留对接关键相互作用的核心指标。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> hbond <span class="at">-s</span> md_50ns.tpr <span class="at">-f</span> md_center.xtc <span class="at">-num</span> hbond.xvg <span class="at">-hbm</span> hbond_matrix.xpm</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择供体：LIG</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择受体：Protein</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>输出文件 <code>hbond.xvg</code> 给出总氢键数随时间变化。若关键氢键（如配体羰基与蛋白主链酰胺）的<strong>时间占有率 &gt; 50%</strong>，说明对接识别的相互作用在动态环境中得以维持；若占有率 &lt; 20%，则该相互作用可能是 docking 假象，需在第六章结合能分解中重点关注其能量贡献是否被高估。</p>
 </section>
-<section id="可视化抽查" class="level4">
-<h4 class="anchored" data-anchor-id="可视化抽查">5.4.4 可视化抽查</h4>
+<section id="可视化抽查" class="level3">
+<h3 class="anchored" data-anchor-id="可视化抽查">5.4.4 可视化抽查</h3>
 <p>最后一步，将中心对齐后的轨迹加载至 <strong>PyMOL</strong> 或 <strong>VMD</strong>： - 检查配体是否始终停留在对接口袋内，无溶剂渗透导致的口袋扩张。 - 观察蛋白 N-端/C-端或柔性 loop 区域是否有异常摆动（若这些区域远离口袋，通常不影响结合能计算，但需在 MM/PBSA 的残基分解中排除）。</p>
 <p>当 RMSD 曲线平稳、关键氢键保留、配体无逃逸迹象时，即可确认该轨迹具备统计代表性，进入第六章使用 <strong>gmx_MMPBSA</strong> 进行结合自由能计算。</p>
 </section>
 </section>
 </section>
-<section id="六结合自由能计算gmx_mmpbsa" class="level2">
-<h2 class="anchored" data-anchor-id="六结合自由能计算gmx_mmpbsa">六、结合自由能计算（gmx_MMPBSA）</h2>
+<section id="六结合自由能计算gmx_mmpbsa" class="level1">
+<h1>六、结合自由能计算（gmx_MMPBSA）</h1>
 <p>生产模拟给出了配体-蛋白复合物在显式溶剂与离子环境中的动态轨迹，但轨迹本身仍是一组离散坐标，无法直接回答”结合有多强”。<strong>MM/PBSA</strong>（Molecular Mechanics / Poisson-Boltzmann Surface Area）通过热力学循环将显式溶剂轨迹”投影”到连续介质模型中，把数百万帧的构象涨落转化为一个可比较的结合自由能数值（ΔG_bind），是目前从 MD 轨迹评估蛋白-配体亲和力最成熟的开源方法之一。</p>
 <hr>
-<section id="mmpbsa-方法原理简述" class="level3">
-<h3 class="anchored" data-anchor-id="mmpbsa-方法原理简述">6.1 MM/PBSA 方法原理简述</h3>
+<section id="mmpbsa-方法原理简述" class="level2">
+<h2 class="anchored" data-anchor-id="mmpbsa-方法原理简述">6.1 MM/PBSA 方法原理简述</h2>
 <p>MM/PBSA 的核心是构建一个热力学循环，将溶剂化的受体、溶剂化的配体与溶剂化的复合物，通过三个独立的”气相+溶剂化”计算联系起来：</p>
 <p><span class="math display">\[\Delta G_{\text{bind}} = \Delta G_{\text{complex}} - (\Delta G_{\text{receptor}} + \Delta G_{\text{ligand}})\]</span></p>
 <p>其中每个体系的自由能被拆解为：</p>
@@ -759,8 +780,8 @@ size_z   =  18.0</code></pre>
 </blockquote>
 <hr>
 </section>
-<section id="环境准备与安装" class="level3">
-<h3 class="anchored" data-anchor-id="环境准备与安装">6.2 环境准备与安装</h3>
+<section id="环境准备与安装" class="level2">
+<h2 class="anchored" data-anchor-id="环境准备与安装">6.2 环境准备与安装</h2>
 <p>gmx_MMPBSA 是 <strong>AmberTools</strong> 中 <code>MMPBSA.py</code> 的 GROMACS 适配封装，依赖 Amber 的 PB/GB 求解器与拓扑转换库。推荐通过 conda 一键安装：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建独立环境，避免与 RDKit/GROMACS 环境冲突</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> gmx_mmpbsa python=3.9 <span class="at">-y</span></span>
@@ -779,11 +800,11 @@ size_z   =  18.0</code></pre>
 </blockquote>
 <hr>
 </section>
-<section id="输入文件准备" class="level3">
-<h3 class="anchored" data-anchor-id="输入文件准备">6.3 输入文件准备</h3>
+<section id="输入文件准备" class="level2">
+<h2 class="anchored" data-anchor-id="输入文件准备">6.3 输入文件准备</h2>
 <p>gmx_MMPBSA 需要三类输入：拓扑、轨迹、索引组。其中拓扑与索引是最易出错的环节。</p>
-<section id="索引组定义.ndx" class="level4">
-<h4 class="anchored" data-anchor-id="索引组定义.ndx">6.3.1 索引组定义（.ndx）</h4>
+<section id="索引组定义.ndx" class="level3">
+<h3 class="anchored" data-anchor-id="索引组定义.ndx">6.3.1 索引组定义（.ndx）</h3>
 <p>第五章已生成 <code>index.ndx</code>，但 MM/PBSA 需要明确区分受体（Receptor）、配体（Ligand）与复合物（Complex）。重新整理索引文件：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> make_ndx <span class="at">-f</span> md_50ns.gro <span class="at">-o</span> mmpbsa.ndx <span class="op">&lt;&lt; EOF</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="st">1 | 13</span></span>
@@ -796,8 +817,8 @@ size_z   =  18.0</code></pre>
 <p>编号说明：<code>1</code> 和 <code>13</code> 仅为示例，实际编号请在 <code>gmx make_ndx</code> 的列表中确认。确保 <code>Protein</code> 组包含所有蛋白原子（不含结晶水/离子），<code>LIG</code> 组仅含配体原子。</p>
 </blockquote>
 </section>
-<section id="轨迹抽稀平衡段选取" class="level4">
-<h4 class="anchored" data-anchor-id="轨迹抽稀平衡段选取">6.3.2 轨迹抽稀（平衡段选取）</h4>
+<section id="轨迹抽稀平衡段选取" class="level3">
+<h3 class="anchored" data-anchor-id="轨迹抽稀平衡段选取">6.3.2 轨迹抽稀（平衡段选取）</h3>
 <p>50 ns 轨迹若每 10 ps 一帧，共 5000 帧。对全部帧执行 PB 求解计算量过大，且平衡初期的构象可能尚未完全弛豫。建议截取<strong>稳定段</strong>并适度抽稀：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 截取 10–50 ns 的稳定段，每 100 ps 取一帧（共 400 帧）</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx</span> trjconv <span class="at">-f</span> md_center.xtc <span class="at">-o</span> md_mmpbsa.xtc <span class="dt">\</span></span>
@@ -805,8 +826,8 @@ size_z   =  18.0</code></pre>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-s</span> md_50ns.tpr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>帧数建议： - <strong>快速筛选</strong>：100–200 帧，2–4 小时完成。 - <strong>发表级精度</strong>：500–1000 帧，标准误差可降至 &lt; 1.5 kcal/mol。</p>
 </section>
-<section id="拓扑文件处理" class="level4">
-<h4 class="anchored" data-anchor-id="拓扑文件处理">6.3.3 拓扑文件处理</h4>
+<section id="拓扑文件处理" class="level3">
+<h3 class="anchored" data-anchor-id="拓扑文件处理">6.3.3 拓扑文件处理</h3>
 <p>gmx_MMPBSA 支持直接读取复合物 <code>.tpr</code> 文件，并自动根据索引组拆分受体与配体拓扑（v1.5+）。只需确保： - <code>md_50ns.tpr</code> 由第五章的 <code>md_50ns.tpr</code> 提供（包含完整力场参数）。 - 若报错 <code>prmtop conversion failed</code>，可手动用 parmed 生成 Amber 拓扑作为备用：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 备用方案：parmed 手动转换</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> parmed <span class="im">as</span> pmd</span>
@@ -815,8 +836,8 @@ size_z   =  18.0</code></pre>
 <hr>
 </section>
 </section>
-<section id="计算参数配置mmpbsa.in" class="level3">
-<h3 class="anchored" data-anchor-id="计算参数配置mmpbsa.in">6.4 计算参数配置（mmpbsa.in）</h3>
+<section id="计算参数配置mmpbsa.in" class="level2">
+<h2 class="anchored" data-anchor-id="计算参数配置mmpbsa.in">6.4 计算参数配置（mmpbsa.in）</h2>
 <p>gmx_MMPBSA 使用 Amber 风格的输入文件控制计算行为。针对 CHARMM 力场与蛋白-配体体系，推荐配置如下：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&amp;general</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="dt">sys_name</span><span class="ot">=</span><span class="st">"Protein-Ligand",</span></span>
@@ -849,8 +870,8 @@ size_z   =  18.0</code></pre>
 </ul>
 <hr>
 </section>
-<section id="执行计算与并行加速" class="level3">
-<h3 class="anchored" data-anchor-id="执行计算与并行加速">6.5 执行计算与并行加速</h3>
+<section id="执行计算与并行加速" class="level2">
+<h2 class="anchored" data-anchor-id="执行计算与并行加速">6.5 执行计算与并行加速</h2>
 <p>单帧 MM/PBSA 计算量集中在 PB 方程求解，400 帧串行可能需要数小时至一天。gmx_MMPBSA 支持基于 MPI 的多帧并行：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 串行运行（调试或单帧测试）</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gmx_MMPBSA</span> <span class="at">-O</span> <span class="dt">\</span></span>
@@ -870,10 +891,10 @@ size_z   =  18.0</code></pre>
 <p><strong>运行监控：</strong> - 终端会逐帧输出 PB 求解进度。若某帧出现 <code>PB Bomb</code> 或 <code>sander error</code>，通常是原子坐标异常（如 NaN 或配体原子与蛋白主链重叠），需回溯检查该帧轨迹。 - 计算完成后，工作目录下生成 <code>FINAL_RESULTS_MMPBSA.dat</code> 与 <code>DECOMP_MMPBSA.dat</code>。</p>
 <hr>
 </section>
-<section id="结果解析" class="level3">
-<h3 class="anchored" data-anchor-id="结果解析">6.6 结果解析</h3>
-<section id="总结合自由能与分项能量" class="level4">
-<h4 class="anchored" data-anchor-id="总结合自由能与分项能量">6.6.1 总结合自由能与分项能量</h4>
+<section id="结果解析" class="level2">
+<h2 class="anchored" data-anchor-id="结果解析">6.6 结果解析</h2>
+<section id="总结合自由能与分项能量" class="level3">
+<h3 class="anchored" data-anchor-id="总结合自由能与分项能量">6.6.1 总结合自由能与分项能量</h3>
 <p><code>FINAL_RESULTS_MMPBSA.dat</code> 的核心输出结构如下（示例）：</p>
 <pre><code>DELTA Energy Terms:
   VDWAALS     = -42.3452  # 范德华，通常为负（吸引）
@@ -884,8 +905,8 @@ size_z   =  18.0</code></pre>
   DELTA TOTAL = -40.0238  # 近似 ΔG_bind（不含熵）</code></pre>
 <p><strong>判读逻辑：</strong> - <strong>ΔG_bind ≈ -40.0 kcal/mol</strong>：这一数值对绝对亲和力明显过负（实验通常 -6 ~ -12 kcal/mol），因为尚未扣除 <code>-TΔS</code> 项。但作为<strong>相对比较</strong>，它仍然有效。 - <strong>静电 vs 疏水</strong>：若 <code>EEL</code> 与 <code>EPB</code> 几乎抵消（如本例 -28 vs +36），说明净静电贡献接近中性，结合主要由 <strong>VDWAALS + ENPOLAR</strong>（疏水效应）驱动。这类配体通常对口袋形状互补性要求高，对突变容忍度低。 - <strong>强静电锚定</strong>：若 <code>EEL</code> 显著负于 <code>EPB</code>（如 EEL=-50, EPB=+30），说明存在未被水溶剂化完全屏蔽的盐桥或强氢键，配体可能具有较高选择性。</p>
 </section>
-<section id="残基分解分析decomposition" class="level4">
-<h4 class="anchored" data-anchor-id="残基分解分析decomposition">6.6.2 残基分解分析（Decomposition）</h4>
+<section id="残基分解分析decomposition" class="level3">
+<h3 class="anchored" data-anchor-id="残基分解分析decomposition">6.6.2 残基分解分析（Decomposition）</h3>
 <p><code>DECOMP_MMPBSA.dat</code> 提供了每个氨基酸残基对结合能的贡献，是理解 SAR（构效关系）与指导优化的核心数据。提取并可视化热点残基：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -902,8 +923,8 @@ size_z   =  18.0</code></pre>
 <span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hotspots[hotspots[<span class="st">'EEL'</span>] <span class="op">&lt;</span> hotspots[<span class="st">'VDWAALS'</span>]][[<span class="st">'Residue'</span>, <span class="st">'EEL'</span>, <span class="st">'TDC'</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>典型发现：</strong> - <strong>疏水口袋壁</strong>（如 PHE82, LEU134）：VDW 贡献 -2 ~ -4 kcal/mol，是配体芳环或烷基链的”着陆区”。 - <strong>守门残基</strong>（如 ASP189, SER205）：静电贡献显著，形成氢键网络。若此处突变为非极性残基，亲和力可能断崖式下跌。 - <strong>排斥位点</strong>（TDC &gt; +0.5 kcal/mol）：提示配体某官能团与该残基存在立体冲突或电荷排斥，是下一轮优化的切除目标。</p>
 </section>
-<section id="映射至三维结构" class="level4">
-<h4 class="anchored" data-anchor-id="映射至三维结构">6.6.3 映射至三维结构</h4>
+<section id="映射至三维结构" class="level3">
+<h3 class="anchored" data-anchor-id="映射至三维结构">6.6.3 映射至三维结构</h3>
 <p>将残基分解结果映射到蛋白表面的 B-factor 或颜色梯度，可直观展示能量热点：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 PyMOL 的 Python API 或手动修改 PDB B-factor 列</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 以下为生成 PyMOL 着色脚本的快速方案</span></span>
@@ -918,8 +939,8 @@ size_z   =  18.0</code></pre>
 <hr>
 </section>
 </section>
-<section id="方法局限与进阶方向" class="level3">
-<h3 class="anchored" data-anchor-id="方法局限与进阶方向">6.7 方法局限与进阶方向</h3>
+<section id="方法局限与进阶方向" class="level2">
+<h2 class="anchored" data-anchor-id="方法局限与进阶方向">6.7 方法局限与进阶方向</h2>
 <p>MM/PBSA 是一条高性价比的亲和力估算路径，但需清醒认识其边界：</p>
 <ol type="1">
 <li><strong>熵贡献缺失</strong>：<code>-TΔS</code> 未纳入时，对柔性配体或大环化合物的 ΔG 估计偏负。若需绝对值，建议对末段 50 帧运行 <code>&amp;nmodes</code> 或 <code>&amp;qh</code> 模块，但计算成本增加 5–10 倍。</li>
@@ -930,13 +951,13 @@ size_z   =  18.0</code></pre>
 <p>至此，我们已完成从分子对接、拓扑构建、动态模拟到结合自由能估算的完整开源计算流程。</p>
 </section>
 </section>
-<section id="七总结与展望" class="level2">
-<h2 class="anchored" data-anchor-id="七总结与展望">七、总结与展望</h2>
+<section id="七总结与展望" class="level1">
+<h1>七、总结与展望</h1>
 <p>从第二章到第六章，我们搭建了一条完全基于开源工具的计算管线，回答了一个药物发现中最基础却最关键的问题：<strong>这个小分子与靶点之间，是否存在稳定且可量化的相互作用？</strong></p>
 <p>回顾整条链路：以 <strong>AutoDock Vina</strong> 从海量化合物中快速打捞初始结合模式；以 <strong>CHARMM-GUI</strong> 的 CGenFF 接口解决小分子力场参数化的”最后一公里”；以 <strong>GROMACS</strong> 在显式溶剂与生理离子强度下弛豫体系、捕获动态行为；最终以 <strong>gmx_MMPBSA</strong> 将纳秒尺度的构象涨落翻译为结合自由能的数值语言。五个阶段环环相扣，文件从 PDBQT 流向 Best Pose，再凝结为 GROMACS 的拓扑与轨迹，最终收敛为一个带误差棒的 ΔG_bind 估算值。</p>
 <hr>
-<section id="这套流程的方法论定位" class="level3">
-<h3 class="anchored" data-anchor-id="这套流程的方法论定位">7.1 这套流程的方法论定位</h3>
+<section id="这套流程的方法论定位" class="level2">
+<h2 class="anchored" data-anchor-id="这套流程的方法论定位">7.1 这套流程的方法论定位</h2>
 <p>在工业界的药物发现管线中，这条链路通常被部署在<strong>苗头化合物验证（hit validation）</strong>与<strong>先导化合物优化前期（early lead optimization）</strong>之间。它的核心价值并非取代湿实验，而是在合成与纯化之前完成三重筛选：</p>
 <ol type="1">
 <li><strong>几何筛选</strong>：MD 轨迹中的配体 RMSD 与氢键占有率，直接剔除那些在动力学环境中无法维持对接姿态的”假阳性”分子。</li>
@@ -946,8 +967,8 @@ size_z   =  18.0</code></pre>
 <p>与高通量对接（HTVS）相比，这套流程的单分子计算成本高出 2–3 个数量级；但与一轮定向合成-活性测试的周期（数周、数万元）相比，它在 GPU 集群上消耗的只是数十小时的机时与零许可费用。</p>
 <hr>
 </section>
-<section id="局限性与边界条件" class="level3">
-<h3 class="anchored" data-anchor-id="局限性与边界条件">7.2 局限性与边界条件</h3>
+<section id="局限性与边界条件" class="level2">
+<h2 class="anchored" data-anchor-id="局限性与边界条件">7.2 局限性与边界条件</h2>
 <p>清醒地认识这套流程的边界，比盲目扩展其应用范围更重要：</p>
 <ul>
 <li><strong>对接的先天近视</strong>：Vina 的打分函数基于经验权重，对金属配位、芳香-芳香相互作用、卤键等弱相互作用的描述粗糙。若靶点口袋依赖 Zn²⁺ 或卤键锚定，初始构象可能已偏离真实结合模式，后续 MD 与 MM/PBSA 只是在错误的起点上做精修。</li>
@@ -957,8 +978,8 @@ size_z   =  18.0</code></pre>
 </ul>
 <hr>
 </section>
-<section id="进阶方向" class="level3">
-<h3 class="anchored" data-anchor-id="进阶方向">7.3 进阶方向</h3>
+<section id="进阶方向" class="level2">
+<h2 class="anchored" data-anchor-id="进阶方向">7.3 进阶方向</h2>
 <p>当这套开源基线流程成为日常操作后，以下几个方向值得探索：</p>
 <p><strong>更精确的自由能方法</strong> - <strong>FEP/TI（Free Energy Perturbation / Thermodynamic Integration）</strong>：利用 GROMACS 的 <code>couple-moltype</code> 功能或 OpenFE、Perses 等开源框架，进行相对结合自由能（RBFE）计算。对于同源系列化合物的亲和力差值，FEP 的精度可达 1 kcal/mol 以内，足以区分亚微摩尔与纳摩尔级别的活性差异。 - <strong>ABFE（Absolute Binding Free Energy）</strong>：通过双拓扑或单拓扑解耦策略，直接计算配体从溶剂化状态到结合状态的绝对自由能变化，摆脱”相对”排序的局限。</p>
 <p><strong>增强采样与构象探索</strong> - <strong>aMD（Accelerated MD）</strong> 或 <strong>GaMD</strong>：在 GROMACS 中通过 boost 势能面降低能垒，捕捉配体的解离/再结合路径。 - <strong>Metadynamics / REST</strong>：针对特定集合变量（配体-口袋距离、二面角扭转）施加偏置势，高效采样稀有事件。</p>
@@ -966,15 +987,14 @@ size_z   =  18.0</code></pre>
 <p><strong>多尺度耦合</strong> - 对配体结合/解离的过渡态，采用 <strong>QM/MM</strong> 方法（CP2K、PySCF 接口）精确描述键的断裂与形成；对长程构象变化，保留 MD 的统计优势。这种”量子活性区 + 经典环境”的混合策略，是共价抑制剂与酶催化机制研究的必经之路。</p>
 <hr>
 </section>
-<section id="结语" class="level3">
-<h3 class="anchored" data-anchor-id="结语">7.4 结语</h3>
+<section id="结语" class="level2">
+<h2 class="anchored" data-anchor-id="结语">7.4 结语</h2>
 <p>计算化学的魅力在于，它允许我们在原子尚未被合成出来之前，先在硅基世界中预演它们的行为。本文描述的这条 Vina → CHARMM-GUI → GROMACS → gmx_MMPBSA 管线，正是这样一种”预演”的最小可行方案。它不追求绝对精确，而是追求在开源生态内、在合理的计算成本下，获得一个<strong>物理自洽、可比较、可解释</strong>的亲和力估计。</p>
 <p>最终，当我们把 MM/PBSA 输出的热点残基映射到蛋白表面，把 ΔG_bind 的排序与实验 IC50 的散点图并置，把轨迹中稳定存在的氢键与晶体学电子密度对比——我们才真正开始理解，那个在对接软件里被赋予负分的小分子，是否真的在分子动力学的喧嚣中，与靶点蛋白跳完了一支足够持久的舞。</p>
 <p>而这支舞的终章，终究要在湿实验的试管里奏响。计算只是让那声琴音，来得更早一些、更准一些。</p>
 <p><a href="https://pubmed.ncbi.nlm.nih.gov/41853685/">我的分子动力学模拟相关文章</a></p>
 
 
-</section>
 </section>
 </section>
 
