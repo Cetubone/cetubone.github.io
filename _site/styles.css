@@ -38,6 +38,29 @@
   border-left-color: var(--accent-blue);
 }
 
+/* Custom dark scrollbar for the TOC sidebar */
+#quarto-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--comment-color) var(--terminal-bg);
+}
+
+#quarto-sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+#quarto-sidebar::-webkit-scrollbar-track {
+  background: var(--terminal-bg);
+}
+
+#quarto-sidebar::-webkit-scrollbar-thumb {
+  background: var(--comment-color);
+  border-radius: 4px;
+}
+
+#quarto-sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-blue);
+}
+
 #quarto-document-content p {
   line-height: 1.5;
 }
